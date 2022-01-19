@@ -10,13 +10,26 @@
 	<body>
 		<form action="new_user.php" method="post">
 		  <div class="container">
+			<b>Email Address</b>
+			<br>
+			<input name="email_address" type="email" required />
+			<br>
 		    <b>New Username</b>
 		    <br>
-		    <input type="text" placeholder="Enter Username" name="newusername" required>
+		    <input type="text" name="newusername" pattern="^[A-Za-z0-9_]{5,20}$"
+					title="Alphanumeric characters and underscores between 5 and 20 characters"
+					required />
 		    <br>
 		    <b>New Password</b>
 		    <br>
-		    <input type="password" placeholder="Enter Password" name="newpassword" required>
+		    <input type="password" name="newpassword" pattern="^.{5,20}$"
+					title="between 5 and 20 characters in length" required />
+			<br>
+			<b>Confirm Password</b>
+			<br>
+			<input type="password" name="p_confirm" pattern="^.{5,20}$"
+					title="between 5 and 20 characters in length" required />
+			<br>
 
 		    <button type="submit">Create Account</button>
 		  </div>
