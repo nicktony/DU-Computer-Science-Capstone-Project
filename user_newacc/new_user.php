@@ -18,6 +18,7 @@ if (isset($S_SESSION['username'])) {
 $submit_form = true;
 
 //begin serverside validation of inputs
+$err_msg = ''; //initialized err_msg in case of if-blocks not picking anything up
 if (isset($_REQUEST['newusername'])) {
 	//get values from the form and check against regex
 	$username = $_REQUEST['newusername'];
