@@ -10,7 +10,7 @@ form {
 }
 
 /* Full-width inputs */
-input[type=text], input[type=password] {
+input[type=text], input[type=password], input[type=email] {
   width: 40%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -61,9 +61,8 @@ button:hover {
 
 /* The "Forgot password" text */
 span.psw {
-  display: block;
-  padding-top: .25em;
-  font-size: .75em;
+  float: right;
+  padding-top: 16px;
 }
 
 /* Change styles for span and cancel button on extra small screens */

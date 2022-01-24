@@ -14,6 +14,8 @@ if (isset($S_SESSION['username'])) {
 	session_destroy();
 }
 
+$err_msg = "";
+
 //submit form by default
 $submit_form = true;
 
