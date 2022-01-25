@@ -9,7 +9,7 @@ $webpage = new webpage('./login.html');
 
 // Redirect if session is already started
 session_start(); 
-if (isset($S_SESSION['username'])) {
+if (isset($_SESSION['username'])) {
 	header("Location: ../home/home.php");
 }
 
