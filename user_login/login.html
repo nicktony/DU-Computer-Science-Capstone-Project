@@ -3,28 +3,31 @@
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" type="text/css" href="#css_path#">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap"/>
+		<title>User Login</title>
 	</head>
-	<header>
-		<h1>TASK<span>LESS</span></h1>
-	</header>
 	<body>
-		<form action="login.php" method="post">
-		  <div class="container">
-		    <b>Username</b>
-		    <br>
-		    <input type="text" placeholder="Enter Username" name="username" required>
-		    <br>
-		    <b>Password</b>
-		    <br>
-		    <input type="password" placeholder="Enter Password" name="password" required>
-
-		    <button type="submit">Login</button>
-			<span class="psw"><a href="../user_password_recovery/recovery_form.php">Forgotten Password?</a><span>
-		  </div>
-
-		  <div class="container" style="background-color:#f1f1f1">
-		    <button type='button' class='newaccbtn'><a style='text-decoration: none' href='../user_newacc/new_user.php'><font color='white'>Create New Account</font></a></button><br>
-		  </div>
-		</form>
+		<div class="lower_container">
+			<div class="upper_container">
+			  <h1>Taskless</h1>
+			  <h2>Less Work, More Doing</h2>
+			</div>
+			<form method="post">
+				<div class="text_area">
+				  <input type="text" name="username" required>
+				  <label>Username</label>
+				</div>
+				<div class="text_area">
+				  <input type="password" name="password" required>
+				  <label>Password</label>
+				</div>
+				<div class="password_link"><a href="../user_password_recovery/recovery_form.php">Forgot Password?</a></div>
+				<input type="submit" value="Login">
+				<div class="signup_link">
+				  Not apart of Taskless? <a href="../user_newacc/new_user.php">Signup</a>
+				  <br>
+				</div>
+			</form>
+		</div>
 	</body>
 </html>
