@@ -6,6 +6,7 @@ require_once '../utilities/app_config.php';
 
 // Create webpage
 $webpage = new webpage('./new_user.html');
+$webpage->createPage("New User");
 
 // Redirect if session is already started
 session_start();
@@ -14,13 +15,13 @@ if (isset($_SESSION['username'])) {
 	session_destroy();
 }
 
+//error message
 $err_msg = "";
 
 //submit form by default
 $submit_form = true;
 
 //begin serverside validation of inputs
-$err_msg = ''; //initialized err_msg in case of if-blocks not picking anything up
 if (isset($_REQUEST['newusername'])) {
 	//get values from the form and check against regex
 	$username = $_REQUEST['newusername'];
@@ -102,7 +103,11 @@ if (($submit_form) && ($password == $p_confirm)) {
 	}
 } else {
 	//give feedback to the user about what went wrong
-	echo "<font style='color:red; font-size: 30px;'>{$err_msg}</font>";
+	$webpage->convert("ERR_MSG", "<font style='color:red; font-size: 1em; padding-left: 1em;'>{$err_msg}</font>");
+	
+	//populate form fields with values that were still valid
+	$webpage->convert("USERNAME", $username);
+	$webpage->convert("EMAIL_ADDRESS", $email_address);
 }
 
 // Output webpage
