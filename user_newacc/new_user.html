@@ -4,7 +4,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" type="text/css" href="#css_path#">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap"/>
-		<title>New User</title>
+		<title>#TITLE#</title>
 	</head>
 	<body>
 		<div class="lower_container">
@@ -12,13 +12,14 @@
 			  <h1>Taskless</h1>
 			  <h2>Less Work, More Doing</h2>
 			</div>
+			#ERR_MSG#
 			<form method="post">
 				<div class="text_area">
-				  <input type="email" placeholder="" name="email_address" required>
+				  <input type="email" placeholder="" name="email_address" value="#EMAIL_ADDRESS#" required>
 				  <label>Email Address</label>
 				</div>
 				<div class="text_area">
-				  <input type="password" pattern="^[A-Za-z0-9_]{5,20}$" name="newusername" required>
+				  <input type="text" pattern="^[A-Za-z0-9_]{5,20}$" name="newusername" value="#USERNAME#" required>
 				  <label>New Username</label>
 				</div>
 				<div class="text_area">

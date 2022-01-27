@@ -1,14 +1,3 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" type="text/css" href="recovery_form.css">
-	</head>
-	<body>
-		<header>
-			<h1>TASK<span>LESS</span></h1>
-		</header>
-
 <?php
 	// Required files
 	require_once '../classes/webpage.class.php';
@@ -21,6 +10,10 @@
 		session_destroy();
 	}
 	
+	//create webpage
+	$webpage = new webpage("finalize.html");
+	$webpage->createPage("Password Reset");
+	
 	//get the information from the recovery form
 	if (isset($_REQUEST['file']) && isset($_REQUEST['reset']) && isset($_REQUEST['newpassword']) && isset($_REQUEST['p_confirm'])) {
 		$hashed_username = $_REQUEST['file'];
@@ -28,20 +21,18 @@
 		$new_password = $_REQUEST['newpassword'];
 		$pass_confirm = $_REQUEST['p_confirm'];
 		
+		$try_again_link = "<a href='reset_password.php?file={$hashed_username}&reset={$hashed_password}'>Try Again</a>";
 		//check that the password and confirmation password match
 		if ($new_password != $pass_confirm) {
-			$_SESSION['ERROR_MSG'] = "Passwords do not match!";
-			header("Location: reset_password.php?file={$hashed_username}&reset={$hashed_password}");
-			die();
+			$webpage->convert("RESET_MESSAGE", "Passwords do not match!");
+			$webpage->convert("RESET_LINK", $try_again_link);
 		} else {
 			//check that they are the right format
 			$pattern = "/^.{5,20}$/";
 			if (!preg_match($pattern, $new_password)) {
 				//if invalid, set an error message and return
-				$err_msg = "Password must be between 5 and 20 characters";
-				$_SESSION['ERROR_MSG'] = "Password invalid!";
-				header("Location: reset_password.php?file={$hashed_username}&reset={$hashed_password}");
-				die();
+				$webpage->convert("RESET_MESSAGE", "Password invalid!");
+				$webpage->convert("RESET_LINK", $try_again_link);
 			} else {
 				//if everything is good, then reset the password
 				//create database connection
@@ -62,15 +53,13 @@
 						mysqli_real_escape_string($db_connection, $user_id));
 					if ($db_connection->query($_qry)) {
 						//if the password updates successfully
-						?>
-						<p>Password updated successfully!</p>
-						<a href="..">Go Home</a>
-						<?php
+						$webpage->convert("RESET_MESSAGE", "Password changed successfully!");
+						$webpage->convert("RESET_LINK", "<a href='..'>Go Home</a>");
 					}
 				}
 			}
 		}
 	}
-	?>
-	</body>
-</html>
+	
+	$webpage->printPage();
+?>

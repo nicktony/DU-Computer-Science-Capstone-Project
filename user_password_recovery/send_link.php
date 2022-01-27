@@ -1,14 +1,3 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" type="text/css" href="recovery_form.css">
-	</head>
-	<body>
-		<header>
-			<h1>TASK<span>LESS</span></h1>
-		</header>
-
 <?php
 	// Required files
 	require_once '../classes/webpage.class.php';
@@ -20,6 +9,10 @@
 		header("Location: ../home/home.php");
 		session_destroy();
 	}
+	
+	//create the web page
+	$webpage = new webpage("send_link.html");
+	$webpage->createPage("Password Recovery");
 	
 	//get the information from the recovery form
 	if (isset($_REQUEST['username'])) {
@@ -43,16 +36,11 @@
 				hash('sha256', $_row['username'], false).
 				"&reset=".
 				hash('sha256', $_row['password'], false);
-			?>
-			<div class="container">
-				<p>Todo: Email this reset link to the user</p>
-				<a href="<?php echo $recovery_link;?>">Recovery Link</a>
-			</div>
-			<?php
+			//set the recovery link in the page
+			$webpage->convert("RECOVERY_LINK", $recovery_link);
 		} else {
 			//query error, more than one user with the same username
 		}
 	}
+	$webpage->printPage();
 ?>
-	</body>
-</html>
