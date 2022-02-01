@@ -1,0 +1,40 @@
+.task-container {
+	background-color: #03A9F4;
+	padding: 0;
+	margin: 1em;
+	border-radius: 1em;
+	border: 1px solid black;
+	overflow: auto;
+	color: #FFFFFF;
+}
+.task-container:hover {
+	background-color: #0288D1;
+}
+
+
+
+.task-title {
+	margin: .5em;
+	padding 0;
+}
+
+.task-description {
+	text-indent: 2em;
+	font-size: .85em;
+	font-weight: bold;
+	margin-left: 1em;
+}
+
+.completed {
+	background-color: #757575;
+}
+
+.ic-hidden {
+	vertical-align: middle;
+	height: 6em;
+	float: right;
+	visibility: hidden;
+}
+.ic-visible {
+	visibility: visible;
+}
