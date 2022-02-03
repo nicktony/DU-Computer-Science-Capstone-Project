@@ -5,7 +5,6 @@ session_start();
 if (isset($_SESSION['username']) && isset($_SESSION['user_id'])) {
 	$temp = $_SESSION['username'];
 	$user_id = $_SESSION['user_id'];
-  //echo "<div style='margin-left: 5rem; padding: 1rem'>Session is active with $temp</div>";
 } else {
 	header("Location: ../user_login/login.php");
 }
@@ -14,9 +13,6 @@ if (isset($_SESSION['username']) && isset($_SESSION['user_id'])) {
 require '../classes/webpage.class.php';
 require_once '../classes/TaskFactory.class.php';
 
-//get the tasks for this user_error
-$factory = new TaskFactory();
-$tasks = $factory->FetchTasks($user_id);
 
 // Create webpage
 $webpage = new webpage();
@@ -39,11 +35,17 @@ EOD;
 // Assign body contents
 $html = $createNewTaskForm;
 
-foreach ($tasks as $t) {
-	$html .= "<br>". $t->getTaskHTML();
+//this is the AJAX stuff
+$html .= <<<EOD
+<div id="task-body">
+</div>
+<script src="js/taskret.js"></script>
+<script>
+window.onload = function() {
+	getTasks({$user_id});
 }
-
-
+</script>
+EOD;
 
 
 // Input additional css

@@ -21,6 +21,9 @@ $err_msg = "";
 //submit form by default
 $submit_form = true;
 
+$username = "";
+$email_address = "";
+
 //begin serverside validation of inputs
 if (isset($_REQUEST['newusername'])) {
 	//get values from the form and check against regex

@@ -34,6 +34,6 @@ if (isset($_REQUEST['priority'])) {
 $factory = new TaskFactory();
 
 $factory->CreateTaskNoDescription($user_id, $title);
-header("Location: ../../home/home.php");
+header("Location: ../../tasks/tasks.php");
 exit;
 ?>
