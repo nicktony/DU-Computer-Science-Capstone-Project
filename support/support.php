@@ -16,7 +16,37 @@ if (isset($_POST['submit'])){
   $headers="From: $email_from\r\n";
   $headers .= "Reply-To: $visitor_email\r\n";
   mail($to, $email_subject,$email_body,$headers);
-  header("location: contact.html");
+}
+
+// Required files
+require '../classes/webpage.class.php';
+
+// Create webpage
+$webpage = new webpage();
+
+// Assign title
+$webpage->createPage('Support');
+
+// Assign body contents
+$html = file_get_contents('./contact.html');
+
+
+
+
+
+
+
+
+// Input additional css
+$webpage->inputCSS('./support.css');
+
+// Input html body contents in template
+$webpage->inputHTML($html);
+
+// Output webpage
+$webpage->printPage();
+
+exit;
 
 
  ?>
