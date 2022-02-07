@@ -1,5 +1,35 @@
 <?php
 
+// Set default time zone and current date variables
+date_default_timezone_set('America/New_York');
+
+$current_day = date('d');
+$current_month = date('m');
+$current_year = date('Y');
+
+// Update selected date
+$day = isset($_POST['selected_day']) ? $_POST['selected_day'] : NULL;
+$month = isset($_POST['selected_month']) ? $_POST['selected_month'] : date('m');
+$year = isset($_POST['selected_year']) ? $_POST['selected_year'] : date('Y');
+
+$date = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d h:i:s');
+if (!empty($day) && 
+	!empty($month) && 
+	!empty($year)) $date = $year . '-' . $month . '-' . $day;
+else $date = date('Y-m-d');
+
+// Set date variables to int (remove error in leading 0's)
+$day = (int)$day;
+$month = (int)$month;
+$year = (int)$year;
+
+// Set default time zone
+date_default_timezone_set('America/New_York');
+
+// Get month string and number of days for that month
+$month_string = getMonthString($month);
+$maxDate = getMaxDate($month);
+
 // Check if session exists
 session_start();
 if (isset($_SESSION['username'])) {
@@ -18,69 +48,143 @@ $webpage = new webpage();
 // Assign title
 $webpage->createPage('Schedule');
 
-// Set default time zone
-date_default_timezone_set('America/New_York');
+// JavaScript Ajax
+$ajaxGetDay = "";
+for ($i = 1; $i <= 31; $i++) {
+	$ajaxGetDay .= "
+		$('#day$i').click(function() {
+				day = $i;
+				$('#page').load('schedule.php', {
+					selected_day: day,
+					selected_month: month,
+					selected_year: year
+				});
+			});";
+}
 
-// Calculate dates for calender
-$date = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d h:i:s');
-$prev_date = date('Y-m-d h:i:s', strtotime($date .' -1 day'));
-$next_date = date('Y-m-d h:i:s', strtotime($date .' +1 day'));
+$ajax = "
+	<script>
+		$(document).ready(function() {
 
-$month = date('m');
-$month_string = date('F');
-$day = date('d');
-$maxDate = getMaxDate($month);
-$year = date('Y');
+			var day;
+			var month = $month;
+			var year = $year;
+
+			$('#prev').click(function() {
+				month = month - 1;
+				if (month == 0) {
+					month = 12;
+					year = year - 1;
+				}
+				$('#page').load('schedule.php', {
+					selected_day: day,
+					selected_month: month,
+					selected_year: year
+				});
+			});
+
+			$('#next').click(function() {
+				month = month + 1;
+				if (month == 13) {
+					month = 1;
+					year = year + 1;
+				}
+				$('#page').load('schedule.php', {
+					selected_day: day,
+					selected_month: month,
+					selected_year: year
+				});
+			});
+
+			$('#reset').click(function() {
+				$('#page').load('schedule.php', {
+					selected_day: $current_day,
+					selected_month: $current_month,
+					selected_year: $current_year
+				});
+			});
+
+			$ajaxGetDay
+		});
+	</script>
+";
 
 // Generate calender
 $html = 
-"
-	<div class='month'>
-	  <ul>
-	    <li class='prev'>&#10094;</li>
-	    <li class='next'>&#10095;</li>
-	    <li>$month_string<br><span style='font-size:18px'>$year</span></li>
-	  </ul>
-	</div>
+"$ajax
+<div style='overflow:auto'>
+	<table class='month'>
+		<tr>
+			<td class='prev'><div id='prev'><button>Previous Month</button></div><div id='reset'><button>Reset Calendar</button></div></td>
+			<td class='monthandyear'>$month_string<br><span style='font-size:18px'>$year</span></td>
+			<td class='next'><div id='next'><button>Next Month</button></div></td>
+		</tr>
+	</table>
 
-	<ul class='weekdays'>
-	  <li>Mo</li>
-	  <li>Tu</li>
-	  <li>We</li>
-	  <li>Th</li>
-	  <li>Fr</li>
-	  <li>Sa</li>
-	  <li>Su</li>
-	</ul>
+	<table class='calendar'>
+		<tr class='weekday'>
+		  <td class='dayofweek'>Mo</td>
+		  <td class='dayofweek'>Tu</td>
+		  <td class='dayofweek'>We</td>
+		  <td class='dayofweek'>Th</td>
+		  <td class='dayofweek'>Fr</td>
+		  <td class='dayofweek'>Sa</td>
+		  <td class='dayofweek'>Su</td>
+		</tr>
 
-	<ul class='days'>
+		<tr>
 ";
 
 for ($i = 1; $i <= $maxDate; $i++) {
-	$html .= "<li>$i</li>";
+	if ($i == date('d') && $month == date('m') && $year == date('Y')) {
+		$html .= "<td class='currentday'><div id='day$i'><button>$i</button></div></td>";
+	} else if ($i == $day) {
+		$html .= "<td class='selectedday'><div id='day$i'><div><button>$i</button></div></td>";
+	} else {
+		$html .= "<td class='day'><div id='day$i'><button>$i</button></div></td>";
+	}
+
+	if ($i % 7 == 0) {
+		$html .= "</tr><tr>";
+	}
 }
-$html .= "</ul>";
+$html .= "</tr></table>";
 
+// DB Information
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "Taskless";
 
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
 
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
 
+// Query tasks for selected day
+$html .= "<table class='tasks'>";
+$sql = "SELECT name, description FROM tasks WHERE start_time = '$date'";
+$result = $conn->query($sql);
 
+if ($result->num_rows > 0) {
+  // Output data of each row
+  while($row = $result->fetch_assoc()) {
+  	$task = $row['name'];
+  	$desc = $row['description'];
 
+    $html .= "<tr><td><b>$desc</b>: $task</td></tr>";
+  }
+} else {
+  //echo "0 results";
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Close DB connection, end table
+$conn->close();
+$html .= "</table>
+</div>";
 
 // Input additional css
 $webpage->inputCSS('./schedule.css');
@@ -91,103 +195,44 @@ $webpage->inputHTML($html);
 // Output webpage
 $webpage->printPage();
 
+exit;
 
 
+function getMonthString($month) {
+	$monthStrings = array(
+    1 => 'January',
+    2 => 'February',
+    3 => 'March',
+    4 => 'April',
+    5 => 'May',
+    6 => 'June',
+    7 => 'July',
+    8 => 'August',
+    9 => 'September',
+    10 => 'October',
+    11 => 'November',
+    12 => 'December',
+	);
 
+	return $monthStrings[$month];
+}
 
+function getMaxDate($month) {
+	$maxDates = array(
+    1 => 31,
+    2 => 28,
+    3 => 31,
+    4 => 30,
+    5 => 31,
+    6 => 30,
+    7 => 31,
+    8 => 31,
+    9 => 30,
+    10 => 31,
+    11 => 30,
+    12 => 31,
+	);
 
-
-
-/*
-	// Create connection
-	$conn = new mysqli($servername, $username, $password, $dbname);
-
-	// Check connection
-	if ($conn->connect_error) {
-		die("Connection failed: " . $conn->connect_error);
-		exit;
-	}
-	
-	// Start of program
-	$sql = "INSERT INTO users (id, username, password) VALUES (1, 'nick', 'admin')";
-	//$result = $conn->query($sql);
-
-	$conn->close();
-	
-
-	$html = "
-			<!DOCTYPE html>
-			<html>
-			<head>
-			<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-				</head>
-				<body>
-
-				<h2>Setting the Viewport</h2>
-				<p>This example does not really do anything, other than showing you how to add the viewport meta element.</p>
-
-			</body>
-			</html>
-			";
-
-	echo $html;
-
-	$html = file_get_contents('./login.html', TRUE);
-	echo $html;
-
-
-
-	/*$sql = "SELECT item FROM items WHERE something = something GROUP BY this";
-	$result = @mysql_query($sql, $connection) or die ("Failed to Execute SQL: $sql");
-	while ($val = @mysql_fetch_array($result)) {
-
-	}*/
-
-
-
-
-
-	/*if (!empty($_SERVER['HTTPS']) && ('on' == $_SERVER['HTTPS'])) {
-		$uri = 'https://';
-	} else {
-		$uri = 'http://';
-	}
-	$uri .= $_SERVER['HTTP_HOST'];
-	header('Location: '.$uri.'/dashboard/');*/
-	exit;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	function getMaxDate($month) {
-		$maxDates = array(
-	    1 => 31,
-	    2 => 28,
-	    3 => 31,
-	    4 => 30,
-	    5 => 31,
-	    6 => 30,
-	    7 => 31,
-	    8 => 31,
-	    9 => 30,
-	    10 => 31,
-	    11 => 30,
-	    12 => 31,
-		);
-		$month = str_replace(0,'',$month);
-
-		return $maxDates[$month];
-	}
+	return $maxDates[$month];
+}
 ?>

@@ -18,6 +18,10 @@ if (isset($_SESSION['username'])) {
 //error message
 $err_msg = "";
 
+//initiate variables
+$username = "";
+$email_address = "";
+
 //submit form by default
 $submit_form = true;
 
@@ -110,6 +114,10 @@ if (($submit_form) && ($password == $p_confirm)) {
 } else {
 	//give feedback to the user about what went wrong
 	$webpage->convert("ERR_MSG", "<font style='color:red; font-size: 1em; padding-left: 1em;'>{$err_msg}</font>");
+
+	//populate form fields with values that were still valid
+    $webpage->convert("USERNAME", $username);
+    $webpage->convert("EMAIL_ADDRESS", $email_address);
 }
 
 // Output webpage
