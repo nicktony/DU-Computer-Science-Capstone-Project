@@ -1,58 +1,22 @@
 <?php
+if (isset($_POST['submit'])){
+    $name = $_POST['firstName'];
+    $name =$_POST['lastName'];
+    $phone =$_POST['phone'];
+    $visitor_email = $_POST['email'];
+    $message = $_POST['message'];
 
-// Check if session exists
-session_start();
-if (isset($_SESSION['username'])) {
-	$temp = $_SESSION['username'];
-  //echo "<div style='margin-left: 5rem; padding: 1rem'>Session is active with $temp</div>";
-} else {
-	header("Location: ../user_login/login.php");
-}
+    $email_form = 'capstone@gmail.com';
+    $email_subject = "New Form Submission";
+    $email_body = "User Name: $name.\n".
+              "User Email: $visitor_email.\n".
+              "User Message: $message.\n";
+              $to = "graazg7@gmail.com";
 
-// Required files
-require '../classes/webpage.class.php';
-
-// Create webpage
-$webpage = new webpage();
-
-// Assign title
-$webpage->createPage('Support');
-
-// Assign body contents
-$html = 'test'
-					;
+  $headers="From: $email_from\r\n";
+  $headers .= "Reply-To: $visitor_email\r\n";
+  mail($to, $email_subject,$email_body,$headers);
+  header("location: contact.html");
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Input additional css
-$webpage->inputCSS('./support.css');
-
-// Input html body contents in template
-$webpage->inputHTML($html);
-
-// Output webpage
-$webpage->printPage();
-
-exit;
-
-?>
+ ?>
