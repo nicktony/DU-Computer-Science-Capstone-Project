@@ -18,7 +18,7 @@ body {
   background-color: white;
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
-  overflow-y: auto; /* Hide vertical scrollbar */
+  overflow-y: auto; /* Enable vertical scrollbar */
   overflow-x: hidden; /* Hide horizontal scrollbar */
 }
 main {
