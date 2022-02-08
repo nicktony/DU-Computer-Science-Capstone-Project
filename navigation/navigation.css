@@ -18,7 +18,7 @@ body {
   background-color: white;
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
-  overflow-y: hidden; /* Hide vertical scrollbar */
+  overflow-y: auto; /* Enable vertical scrollbar */
   overflow-x: hidden; /* Hide horizontal scrollbar */
 }
 main {
@@ -148,12 +148,10 @@ main {
   .navbar:hover .link-text {
     display: inline;
   }
-  .navbar:hover .logo svg
-  {
+  .navbar:hover .logo svg {
     margin-left: 11rem;
   }
-  .navbar:hover .logo-text
-  {
+  .navbar:hover .logo-text {
     left: 0px;
   }
 }
