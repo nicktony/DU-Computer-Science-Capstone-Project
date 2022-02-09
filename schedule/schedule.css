@@ -1,4 +1,4 @@
-/* Prerequisites */
+/*********************************Prerequisites*********************************/
 :root {
     /*font-size: 16px;
     font-family: 'Open Sans';
@@ -12,41 +12,39 @@
   --transition-speed: 1s;*/
 }
 
-/* Month header */
+/*********************************Month Header*********************************/
 .month {
   padding: 70px 25px;
   width: 100%;
-  color: white;
-  background: var(--blue-two);
+  color: var(--text-primary);
+  background: var(--bg-primary);
   text-align: center;
 }
 
-/* Buttons inside month header */
+/*********************************Buttons Inside Month Header*********************************/
 .month .prev {
   width: 33%;
   text-align: left;
   padding-top: 10px;
 }
-
 .monthandyear {
   width: 33%;
   text-align: center;
   padding-top: 10px;
 }
 
-/* Next button */
+/*********************************Next Button*********************************/
 .month .next {
   width: 33%;
   text-align: right;
   padding-top: 10px;
 }
-
 .dayofweek {
   height: 20px;
   border: solid black 1px;
 }
 
-/* Weekdays (Mon-Sun) */
+/*********************************Weekdays (Mon-Sun)*********************************/
 .weekday {
   margin: 0;
   padding: 10px 0;
@@ -54,67 +52,130 @@
   text-align: center;
 }
 
-/* Days (1-31) */
+/*********************************Days (1-31)*********************************/
 .day {
   margin: 0px;
   background: white;
-  width: 14.2857142857%;
-  height: 80px;
+  width: 14%;
+  height: 150px;
   text-align: left;
   vertical-align: top;
   border: solid black 1px;
 }
-
 .day:hover {
   background-color: green;
 }
-
 .currentday {
   margin: 0px;
   background: white;
-  width: 14.2857142857%;
-  height: 80px;
+  width: 14%;
+  height: 150px;
   text-align: left;
   vertical-align: top;
   border: solid black 1px;
 
   background-color: blue;
 }
-
 .currentday:hover {
   /*background-color: blue;*/
 }
-
 .selectedday {
   margin: 0px;
   background: white;
-  width: 14.2857142857%;
-  height: 80px;
+  width: 14%;
+  height: 150px;
   text-align: left;
   vertical-align: top;
   border: solid black 1px;
 
   background-color: red;
 }
-
 .selectedday:hover {
   /*background-color: red;*/
 }
-
 .calendar {
   width: 100%;
   height: 100%;
-  border: solid black 1px;
   border-collapse: collapse;
 }
-
 .reset {
   margin: 5px, 0px, 0px, 0px;
   background: var(--blue-two);
 }
-
 .tasks {
   width: 100%;
   border:solid black 1px;
   height: 100%;
+}
+
+/*********************************Day Logo Animations*********************************/
+.dayicon {
+  position: flex;
+  overflow: hidden;
+  display: inline-block;
+  width: 100%;
+  z-index: -1;
+}
+.option-linking {
+  display: flex;
+  align-items: center;
+  height: 2rem;
+  color: var(--text-primary);
+  text-decoration: none;
+  filter: grayscale(100%) opacity(0.7);
+  transition: var(--transition-speed);
+}
+.option-linking:hover {
+  filter: grayscale(0%) opacity(1);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+}
+.linking-text {
+  display: none;
+  margin-left: 0.8rem;
+}
+.option-linking svg {
+  width: 2rem;
+  min-width: 2rem;
+  margin: 0 .5rem;
+  display: inline-block;
+}
+.daylogo {
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: var(--text-secondary);
+  background: var(--bg-primary);
+  font-size: 3rem;
+  display: inline-block;
+  width: 100%;
+}
+.daylogo svg {
+  transform: rotate(0deg);
+  transition: var(--transition-speed);
+}
+.daylogo-text {
+  display: inline;
+  /*position: absolute;
+  left: -10px; /*used to be -999*/*/
+  transition: var(--transition-speed);
+}
+.dayicon:hover .daylogo svg {
+  transform: rotate(360deg);
+}
+
+/*********************************Navigation Bar Hover Colors*********************************/
+.fa-primary {
+  color: #ADB5C1;
+}
+.fa-secondary {
+  color: #0C3FB7;
+}
+.fa-third {
+  color: #3363D6;
+}
+.fa-primary,
+.fa-third {
+  transition: var(--transition-speed);
 }
