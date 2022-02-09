@@ -1,12 +1,21 @@
 <?php
+if (isset($_POST['submit'])){
+    $name = $_POST['firstName'];
+    $name =$_POST['lastName'];
+    $phone =$_POST['phone'];
+    $visitor_email = $_POST['email'];
+    $message = $_POST['message'];
 
-// Check if session exists
-session_start();
-if (isset($_SESSION['username'])) {
-	$temp = $_SESSION['username'];
-  //echo "<div style='margin-left: 5rem; padding: 1rem'>Session is active with $temp</div>";
-} else {
-	header("Location: ../user_login/login.php");
+    $email_form = 'capstone@gmail.com';
+    $email_subject = "New Form Submission";
+    $email_body = "User Name: $name.\n".
+              "User Email: $visitor_email.\n".
+              "User Message: $message.\n";
+              $to = "graazg7@gmail.com";
+
+  $headers="From: $email_from\r\n";
+  $headers .= "Reply-To: $visitor_email\r\n";
+  mail($to, $email_subject,$email_body,$headers);
 }
 
 // Required files
@@ -19,23 +28,7 @@ $webpage = new webpage();
 $webpage->createPage('Support');
 
 // Assign body contents
-$html = 'test'
-					;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+$html = file_get_contents('./contact.html');
 
 
 
@@ -55,4 +48,5 @@ $webpage->printPage();
 
 exit;
 
-?>
+
+ ?>
