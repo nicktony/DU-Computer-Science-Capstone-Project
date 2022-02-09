@@ -49,6 +49,8 @@ if (isset($_REQUEST['newusername'])) {
 		$username = "";
 		$submit_form = false;
 	}
+	
+	//populate form fields with values that were still valid
 } else { $submit_form = false; }
 
 //check password for proper format
@@ -77,6 +79,8 @@ if (isset($_REQUEST['email_address'])) {
 		$err_msg = "Invalid Email Address";
 	} else {
 		$email_address = $_REQUEST['email_address'];
+		
+		
 	}
 } else { $submit_form = false; }
 
@@ -107,10 +111,9 @@ if (($submit_form) && ($password == $p_confirm)) {
 } else {
 	//give feedback to the user about what went wrong
 	$webpage->convert("ERR_MSG", "<font style='color:red; font-size: 1em; padding-left: 1em;'>{$err_msg}</font>");
-	
 	//populate form fields with values that were still valid
-	$webpage->convert("USERNAME", $username);
 	$webpage->convert("EMAIL_ADDRESS", $email_address);
+	$webpage->convert("USERNAME", $username);
 }
 
 // Output webpage
