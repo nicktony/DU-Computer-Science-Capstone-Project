@@ -23,11 +23,22 @@ $webpage->createPage('Tasks');
 $currentDate = date('Y-m-d');
 $createNewTaskForm = <<<EOD
 <form action="CRUD/create_task.php" method="POST">
-	<input name="title" type="text" placeholder="title" maxlength="128" required /><br>
+	<input name="title" type="text" placeholder="title" maxlength="128" required autofocus /><br>
 	<input name="description" type="text" placeholder="description" maxlength="256" /><br>
-	<label for="start_date">Start Date: </label><input name="start_date" type="date" value="{$currentDate}" /><br>
-	<label for="priority">Priority: </label><input name="priority" type="number" value="1" /><br>
-	<label for="rolls_over">Roll Over?: </label><input name="rolls_over" type="checkbox" value="yes" checked /><br>
+	<label for="start_date">Start Date: </label><input name="start_date" type="date" value="{$currentDate}" required /><br>
+	<label for="priority">Priority: </label><input name="priority" type="number" value="1" required /><br>
+	<input name="rolls_over" type="checkbox" value="yes" checked /><label for="rolls_over">Make this task roll over to the next day if incomplete</label><br>
+	<input id="recurrence_checkbox" name="recurrence_cb" type="checkbox" value="yes" unchecked /><label for="recurrence_cb">Make this task repeat</label><br>
+	<div id="recurrence_container">
+		Make this task repeat every <input name="recurrence_interval" value="1" type="number" />
+		<select name="recurrence_unit">
+			<option value="0">Days</option>
+			<option value="1">Weeks</option>
+			<option value="2">Months</option>
+			<option value="3">Years</option>
+		</select>
+		.
+	</div>
 	<input name="submit" type="submit" value="Create!" /><br>
 </form>
 EOD;
