@@ -12,7 +12,7 @@ $day = isset($_POST['selected_day']) ? $_POST['selected_day'] : NULL;
 $month = isset($_POST['selected_month']) ? $_POST['selected_month'] : date('m');
 $year = isset($_POST['selected_year']) ? $_POST['selected_year'] : date('Y');
 
-$date = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d h:i:s');
+$date = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
 if (!empty($day) && 
 	!empty($month) && 
 	!empty($year)) $date = $year . '-' . $month . '-' . $day;
@@ -23,12 +23,15 @@ $day = (int)$day;
 $month = (int)$month;
 $year = (int)$year;
 
+// Check for leap year
+$leapYear = date('L', strtotime("$year-01-01"));
+
 // Set default time zone
 date_default_timezone_set('America/New_York');
 
 // Get month string and number of days for that month
 $month_string = getMonthString($month);
-$maxDate = getMaxDate($month);
+$maxDate = getMaxDate($month, $leapYear);
 
 // Check if session exists
 session_start();
@@ -59,6 +62,7 @@ for ($i = 1; $i <= 31; $i++) {
 					selected_month: month,
 					selected_year: year
 				});
+				$('html,body').animate({scrollTop: document.body.scrollHeight},'slow');
 			});";
 }
 
@@ -109,10 +113,10 @@ $ajax = "
 	</script>
 ";
 
-// Generate calender
-$html = 
-"$ajax
-<div style='overflow:auto'>
+// Generate calendar headers
+$html = "
+$ajax
+<div>
 	<table class='month'>
 		<tr>
 			<td class='prev'><div id='prev'><button>Previous Month</button></div><div id='reset'><button>Reset Calendar</button></div></td>
@@ -123,29 +127,134 @@ $html =
 
 	<table class='calendar'>
 		<tr class='weekday'>
-		  <td class='dayofweek'>Mo</td>
-		  <td class='dayofweek'>Tu</td>
-		  <td class='dayofweek'>We</td>
-		  <td class='dayofweek'>Th</td>
-		  <td class='dayofweek'>Fr</td>
-		  <td class='dayofweek'>Sa</td>
-		  <td class='dayofweek'>Su</td>
+			<th class='dayofweek'>Su</td>
+		  <th class='dayofweek'>Mo</td>
+		  <th class='dayofweek'>Tu</td>
+		  <th class='dayofweek'>We</td>
+		  <th class='dayofweek'>Th</td>
+		  <th class='dayofweek'>Fr</td>
+		  <th class='dayofweek'>Sa</td>
 		</tr>
 
 		<tr>
 ";
 
+// Generate calendar days
+$firstDayOfMonth = $year . '-' . $month . '-01';
+$dayOfWeek = date('w', strtotime($firstDayOfMonth));
+//echo '......................................' .$dayOfWeek;
 for ($i = 1; $i <= $maxDate; $i++) {
-	if ($i == date('d') && $month == date('m') && $year == date('Y')) {
-		$html .= "<td class='currentday'><div id='day$i'><button>$i</button></div></td>";
-	} else if ($i == $day) {
-		$html .= "<td class='selectedday'><div id='day$i'><div><button>$i</button></div></td>";
-	} else {
-		$html .= "<td class='day'><div id='day$i'><button>$i</button></div></td>";
-	}
+	if ($i > $dayOfWeek) {
+		if ($i == date('d') && $month == date('m') && $year == date('Y')) {
+			$html .= "
+			<td class='currentday'>
+				<div id='day$i' class='dayicon'>
+					<div class='daylogo'>
+		        <div class='option-linking'>
+		        	<span class='linking-text daylogo-text' style='font-size: 20px;'>$i</span>
+							<svg
+		            aria-hidden='true'
+		            focusable='false'
+		            data-prefix='fad'
+		            data-icon='angle-double-right'
+		            role='img'
+		            xmlns='http://www.w3.org/2000/svg'
+		            viewBox='0 0 448 512'
+		            class='svg-inline--fa fa-angle-double-right fa-w-14 fa-5x'>
+		          
+		          <g class='fa-group'>
+								<path
+									fill='currentColor'
+									d='M224 273L88.37 409a23.78 23.78 0 0 1-33.8 0L32 386.36a23.94 23.94 0 0 1 0-33.89l96.13-96.37L32 159.73a23.94 23.94 0 0 1 0-33.89l22.44-22.79a23.78 23.78 0 0 1 33.8 0L223.88 239a23.94 23.94 0 0 1 .1 34z'
+									class='fa-secondary'>
+								</path>
+								<path
+									fill='currentColor'
+									d='M415.89 273L280.34 409a23.77 23.77 0 0 1-33.79 0L224 386.26a23.94 23.94 0 0 1 0-33.89L320.11 256l-96-96.47a23.94 23.94 0 0 1 0-33.89l22.52-22.59a23.77 23.77 0 0 1 33.79 0L416 239a24 24 0 0 1-.11 34z'
+									class='fa-third'>
+								</path>
+		          </g>
+		          </svg>
+		        </div>
+			    </div>
+		  	</div>
+			</td>";
+		} else if ($i == $day) {
+			$html .= "
+			<td class='selectedday'>
+				<div id='day$i' class='dayicon'>
+					<div class='daylogo'>
+		        <div class='option-linking'>
+		        	<span class='linking-text daylogo-text' style='font-size: 20px;'>$i</span>
+							<svg
+		            aria-hidden='true'
+		            focusable='false'
+		            data-prefix='fad'
+		            data-icon='angle-double-right'
+		            role='img'
+		            xmlns='http://www.w3.org/2000/svg'
+		            viewBox='0 0 448 512'
+		            class='svg-inline--fa fa-angle-double-right fa-w-14 fa-5x'>
+		          
+		          <g class='fa-group'>
+								<path
+									fill='currentColor'
+									d='M224 273L88.37 409a23.78 23.78 0 0 1-33.8 0L32 386.36a23.94 23.94 0 0 1 0-33.89l96.13-96.37L32 159.73a23.94 23.94 0 0 1 0-33.89l22.44-22.79a23.78 23.78 0 0 1 33.8 0L223.88 239a23.94 23.94 0 0 1 .1 34z'
+									class='fa-secondary'>
+								</path>
+								<path
+									fill='currentColor'
+									d='M415.89 273L280.34 409a23.77 23.77 0 0 1-33.79 0L224 386.26a23.94 23.94 0 0 1 0-33.89L320.11 256l-96-96.47a23.94 23.94 0 0 1 0-33.89l22.52-22.59a23.77 23.77 0 0 1 33.79 0L416 239a24 24 0 0 1-.11 34z'
+									class='fa-third'>
+								</path>
+		          </g>
+		          </svg>
+		        </div>
+			    </div>
+		  	</div>
+			</td>";
+		} else {
+			$html .= "
+			<td class='day'>
+				<div id='day$i' class='dayicon'>
+					<div class='daylogo'>
+		        <div class='option-linking'>
+		        	<span class='linking-text daylogo-text' style='font-size: 20px;'>$i</span>
+							<svg
+		            aria-hidden='true'
+		            focusable='false'
+		            data-prefix='fad'
+		            data-icon='angle-double-right'
+		            role='img'
+		            xmlns='http://www.w3.org/2000/svg'
+		            viewBox='0 0 448 512'
+		            class='svg-inline--fa fa-angle-double-right fa-w-14 fa-5x'>
+		          
+		          <g class='fa-group'>
+								<path
+									fill='currentColor'
+									d='M224 273L88.37 409a23.78 23.78 0 0 1-33.8 0L32 386.36a23.94 23.94 0 0 1 0-33.89l96.13-96.37L32 159.73a23.94 23.94 0 0 1 0-33.89l22.44-22.79a23.78 23.78 0 0 1 33.8 0L223.88 239a23.94 23.94 0 0 1 .1 34z'
+									class='fa-secondary'>
+								</path>
+								<path
+									fill='currentColor'
+									d='M415.89 273L280.34 409a23.77 23.77 0 0 1-33.79 0L224 386.26a23.94 23.94 0 0 1 0-33.89L320.11 256l-96-96.47a23.94 23.94 0 0 1 0-33.89l22.52-22.59a23.77 23.77 0 0 1 33.79 0L416 239a24 24 0 0 1-.11 34z'
+									class='fa-third'>
+								</path>
+		          </g>
+		          </svg>
+		        </div>
+			    </div>
+		  	</div>
+			</td>";
+		}
 
-	if ($i % 7 == 0) {
-		$html .= "</tr><tr>";
+		if ($i % 7 == 0) {
+			$html .= "</tr><tr>";
+		}
+	} else {
+		// Fill in blank spaces if month doesn't start on the 1st
+		$html.= "<td class='day'></td>";
 	}
 }
 $html .= "</tr></table>";
@@ -183,8 +292,7 @@ if ($result->num_rows > 0) {
 
 // Close DB connection, end table
 $conn->close();
-$html .= "</table>
-</div>";
+$html .= "</table></div>";
 
 // Input additional css
 $webpage->inputCSS('./schedule.css');
@@ -217,7 +325,7 @@ function getMonthString($month) {
 	return $monthStrings[$month];
 }
 
-function getMaxDate($month) {
+function getMaxDate($month, $leap) {
 	$maxDates = array(
     1 => 31,
     2 => 28,
@@ -232,6 +340,9 @@ function getMaxDate($month) {
     11 => 30,
     12 => 31,
 	);
+
+	// Change February for leap year, if applicable
+	if ($leap == 1) $maxDates[2] = 29;
 
 	return $maxDates[$month];
 }
