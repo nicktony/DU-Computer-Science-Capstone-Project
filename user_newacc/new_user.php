@@ -22,7 +22,7 @@ $err_msg = "";
 $submit_form = true;
 
 $username = "";
-$email_address ="";
+$email_address = "";
 
 //begin serverside validation of inputs
 if (isset($_REQUEST['newusername'])) {
