@@ -158,7 +158,12 @@ $firstDayOfMonth = $year . '-' . $month . '-01';
 $dayOfWeek = date('w', strtotime($firstDayOfMonth));
 for ($i = 1; $i <= $maxDate + $dayOfWeek; $i++) {
 	$dayTasks = "<div class='embeddedtask'>";
-	$tempDate = $year . '-' . $month . '-' . $i;
+
+	// Alter i using j depending on starting day of week
+	$j = $i - $dayOfWeek;
+
+	// Assingn current date
+	$tempDate = $year . '-' . $month . '-' . $j;
 
 	// Query for tasks
 	$sql = "SELECT title, description, start_date, priority, is_complete FROM tasks WHERE start_date = '$tempDate'";
@@ -178,9 +183,6 @@ for ($i = 1; $i <= $maxDate + $dayOfWeek; $i++) {
 
 	// Set style of day
 	if ($i > $dayOfWeek) {
-		// Reset i
-		$j = $i - $dayOfWeek;
-
 		// If 'today' is selected for the current day
 		if ($j == date('d') && $month == date('m') && $year == date('Y') && $j == $day) {
 			$html .= "
