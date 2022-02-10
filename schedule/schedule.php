@@ -1,5 +1,14 @@
 <?php
 
+// Check if session exists
+session_start();
+if (isset($_SESSION['username'])) {
+	$temp = $_SESSION['username'];
+  //echo "<div style='margin-left: 5rem; padding: 1rem'>Session is active with $temp</div>";
+} else {
+	header("Location: ../user_login/login.php");
+}
+
 // DB Information
 $servername = "localhost";
 $username = "root";
@@ -13,6 +22,9 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
+
+// Required files
+require '../classes/webpage.class.php';
 
 // Set default time zone and current date variables
 date_default_timezone_set('America/New_York');
@@ -46,18 +58,6 @@ date_default_timezone_set('America/New_York');
 // Get month string and number of days for that month
 $month_string = getMonthString($month);
 $maxDate = getMaxDate($month, $leapYear);
-
-// Check if session exists
-session_start();
-if (isset($_SESSION['username'])) {
-	$temp = $_SESSION['username'];
-  //echo "<div style='margin-left: 5rem; padding: 1rem'>Session is active with $temp</div>";
-} else {
-	header("Location: ../user_login/login.php");
-}
-
-// Required files
-require '../classes/webpage.class.php';
 
 // Create webpage
 $webpage = new webpage();
@@ -130,7 +130,7 @@ $ajax = "
 // Generate calendar headers
 $html = "
 $ajax
-<div>
+<div class='calendar'>
 	<table class='month'>
 		<tr>
 			<td class='prev'><div id='prev'><button>Previous Month</button></div><div id='reset'><button>Reset Calendar</button></div></td>
@@ -139,7 +139,7 @@ $ajax
 		</tr>
 	</table>
 
-	<table class='calendar'>
+	<table class='internalcalendar'>
 		<tr class='weekday'>
 			<th class='dayofweek'>Su</td>
 		  <th class='dayofweek'>Mo</td>
@@ -156,7 +156,11 @@ $ajax
 // Generate calendar days
 $firstDayOfMonth = $year . '-' . $month . '-01';
 $dayOfWeek = date('w', strtotime($firstDayOfMonth));
+$dayOfWeekCounter = 0; // Set for calculating blank dates at end of month
 for ($i = 1; $i <= $maxDate + $dayOfWeek; $i++) {
+	$dayOfWeekCounter++;
+
+	// Set html start
 	$dayTasks = "<div class='embeddedtask'>";
 
 	// Alter i using j depending on starting day of week
@@ -177,7 +181,7 @@ for ($i = 1; $i <= $maxDate + $dayOfWeek; $i++) {
   	$priority = $row['priority'];
   	$is_complete = $row['is_complete'];
 
-    $dayTasks .= "<div>$title</div>";
+    $dayTasks .= "<div>&nbsp;$title</div>";
   }
   $dayTasks .= "</div>";
 
@@ -190,7 +194,7 @@ for ($i = 1; $i <= $maxDate + $dayOfWeek; $i++) {
 				<div id='day$j' class='dayiconactive'>
 					<div class='daylogoactive'>
 		        <div class='option-linking'>
-		        	<span class='linking-text daylogo-text' style='font-size: 20px;'>$j</span>
+		        	<span class='linking-text daylogo-text'>$j</span>
 							<svg
 		            aria-hidden='true'
 		            focusable='false'
@@ -226,7 +230,7 @@ for ($i = 1; $i <= $maxDate + $dayOfWeek; $i++) {
 				<div id='day$j' class='dayicon'>
 					<div class='daylogo'>
 		        <div class='option-linking'>
-		        	<span class='linking-text daylogo-text' style='font-size: 20px;'>$j</span>
+		        	<span class='linking-text daylogo-text'>$j</span>
 							<svg
 		            aria-hidden='true'
 		            focusable='false'
@@ -262,7 +266,7 @@ for ($i = 1; $i <= $maxDate + $dayOfWeek; $i++) {
 				<div id='day$j' class='dayiconactive'>
 					<div class='daylogoactive'>
 		        <div class='option-linking'>
-		        	<span class='linking-text daylogo-text' style='font-size: 20px;'>$j</span>
+		        	<span class='linking-text daylogo-text'>$j</span>
 							<svg
 		            aria-hidden='true'
 		            focusable='false'
@@ -298,7 +302,7 @@ for ($i = 1; $i <= $maxDate + $dayOfWeek; $i++) {
 				<div id='day$j' class='dayicon'>
 					<div class='daylogo'>
 		        <div class='option-linking'>
-		        	<span class='linking-text daylogo-text' style='font-size: 20px;'>$j</span>
+		        	<span class='linking-text daylogo-text'>$j</span>
 							<svg
 		            aria-hidden='true'
 		            focusable='false'
@@ -331,11 +335,17 @@ for ($i = 1; $i <= $maxDate + $dayOfWeek; $i++) {
 
 		if ($i % 7 == 0) {
 			$html .= "</tr><tr>";
+			$dayOfWeekCounter = 0;
 		}
 	} else {
 		// Fill in blank spaces if month doesn't start on the 1st
 		$html.= "<td class='day'></td>";
 	}
+}
+
+// Fill in rest of calendar with blank dates
+for ($i = 1; $i <= (7 - $dayOfWeekCounter) && $dayOfWeekCounter > 0; $i++) {
+	$html.= "<td class='day'></td>";
 }
 $html .= "</tr></table>";
 
