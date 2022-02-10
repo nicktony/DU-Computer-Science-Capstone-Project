@@ -8,14 +8,15 @@
   --text-secondary: #ececec;
   --bg-primary: #23232e;
   --bg-secondary: #141418;
+  --bg-third: #4F4F52;
   --blue-one: #ADB5C1;
   --blue-two: #0C3FB7;
   --blue-three: #33A7D6;
   --transition-speed: 1s;
 }
 body {
-  color: black;
-  background-color: white;
+  color: var(--text-primary);
+  background: var(--bg-third);
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
   overflow-y: auto; /* Enable vertical scrollbar */
