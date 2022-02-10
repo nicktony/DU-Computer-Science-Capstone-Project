@@ -19,7 +19,7 @@ body {
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
   overflow-y: auto; /* Enable vertical scrollbar */
-  overflow-x: hidden; /* Hide horizontal scrollbar */
+  overflow-x: auto; /* Enable horizontal scrollbar for testing errors*/
 }
 main {
   margin-left: 5rem;
