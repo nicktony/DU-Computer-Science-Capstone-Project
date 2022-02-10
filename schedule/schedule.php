@@ -156,8 +156,7 @@ $ajax
 // Generate calendar days
 $firstDayOfMonth = $year . '-' . $month . '-01';
 $dayOfWeek = date('w', strtotime($firstDayOfMonth));
-//echo '......................................' .$dayOfWeek;
-for ($i = 1; $i <= $maxDate; $i++) {
+for ($i = 1; $i <= $maxDate + $dayOfWeek; $i++) {
 	$dayTasks = "<div class='embeddedtask'>";
 	$tempDate = $year . '-' . $month . '-' . $i;
 
@@ -165,7 +164,7 @@ for ($i = 1; $i <= $maxDate; $i++) {
 	$sql = "SELECT title, description, start_date, priority, is_complete FROM tasks WHERE start_date = '$tempDate'";
 	$result = $conn->query($sql);
 
-  // Output data of each row
+  // Grab each task asscoiated with the date
   while($row = $result->fetch_assoc()) {
   	$title = $row['title'];
   	$description = $row['description'];
@@ -178,15 +177,18 @@ for ($i = 1; $i <= $maxDate; $i++) {
   $dayTasks .= "</div>";
 
 	// Set style of day
-	if ($i > $dayOfWeek) { 
+	if ($i > $dayOfWeek) {
+		// Reset i
+		$j = $i - $dayOfWeek;
+
 		// If 'today' is selected for the current day
-		if ($i == date('d') && $month == date('m') && $year == date('Y') && $i == $day) {
+		if ($j == date('d') && $month == date('m') && $year == date('Y') && $j == $day) {
 			$html .= "
 			<td class='currentday'>
-				<div id='day$i' class='dayiconactive'>
+				<div id='day$j' class='dayiconactive'>
 					<div class='daylogoactive'>
 		        <div class='option-linking'>
-		        	<span class='linking-text daylogo-text' style='font-size: 20px;'>$i</span>
+		        	<span class='linking-text daylogo-text' style='font-size: 20px;'>$j</span>
 							<svg
 		            aria-hidden='true'
 		            focusable='false'
@@ -216,13 +218,13 @@ for ($i = 1; $i <= $maxDate; $i++) {
 		  	$dayTasks
 			</td>";
 			// If 'today' isn't chosen for the current day
-		} else if ($i == date('d') && $month == date('m') && $year == date('Y')) {
+		} else if ($j == date('d') && $month == date('m') && $year == date('Y')) {
 			$html .= "
 			<td class='currentday'>
-				<div id='day$i' class='dayicon'>
+				<div id='day$j' class='dayicon'>
 					<div class='daylogo'>
 		        <div class='option-linking'>
-		        	<span class='linking-text daylogo-text' style='font-size: 20px;'>$i</span>
+		        	<span class='linking-text daylogo-text' style='font-size: 20px;'>$j</span>
 							<svg
 		            aria-hidden='true'
 		            focusable='false'
@@ -252,13 +254,13 @@ for ($i = 1; $i <= $maxDate; $i++) {
 		  	$dayTasks
 			</td>";
 			// If a day is selected that isn't the current day
-		} else if ($i == $day) {
+		} else if ($j == $day) {
 			$html .= "
 			<td class='selectedday'>
-				<div id='day$i' class='dayiconactive'>
+				<div id='day$j' class='dayiconactive'>
 					<div class='daylogoactive'>
 		        <div class='option-linking'>
-		        	<span class='linking-text daylogo-text' style='font-size: 20px;'>$i</span>
+		        	<span class='linking-text daylogo-text' style='font-size: 20px;'>$j</span>
 							<svg
 		            aria-hidden='true'
 		            focusable='false'
@@ -291,10 +293,10 @@ for ($i = 1; $i <= $maxDate; $i++) {
 		} else {
 			$html .= "
 			<td class='day'>
-				<div id='day$i' class='dayicon'>
+				<div id='day$j' class='dayicon'>
 					<div class='daylogo'>
 		        <div class='option-linking'>
-		        	<span class='linking-text daylogo-text' style='font-size: 20px;'>$i</span>
+		        	<span class='linking-text daylogo-text' style='font-size: 20px;'>$j</span>
 							<svg
 		            aria-hidden='true'
 		            focusable='false'
