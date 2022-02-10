@@ -74,7 +74,7 @@
   height: 150px;
   text-align: left;
   vertical-align: top;
-  border: solid black 2px;
+  border: solid black 1px;
   background-color: rgba(173, 181, 193, 0.5);
 }
 .currentday:hover {
@@ -137,19 +137,20 @@
 .option-linking svg {
   width: 2rem;
   min-width: 2rem;
-  margin: 0rem 0rem 0rem 70%;
+  margin: 0rem 0rem 0rem 82.5%;
   display: inline-block;
 }
 .daylogo {
   font-weight: bold;
   text-transform: uppercase;
-  /*margin-bottom: 1rem;*/
+  margin-bottom: 0rem;
   text-align: center;
   color: var(--text-secondary);
   background: var(--bg-primary);
   font-size: 3rem;
   display: inline-block;
   width: 100%;
+  overflow: hidden; /*fixes small adjustment of div when clicking arrow animation*/
 }
 .daylogo svg {
   transform: rotate(0deg);
@@ -157,9 +158,9 @@
 }
 .daylogo-text {
   display: inline;
-  /*position: absolute;
-  left: -10px; /*used to be -999*/*/
-  transition: var(--transition-speed);
+  position: absolute;
+  /*left: -10px;*/ /*used to be -999*/
+  /*transition: var(--transition-speed);*/ /*no longer need transition*/
 }
 .dayicon:hover .daylogo svg {
   transform: rotate(90deg);
@@ -169,22 +170,17 @@
 .daylogoactive {
   font-weight: bold;
   text-transform: uppercase;
-  /*margin-bottom: 1rem;*/
+  margin-bottom: 0rem;
   text-align: center;
   color: var(--text-secondary);
   background: var(--bg-primary);
   font-size: 3rem;
   display: inline-block;
   width: 100%;
+  overflow: hidden; /*fixes small adjustment of div when clicking arrow animation*/
 }
 .daylogoactive svg {
   transform: rotate(90deg);
-  transition: var(--transition-speed);
-}
-.daylogoactive-text {
-  display: inline;
-  /*position: absolute;
-  left: -10px; /*used to be -999*/
   transition: var(--transition-speed);
 }
 .dayiconactive:hover .daylogo svg {
@@ -210,8 +206,17 @@
 .embeddedtask {
   width: 100%;
   height: 60%;
-  /*border: solid blue 1px;*/
 }
 .embeddedtask:hover {
   filter: grayscale(100%) opacity(0.7);
+}
+
+/*********************************Small Screens*********************************/
+@media only screen and (max-width: 600px) {
+
+}
+
+/*********************************Large Screens*********************************/
+@media only screen and (min-width: 600px) {
+  
 }
