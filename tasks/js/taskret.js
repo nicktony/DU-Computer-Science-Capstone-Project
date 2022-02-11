@@ -10,6 +10,14 @@ document.getElementById('recurrence_checkbox').onchange = function () {
 	}
 }
 
+// prevent the default form submit behavior
+document.forms['taskCreateForm'].addEventListener('submit', function(e) {
+	e.preventDefault();
+	createTask();
+	
+});
+
+
 //global for the tasks collection
 var tasks;
 
@@ -33,6 +41,38 @@ function getTasks(id) {
 	request.send();
 }
 
+function createTask() {
+	var request = new XMLHttpRequest();
+	request.onload = function() {
+		//get the task from the return value
+		newTask = JSON.parse(this.responseText);
+		
+		//add it to the current list of tasks
+		tasks.push(newTask);
+		
+		//get the task body element
+		var taskBody = document.getElementById("task-body");
+		
+		//clear the task body of all elements before reloading it
+		while (taskBody.firstChild)
+			taskBody.removeChild(taskBody.lastChild);
+		
+		
+		//taskBody.appendChild(document.createTextNode(this.responseText));
+		//reload the element
+		appendTasksToElement(taskBody);
+	}
+	
+	//create post script
+	const data = new FormData(document.forms['taskCreateForm']);
+	
+	request.open("POST", "./CRUD/create_task.php?input="+JSON.stringify(Object.fromEntries(data.entries())));
+	request.send();
+	
+	//clear the form elements when done
+	document.forms['taskCreateForm'].reset();
+}
+
 function appendTasksToElement(ElementToAppendTo) {
 	//foreach of the tasks
 	for (var t in tasks) {
@@ -40,7 +80,6 @@ function appendTasksToElement(ElementToAppendTo) {
 		var taskContainer = document.createElement('div');
 		taskContainer.setAttribute('class', 'task-container');
 		taskContainer.setAttribute('id', 'task_'+tasks[t].id);
-		console.log(tasks[t].id);
 		taskContainer.addEventListener('click', function() { markTask(this.id); });
 		
 		//create the hidden checkmark (for incomplete ones)

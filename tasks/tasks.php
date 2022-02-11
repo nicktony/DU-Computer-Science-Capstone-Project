@@ -22,7 +22,7 @@ $webpage->inputCSS('tasks.css');
 $webpage->createPage('Tasks');
 $currentDate = date('Y-m-d');
 $createNewTaskForm = <<<EOD
-<form action="CRUD/create_task.php" method="POST">
+<form name="taskCreateForm">
 	<input name="title" type="text" placeholder="title" maxlength="128" required autofocus /><br>
 	<input name="description" type="text" placeholder="description" maxlength="256" /><br>
 	<label for="start_date">Start Date: </label><input name="start_date" type="date" value="{$currentDate}" required /><br>
