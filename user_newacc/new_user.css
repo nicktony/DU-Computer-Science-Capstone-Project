@@ -7,15 +7,14 @@
   --text-secondary: #ececec;
   --bg-primary: #23232e;
   --bg-secondary: #141418;
-  --transition-speed: 50m0s;
+  --bg-third: #4F4F52;
   --blue-one: #ADB5C1;
   --blue-two: #0C3FB7;
   --blue-three: #33A7D6;
+  --transition-speed: 1s;
 }
 body {
-  background: linear-gradient(120deg,#2980b9, #8e44ad);
-  background: url("../images/background_image.jpg") repeat 0 0;
-  background: white;
+  background: var(--bg-third);
   height: 100vh;
   overflow: hidden;
 }
