@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	  <link rel="stylesheet" href="#css_path#" />
+	  <link rel="stylesheet" href="#css_path2#" />
 	  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap"/>
+	  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	  <script src="../profile/theme.js"></script>
 	  <title>#TITLE#</title>
 	</head>
-	<body>
+	<body id="page" onload="setTheme('#theme#')">
 	  <nav class="navbar">
 	    <ul class="navbar-nav">
 	      <li class="logo">
-	        <a href="#" class="nav-link">
+	        <a href="" class="nav-link">
 				<span class="link-text logo-text">#TITLE#</span>
 				<svg
 		            aria-hidden="true"
@@ -189,8 +194,9 @@
 	  </nav>
 
 	  <main>
-	  	<link rel="stylesheet" href="#css_path2#" />
-	    #html_main#
+	  	<div id="main">
+		    #html_main#
+		</div>
 	  </main>
 	</body>
 </html>

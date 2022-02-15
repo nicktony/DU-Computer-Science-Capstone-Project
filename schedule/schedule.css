@@ -1,83 +1,252 @@
-ul {list-style-type: none;}
+/*********************************Prerequisites*********************************/
+:root {
+    /*font-size: 16px;
+    font-family: 'Open Sans';
+  --text-primary: #b6b6b6;
+  --text-secondary: #ececec;
+  --bg-primary: #23232e;
+  --bg-secondary: #141418;
+  --blue-one: #ADB5C1;
+  --blue-two: #0C3FB7;
+  --blue-three: #33A7D6;
+  --transition-speed: 1s;*/
+}
 
-/* Month header */
+button {
+  height: 20px;
+}
+
+.calendar {
+  margin: 1rem auto 1rem auto;
+  max-width: 98%;
+}
+
+/*********************************Month Header*********************************/
 .month {
   padding: 70px 25px;
-  width: 70%;
-  background: #1abc9c;
+  width: 100%;
+  color: var(--text-primary);
+  background: var(--bg-primary);
   text-align: center;
 }
 
-/* Month list */
-.month ul {
-  margin: 0;
-  padding: 0;
-}
-
-.month ul li {
-  color: white;
-  font-size: 20px;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-}
-
-/* Previous button inside month header */
+/*********************************Buttons Inside Month Header*********************************/
 .month .prev {
-  float: left;
+  width: 33%;
+  text-align: left;
   padding-top: 10px;
 }
-
-/* Next button */
+.monthandyear {
+  width: 33%;
+  text-align: center;
+  padding-top: 10px;
+}
 .month .next {
-  float: right;
+  width: 33%;
+  text-align: right;
   padding-top: 10px;
 }
 
-/* Weekdays (Mon-Sun) */
-.weekdays {
-  margin: 0;
+/*********************************Weekdays (Mon-Sun)*********************************/
+.dayofweek {
+  height: 20px;
+  border: solid black 1px;
+  color: black;
+}
+.weekday {
+  margin: 0px;
   padding: 10px 0;
-  width: 70%;
-  background-color:#ddd;
+  background-color: white;
   text-align: center;
 }
 
-.weekdays li {
+/*********************************Days (1-31)*********************************/
+.day {
+  margin: 0px;
+  padding: 0px;
+  background: white;
+  width: 14%;
+  height: 150px;
+  text-align: left;
+  vertical-align: top;
+  border: solid black 1px;
+  color: black;
+}
+.day:hover {
+  /*background-color: green;*/
+}
+.currentday {
+  margin: 0px;
+  padding: 0px;
+  background: white;
+  width: 14%;
+  height: 150px;
+  text-align: left;
+  vertical-align: top;
+  border: solid black 1px;
+  background-color: var(--bg-third);
+  color: black;
+}
+.currentday:hover {
+  /*background-color: blue;*/
+}
+.selectedday {
+  margin: 0px;
+  padding: 0px;
+  background: white;
+  width: 14%;
+  height: 150px;
+  text-align: left;
+  vertical-align: top;
+  border: solid black 1px;
+  color: black;
+} 
+.selectedday:hover {
+  /*background-color: red;*/
+}
+.internalcalendar {
+  width: 100%;
+  height: 100%;
+  border-collapse: collapse;
+}
+.reset {
+  margin: 5px, 0px, 0px, 0px;
+  background: var(--blue-two);
+}
+.tasks {
+  width: 100%;
+  border:solid black 1px;
+  background: white;
+  color: black;
+  height: 100%;
+}
+
+/*********************************Day Logo Animations*********************************/
+.dayicon {
+  position: flex;
+  overflow: hidden;
   display: inline-block;
-  width: 10%;
-  color: #665;
-  text-align: center;
+  width: 100%;
+  height: 21%;
 }
-
-/* Days (1-31) */
-.days {
-  padding: 20px 0;
-  background: #eee;
-  margin: 0;
+.option-linking {
+  display: flex;
+  align-items: center;
+  height: 2rem;
+  color: var(--text-primary);
+  text-decoration: none;
+  filter: grayscale(100%) opacity(0.7);
+  transition: var(--transition-speed);
 }
-.days ul {
-  padding: 40px 0;
-  background: #eee;
-  margin: 0;
+.option-linking:hover {
+  filter: grayscale(0%) opacity(1);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
 }
-
-.days li {
-  list-style-type: none;
+.linking-text {
+  display: none;
+  margin-left: 0.8rem;
+  font-size: 2rem;
+}
+.option-linking svg {
+  width: 1.5rem;
+  min-width: 2rem;
+  margin: 0rem 0rem 0rem auto;
   display: inline-block;
-  width: 10%;
+}
+.daylogo {
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 0rem;
   text-align: center;
-  margin-bottom: 5px;
-  font-size:12px;
-  color: #777;
+  color: var(--text-secondary);
+  background: var(--bg-primary);
+  font-size: 3rem;
+  display: inline-block;
+  width: 100%;
+  overflow: hidden; /*fixes small adjustment of div when clicking arrow animation*/
+}
+.daylogo svg {
+  transform: rotate(0deg);
+  transition: var(--transition-speed);
+}
+.daylogo-text {
+  display: inline;
+  position: absolute;
+  /*left: -10px;*/ /*used to be -999*/
+  /*transition: var(--transition-speed);*/ /*no longer need transition*/
+  font-size: 1.5rem;
+}
+.dayicon:hover .daylogo svg {
+  transform: rotate(90deg);
 }
 
-/* Highlight the "current" day */
-.days li .active {
-  padding: 5px;
-  background: #1abc9c;
-  color: white !important
+/*********************************Keep Active Date Turned*********************************/
+.daylogoactive {
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 0rem;
+  text-align: center;
+  color: var(--text-secondary);
+  background: var(--bg-primary);
+  font-size: 3rem;
+  display: inline-block;
+  width: 100%;
+  overflow: hidden; /*fixes small adjustment of div when clicking arrow animation*/
+}
+.daylogoactive svg {
+  transform: rotate(90deg);
+  transition: var(--transition-speed);
+}
+.dayiconactive:hover .daylogo svg {
+  transform: rotate(90deg);
 }
 
-.days ul {
-  width: 70%;
+/*********************************Navigation Bar Hover Colors*********************************/
+.fa-primary {
+  color: #ADB5C1;
+}
+.fa-secondary {
+  color: #0C3FB7;
+}
+.fa-third {
+  color: #3363D6;
+}
+.fa-primary,
+.fa-third {
+  transition: var(--transition-speed);
+}
+
+/*********************************Embedded Tasks For Each Day*********************************/
+.embeddedtask {
+  width: 100%;
+  height: 60%;
+}
+.embeddedtask:hover {
+  filter: grayscale(100%) opacity(0.7);
+}
+
+/*********************************Small Screens*********************************/
+@media only screen and (max-width: 800px) {
+  button {
+    height: 40px;
+  }
+  .calendar {
+    margin: 1rem auto 6rem auto;
+  }
+  .option-linking svg {
+    width: 1.25rem;
+    min-width: 1.25rem;
+  }
+  .daylogo-text {
+    font-size: 1rem;
+  }
+  .linking-text {
+    font-size: 0.75rem;
+  }
+}
+
+/*********************************Large Screens*********************************/
+@media only screen and (min-width: 800px) {
+  
 }

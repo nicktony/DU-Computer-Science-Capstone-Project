@@ -6,6 +6,7 @@ require_once '../utilities/app_config.php';
 
 // Create webpage
 $webpage = new webpage('./login.html');
+$webpage->createPage("Login");
 
 // Redirect if session is already started
 session_start(); 

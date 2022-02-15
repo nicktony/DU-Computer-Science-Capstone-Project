@@ -1,0 +1,101 @@
+/*********************************Prerequisites*********************************/
+:root {
+    /*font-size: 16px;
+    font-family: 'Open Sans';
+  --text-primary: #b6b6b6;
+  --text-secondary: #ececec;
+  --bg-primary: #23232e;
+  --bg-secondary: #141418;
+  --blue-one: #ADB5C1;
+  --blue-two: #0C3FB7;
+  --blue-three: #33A7D6;
+  --transition-speed: 1s;*/
+}
+
+span {
+    font-size: 1.2rem;
+}
+
+/*********************************Profile Picture Box*********************************/
+.profile {
+    color: var(--text-primary);
+    background: var(--bg-third);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+/*********************************Profile Picture Box*********************************/
+.profilebox {
+    background: var(--bg-secondary);
+    text-align: center;
+    max-width: 60%;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-left: 10px;
+    margin: 0rem auto 1rem auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+.profilepic {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 0 auto 20px auto;
+    display: block;
+}
+.profilename {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+.profiletitle {
+    margin-bottom: 20px;
+}
+.profiledetail {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9em;
+}
+
+/*********************************Profile Information*********************************/
+.profileinfo {
+    max-width: 60%;
+    margin: 0 auto;
+}
+.info {
+    background: var(--bg-primary);
+    margin-top: 1%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    min-width: 100%;
+    height: 100%;
+    line-height: 100px;
+}
+.infoleft {
+    text-align: left;
+    width: 30%;
+    padding-left: 1rem;
+}
+.inforight {
+    text-align: left;
+    width: 70%;
+    padding-left: 1rem;
+    line-height: 25px;
+}
+
+/*********************************Small Screens*********************************/
+@media only screen and (max-width: 800px) {
+    .profilebox {
+        max-width: 98%;
+    }
+    .profileinfo {
+        max-width: 98%;
+        margin: 0 auto 5rem auto;
+    }
+}
+
+/*********************************Large Screens*********************************/
+@media only screen and (min-width: 800px) {
+  
+}

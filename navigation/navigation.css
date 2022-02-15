@@ -8,26 +8,28 @@
   --text-secondary: #ececec;
   --bg-primary: #23232e;
   --bg-secondary: #141418;
+  --bg-third: #4F4F52;
   --blue-one: #ADB5C1;
   --blue-two: #0C3FB7;
   --blue-three: #33A7D6;
   --transition-speed: 1s;
 }
 body {
-  color: black;
-  background-color: white;
+  color: var(--text-primary);
+  background: var(--bg-third);
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
-  overflow-y: hidden; /* Hide vertical scrollbar */
-  overflow-x: hidden; /* Hide horizontal scrollbar */
+  overflow-y: auto; /* Enable vertical scrollbar */
+  overflow-x: auto; /* Enable horizontal scrollbar for testing errors*/
 }
 main {
   margin-left: 5rem;
-  padding: 1rem;
+  /*padding: 1rem;*/
 }
 
 /*********************************Side Navigation Bar*********************************/
 .navbar {
+  z-index: 1;
   position: fixed;
   background-color: var(--bg-primary);
   transition: width 600ms ease;
@@ -148,12 +150,10 @@ main {
   .navbar:hover .link-text {
     display: inline;
   }
-  .navbar:hover .logo svg
-  {
+  .navbar:hover .logo svg {
     margin-left: 11rem;
   }
-  .navbar:hover .logo-text
-  {
+  .navbar:hover .logo-text {
     left: 0px;
   }
 }
