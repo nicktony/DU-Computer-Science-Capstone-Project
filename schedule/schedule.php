@@ -10,13 +10,10 @@ if (isset($_SESSION['username'])) {
 }
 
 // DB Information
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "Taskless";
+require_once '../utilities/app_config.php';
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
 // Check connection
 if ($conn->connect_error) {
