@@ -3,8 +3,8 @@
 // Check if session exists
 session_start();
 if (isset($_SESSION['username'])) {
-	$temp = $_SESSION['username'];
-  //echo "<div style='margin-left: 5rem; padding: 1rem'>Session is active with $temp</div>";
+	$username = $_SESSION['username'];
+  //echo "<div style='margin-left: 5rem; padding: 1rem'>Session is active with $username</div>";
 } else {
 	header("Location: ../user_login/login.php");
 }
@@ -163,11 +163,11 @@ for ($i = 1; $i <= $maxDate + $dayOfWeek; $i++) {
 	// Alter i using j depending on starting day of week
 	$j = $i - $dayOfWeek;
 
-	// Assingn current date
+	// Assign current date
 	$tempDate = $year . '-' . $month . '-' . $j;
 
 	// Query for tasks
-	$sql = "SELECT title, description, start_date, priority, is_complete FROM tasks WHERE start_date = '$tempDate'";
+	$sql = "SELECT tasks.title, tasks.description, tasks.start_date, tasks.priority, tasks.is_complete FROM tasks INNER JOIN users ON tasks.user_id = users.id WHERE start_date = '$tempDate' AND users.username = '$username'";
 	$result = $conn->query($sql);
 
   // Grab each task asscoiated with the date
@@ -348,7 +348,7 @@ $html .= "</tr></table>";
 
 // Query tasks for selected day
 $html .= "<table class='tasks'>";
-$sql = "SELECT title, description, start_date, priority, is_complete FROM tasks WHERE start_date = '$date'";
+$sql = "SELECT title, description FROM tasks INNER JOIN users ON tasks.user_id = users.id WHERE tasks.start_date = '$date' AND users.username = '$username'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -356,9 +356,6 @@ if ($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
   	$title = $row['title'];
   	$description = $row['description'];
-  	$start_date = $row['start_date'];
-  	$priority = $row['priority'];
-  	$is_complete = $row['is_complete'];
 
     $html .= "<tr><td><b>$title</b>: $description</td></tr>";
   }
