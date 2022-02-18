@@ -107,7 +107,8 @@ class TaskFactory {
 					$obj->title = $_row['title'];;
 					$obj->description = $_row['description'];;
 					$obj->start_date = $_row['start_date'];;
-					$obj->recurrence_interval = $_row['recurrence_interval'];;
+					$obj->recurrence_interval = $_row['recurrence_interval'];
+					$obj->interval_unit = $_row['interval_unit'];
 					$obj->priority = $_row['priority'];;
 					$obj->is_complete = $_row['is_complete'];;
 					$obj->rolls_over = $_row['rolls_over'];;
@@ -213,6 +214,7 @@ class TaskFactory {
 			$obj->description = $description;
 			$obj->start_date = $start_date;
 			$obj->recurrence_interval = $recurrence_interval;
+			$obj->interval_unit = $recurrence_unit;
 			$obj->priority = $priority;
 			$obj->is_complete = self::DEFAULT_IS_COMPLETE;
 			$obj->rolls_over = $rolls_over;
