@@ -60,6 +60,7 @@ $html = $createNewTaskForm;
 $html .= <<<EOD
 <div id="task-body">
 </div>
+<script src="js/sorting.js"></script>
 <script src="js/taskret.js"></script>
 <script>
 window.onload = function() {
