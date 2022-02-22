@@ -50,12 +50,13 @@ function getTasks(id) {
 		tasks = JSON.parse(this.responseText);
 		for (var t in tasks)
 			TaskDataCorrector(tasks[t]);
-		tasks.sort(TaskStandardSort);
+		// tasks.sort(TaskClusterByRollover);
 		
-		//get the elemend we append all the tasks into
-		var taskBody = document.getElementById("task-body");
+		// get the elemend we append all the tasks into
+		// var taskBody = document.getElementById("task-body");
 		
-		appendTasksToElement(taskBody);
+		// appendTasksToElement(taskBody);
+		updateTaskUI();
 	}
 	
 	//post the URL along with the user's ID
