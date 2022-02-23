@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . "/taskless/utilities/app_config.php";
+require_once __DIR__ . "/../utilities/app_config.php";
 require_once "Task.class.php";
 
 

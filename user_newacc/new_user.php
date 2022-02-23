@@ -103,7 +103,7 @@ if (($submit_form) && ($password == $p_confirm)) {
 	if ($db_connection->query($_qry)) {
 		$db_connection->close();
 		//automatically log the user in if the query went okay
-		$url = "/taskless/user_login/login.php?" .
+		$url = "../user_login/login.php?" .
 			"username={$username}&password={$password}";
 		header("Location: {$url}");
 	} else {
