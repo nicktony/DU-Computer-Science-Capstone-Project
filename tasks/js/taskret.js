@@ -48,11 +48,15 @@ function getTasks(id) {
 		
 		//the JSON for the tasks from the server
 		tasks = JSON.parse(this.responseText);
+		for (var t in tasks)
+			TaskDataCorrector(tasks[t]);
+		// tasks.sort(TaskClusterByRollover);
 		
-		//get the elemend we append all the tasks into
-		var taskBody = document.getElementById("task-body");
+		// get the elemend we append all the tasks into
+		// var taskBody = document.getElementById("task-body");
 		
-		appendTasksToElement(taskBody);
+		// appendTasksToElement(taskBody);
+		updateTaskUI();
 	}
 	
 	//post the URL along with the user's ID
@@ -65,21 +69,13 @@ function createTask() {
 	request.onload = function() {
 		//get the task from the return value
 		newTask = JSON.parse(this.responseText);
+		TaskDataCorrector(newTask);
 		
 		//add it to the current list of tasks
 		tasks.push(newTask);
 		
-		//get the task body element
-		var taskBody = document.getElementById("task-body");
-		
-		//clear the task body of all elements before reloading it
-		while (taskBody.firstChild)
-			taskBody.removeChild(taskBody.lastChild);
-		
-		
-		//taskBody.appendChild(document.createTextNode(this.responseText));
-		//reload the element
-		appendTasksToElement(taskBody);
+		//sort and place tasks in the UI container
+		updateTaskUI();
 	}
 	
 	//create post script
@@ -91,6 +87,25 @@ function createTask() {
 	//clear the form elements when done
 	document.forms['taskCreateForm'].reset();
 	document.getElementById('recurrence_container').style.display = 'none';
+}
+
+//updates the UI according to the state of the tasks by sorting them
+//and then replacing them
+function updateTaskUI() {
+	
+	//currently just the one sort
+	//eventually a user specified sort will be used here
+	//switch statement?
+	tasks.sort(TaskStandardSort);
+	
+	//remove elements from the task body
+	var taskBody = document.getElementById("task-body");
+	
+	while (taskBody.firstChild)
+			taskBody.removeChild(taskBody.lastChild);
+		
+	//replace all elements
+	appendTasksToElement(taskBody);
 }
 
 function appendTasksToElement(ElementToAppendTo) {
@@ -107,6 +122,9 @@ function appendTasksToElement(ElementToAppendTo) {
 		taskImg.setAttribute('class', 'ic-hidden');
 		taskImg.setAttribute('id', 'task_'+tasks[t].id+'checkImg');
 		taskImg.setAttribute('src', 'img/taskcheck.png');
+		//when the checkmark finishes its transition specified by the
+		//css, then the UI should be updated/resorted
+		taskImg.addEventListener('transitionend', updateTaskUI);
 		
 		//get rollover attributes
 		if (tasks[t].rolls_over == true) {
@@ -128,8 +146,9 @@ function appendTasksToElement(ElementToAppendTo) {
 		}
 		
 		//get recurrence attributes of the task and get ic images
-		var RIvalue = parseInt(tasks[t].recurrence_interval, 10);
-		if (RIvalue > 0) {
+		// var RIvalue = parseInt(tasks[t].recurrence_interval, 10);
+		// if (RIvalue > 0) {
+		if (tasks[t].recurrence_interval > 0) {
 			//create the container
 			var toolTipContainer = document.createElement('div');
 			toolTipContainer.setAttribute('class', 'tooltip-container');
@@ -141,10 +160,10 @@ function appendTasksToElement(ElementToAppendTo) {
 			taskRecurrenceType.setAttribute('class', 'ic-taskinfo');
 			
 			//for proper grammar
-			var isSingular = (RIvalue == 1) ? true : false;
+			var isSingular = (tasks[t].recurrence_interval == 1) ? true : false;
 			
 			switch (tasks[t].interval_unit) {
-				case '0': //Daily
+				case 0: //Daily
 					//set the appropriate image
 					taskRecurrenceType.setAttribute('src', 'img/daily.png');
 					//set the tooltip text
@@ -153,21 +172,21 @@ function appendTasksToElement(ElementToAppendTo) {
 					else
 						toolTipText.appendChild(document.createTextNode('This task repeats every ' + tasks[t].recurrence_interval + ' days'));
 				break;
-				case '1': //Weekly
+				case 1: //Weekly
 					taskRecurrenceType.setAttribute('src', 'img/weekly.png');
 					if (isSingular)
 						toolTipText.appendChild(document.createTextNode('This task repeats every week'));
 					else
 						toolTipText.appendChild(document.createTextNode('This task repeats every ' + tasks[t].recurrence_interval + ' weeks'));
 				break;
-				case '2': //Monthly
+				case 2: //Monthly
 					taskRecurrenceType.setAttribute('src', 'img/monthly.png');
 					if (isSingular)
 						toolTipText.appendChild(document.createTextNode('This task repeats every month'));
 					else
 						toolTipText.appendChild(document.createTextNode('This task repeats every ' + tasks[t].recurrence_interval + ' months'));
 				break;
-				case '3': //Yearly
+				case 3: //Yearly
 					taskRecurrenceType.setAttribute('src', 'img/yearly.png');
 					if (isSingular)
 						toolTipText.appendChild(document.createTextNode('This task repeats every year'));
@@ -190,7 +209,7 @@ function appendTasksToElement(ElementToAppendTo) {
 		taskTitle.appendChild(document.createTextNode(tasks[t].title));
 		
 		//if the task is completed, it appears differently
-		if (tasks[t].is_complete == '1') {
+		if (tasks[t].is_complete) {
 			taskImg.classList.add('ic-visible');
 			taskContainer.classList.add('completed');
 		}
@@ -232,12 +251,10 @@ function markTask(id) {
 			break;
 	}
 	
-	
 	var request = new XMLHttpRequest();
 	
 	request.onload = function () {
 		const response = this.responseText;
-		
 		
 		if (response == 1) { //state flipped OK
 			//flip the UI stuff
@@ -251,8 +268,7 @@ function markTask(id) {
 			}
 			
 			//flip the state of the task in the collection
-			//javascript treats parsed json booleans as strings
-			tasks[i].is_complete == '1' ? tasks[i].is_complete = '0' : tasks[i].is_complete = '1';
+			tasks[i].is_complete = !tasks[i].is_complete;
 		} else { //state did not flip
 			//error message?
 		}
