@@ -25,21 +25,51 @@
 		$db_connection->close();
 		
 		if ($_result->num_rows == 1) {
+			$pageMessage = "";
+			
 			//check that the email is verified
 			$_row = $_result->fetch_array(MYSQLI_BOTH);
 			if (!$_row['email_verified']) {
-				echo "<p>The email address you have provided has not been verified.</p>";
+				$pageMessage .= "The email address you have provided has not been verified.<br>";
 			}
 			
+			$username = $_row['username'];
+			
 			//create the recovery link
-			$recovery_link = "reset_password.php?file=".
+			$recovery_link = "https://www.taskless.app/user_password_recovery/reset_password.php?file=".
 				hash('sha256', $_row['username'], false).
 				"&reset=".
 				hash('sha256', $_row['password'], false);
-			//set the recovery link in the page
-			$webpage->convert("RECOVERY_LINK", $recovery_link);
+				
+			
+			//create the email
+			$recipient = $_row['email'];
+			$subject = "Recover your Taskless password";
+			
+			//add headers
+			$headers = 'MIME-Version 1.0\r\n';
+			$headers .= 'Content-type: text/html; charset=iso-8859-1\r\n';
+			$headers .= "To: {$username} <{$recipient}>\r\n";
+			$headers .= 'From: Taskless Support <support@taskless.app>';
+			
+			//use the webpage class and an html doc to create the email body
+			$emailPage = new webpage("emailhtml.html");
+			$emailPage->createPage("Password Recovery");
+			$emailPage->convert("RECOVERY_LINK", $recovery_link);
+			
+			$message = $emailPage->html;
+			
+			//send it, if everything works let the user know
+			if (mail($recipient, $subject, $message, $headers)) {
+				$pageMessage .= "An email has been sent to the email address of the user you entered.";
+			} else {
+				$pageMessage .= "An error has occured, the email was not sent.";
+			}
+			
+			$webpage->convert("MESSAGE", $pageMessage);
 		} else {
 			//query error, more than one user with the same username
+			$webpage->convert("MESSAGE", "Could not find the username you specified");
 		}
 	}
 	$webpage->printPage();

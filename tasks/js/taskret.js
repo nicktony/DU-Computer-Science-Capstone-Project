@@ -60,7 +60,7 @@ function getTasks(id) {
 	}
 	
 	//post the URL along with the user's ID
-	request.open("POST", "./CRUD/AJAX/getTasks.php?user_id="+id);
+	request.open("POST", "../tasks/CRUD/AJAX/getTasks.php?user_id="+id);
 	request.send();
 }
 
@@ -81,7 +81,7 @@ function createTask() {
 	//create post script
 	const data = new FormData(document.forms['taskCreateForm']);
 	
-	request.open("POST", "./CRUD/create_task.php?input="+JSON.stringify(Object.fromEntries(data.entries())));
+	request.open("POST", "../tasks/CRUD/create_task.php?input="+JSON.stringify(Object.fromEntries(data.entries())));
 	request.send();
 	
 	//clear the form elements when done
@@ -274,6 +274,6 @@ function markTask(id) {
 		}
 	}
 	
-	request.open("POST", "./CRUD/AJAX/mark_task.php?task_id="+id.slice(5));
+	request.open("POST", "../tasks/CRUD/AJAX/mark_task.php?task_id="+id.slice(5));
 	request.send();
 }
