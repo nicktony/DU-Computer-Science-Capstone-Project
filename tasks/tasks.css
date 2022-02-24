@@ -1,40 +1,44 @@
-/* The entire task container */
-.task-container {
-	background-color: #03A9F4;
-	padding: .5em;
-	margin: 1em;
-	border-radius: 1em;
-	border: 1px solid black;
-	overflow: auto;
-	color: #FFFFFF;
-}
-.task-container:hover {
-	background-color: #0288D1;
+/* Page content */
+.tasks {
+	max-width: 98%;
+	margin: 1rem auto 1rem auto;
 }
 
+/* The entire task container */
+.task-container {
+	background-color: var(--bg-secondary);
+	padding: .5em;
+	margin: 0.5rem 0 0.5rem 0;
+	border-radius: 1em;
+	/*border: 1px solid black;*/
+	overflow: auto;
+	color: var(--text-primary);
+}
+.task-container:hover {
+	background-color: var(--blue-two);
+	transition: background-color 0.5s ease;
+}
 .completed {
-	background-color: #757575;
+	background-color: var(--bg-primary);
 }
 
 /* Title, Description and Priority */
 .task-title {
 	margin-top: 0.5em;
 	margin-left: 1em;
-}
-
-.task-description {
-	text-indent: 2em;
-	font-size: .85em;
 	font-weight: bold;
-	margin-left: .5em;
 }
-
+.task-description {
+	text-indent: 0em;
+	font-size: .85em;
+	font-weight: normal;
+	margin-left: 1.5em;
+}
 .task-priority {
 	clear: both;
 	font-size: .75em;
-	margin-left: .5em;
+	margin-left: 1.5em;
 }
-
 
 /* The Checkmark */
 .ic-hidden {
@@ -50,15 +54,14 @@
 	height: 6em;
 }
 
-
-
 /*	Roll-over and Recurrence Icons */
 .ic-taskinfo {
 	float: right;
 	height: 4em;
-	margin-right: .5em;
+	margin-right: .6rem;
+	background-color: var(--text-primary);
+	border-radius: 1rem;
 }
-
 div.tooltip-container {
 	display: inline-block;
 	position: relative;
@@ -79,33 +82,29 @@ div.tooltip-container span {
 	padding: 1px;
 	transition: opacity 0.4s;
 }
-
 div.tooltip-container:hover span {
-	opacity: 1;
+	/*opacity: 1;*/
 }
 
 /* Task Creation Form */
-.createTaskButton {
+.createTaskHeader {
 	position: relative;
-	z-index: 5;
-	background-color: #03A9F4;
+	z-index: 1;
+	background-color: var(--bg-secondary);
 	padding: .5em;
-	margin: 1em;
-	border-radius: 1em;
-	border: 1px solid black;
-	overflow: auto;
-	color: #FFFFFF;
-}
 
+	border-radius: 1em;
+	/*border: 1px solid black;*/
+	overflow: auto;
+	color: var(--text-primary);
+}
 .active {
 	background-color: #0e5372;
 }
-
-.createTaskButton:hover {
-	background-color: #0288D1;
+.createTaskHeader:hover {
+	/*background-color: var(--blue-two);*/
 }
-
-.createTaskButton img {
+.createTaskHeader img {
 	margin: .25em 0;
 	padding: 0;
 	margin-right: 1.5em;
@@ -113,46 +112,117 @@ div.tooltip-container:hover span {
 	width: auto;
 	height: 4em;
 }
-
-
-.createTaskButton span {
-	margin: .25em 0;
+.createTaskHeader span {
+	margin: .25rem 0 0.25rem 1rem;
 	padding: 0;
-	margin-left: 1.5em;
 	font-style: strong;
 	font-size: 3em;
 }
-
+.createTaskButton {
+	margin: 0;
+	padding: 0;
+	float: right;
+	width: auto;
+	height: 4em;
+	cursor: pointer;
+}
 .createTaskFormContainer {
 	position: relative;
-	top: -1.75em;
-	height: 0px;
-	transition: height .5s ease-in;
+	top: -1.5em;
+	height: 0;
+	transition: height 0.5s linear;
 	overflow: hidden;
-	outline: 1px solid black;
+	/*outline: 1px solid black;*/
 	border-radius: 0 0 10px 10px;
-	margin: 1.1em;
-	background-color: #93bacc;
-	color: #1f3641;
+	margin: 0 0rem 0 0rem;
+	background-color: var(--bg-primary);
+	color: var(--text-primary);
 	padding-left: .5em;
 }
+.createTaskFormContainer select,
+.createTaskFormContainer textarea,
+.createTaskFormContainer input {
+	background-color: var(--text-primary);
+	border-radius: 1rem;
+	border-color: transparent;
+	margin: 0.5rem 0 0.5rem 0;
+	outline: none;
+	font-size: 16px;
+	font-family: 'Open Sans'; /* not sure why i had to override it here*/
+	resize: none;
+}
+.createTask-left {
+	float: left;
+	width: 49%;
+}
+.createTask-right {
+	float: left;
+	width: 49%;
+}
+.createTask-right button {
+	margin-top: auto;
+	float: right;
+	position: absolute;
+	right: 0.8rem;
+	bottom: 0.8rem;
+	padding:0.5em 3em;
+	text-align: center;
+	color: var(--text-primary);
+	border-color: var(--text-primary);
+	border-radius: 0.5rem;
+	background-color: transparent;
+	transition: all .5s ease;
+	cursor: pointer;
+}
+.createTask-right button:hover {
+	color: black;
+	border-color: var(--blue-two);
+	background-color: var(--blue-two);
+}
+div.filler { height: 2em; }
 
-div.filler { height: 1em; }
+/* Arrow animation SVG */
+.option-linking {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  color: var(--text-primary);
+  text-decoration: none;
+  filter: grayscale(100%) opacity(0.7);
+  transition: var(--transition-speed);
+  margin-right: 1rem;
+}
+.option-linking:hover {
+  filter: grayscale(0%) opacity(1);
+  color: var(--text-secondary);
+}
+.option-linking svg {
+  min-width: 3rem;
+  margin: 0rem 0rem 0rem auto;
+  display: inline-block;
+}
 
+/*********************************Small Screens*********************************/
+@media only screen and (max-width: 600px) {
+	.createTask-left {
+		float: left;
+		width: 98%;
+		overflow-wrap: wrap;
+	}
+	.createTask-right {
+		float: left;
+		width: 98%;
+		padding-bottom: 2rem;
+		overflow-wrap: wrap;
+	}
+	.createTaskFormContainer textarea {
+		width: 98%;
+		padding:1%;
+		border:none;
+	}
+}
 
+/*********************************Large Screens*********************************/
+@media only screen and (min-width: 600px) {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
