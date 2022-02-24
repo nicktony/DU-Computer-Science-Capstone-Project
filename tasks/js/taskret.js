@@ -26,16 +26,36 @@ document.getElementById('createTaskButton').onclick = function() {
 	//get the form container
 	var formContainer = document.getElementById('createTaskFormContainer');
 	
+	//get the button for animations
+	var arrowSVG = document.getElementById('createTaskButton');
+
 	//whipe it up or down depending upon its current height
 	if (formContainer.clientHeight) {
 		formContainer.style.height = 0;
-		this.classList.remove('active');
+		//this.classList.remove('active'); //nick
 	} else {
 		formContainer.style.height = formContainer.scrollHeight + 'px';
-		this.classList.add('active');
+		//this.classList.add('active'); //nick
 	}
 }
 
+//global variable to check rotation of svg
+var rotated = false;
+
+//arrow animation
+$('#arrowSVG').click(function() {
+    if (rotated == false) {
+	    $(this).css({
+	        'transform': 'rotate(90deg)'
+	    });
+	    rotated = true;
+    } else if (rotated == true) {
+    	$(this).css({
+	        'transform': 'rotate(0deg)'
+	    });
+	    rotated = false;
+    }
+});
 
 //global for the tasks collection
 var tasks;
@@ -133,7 +153,7 @@ function appendTasksToElement(ElementToAppendTo) {
 			toolTipContainer.setAttribute('class', 'tooltip-container');
 			
 			var toolTipText = document.createElement('span');
-			toolTipText.appendChild(document.createTextNode('This task rolls over to the next day if incomplete'));
+			//toolTipText.appendChild(document.createTextNode('This task rolls over to the next day if incomplete')); // nick
 			
 			var taskRolloverImg = document.createElement('img');
 			taskRolloverImg.setAttribute('class', 'ic-taskinfo');
