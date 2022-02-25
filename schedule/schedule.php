@@ -78,6 +78,7 @@ for ($i = 1; $i <= 31; $i++) {
 }
 
 $ajax = "
+	<script src='js/schedule.js'></script>
 	<script>
 		$(document).ready(function() {
 
@@ -190,7 +191,7 @@ for ($i = 1; $i <= $maxDate + $dayOfWeek; $i++) {
 			<td class='currentday'>
 				<div id='day$j' class='dayiconactive'>
 					<div class='daylogoactive'>
-		        <div class='option-linking'>
+		        <div class='option-linking' id='arrowSVG'>
 		        	<span class='linking-text daylogo-text'>$j</span>
 							<svg
 		            aria-hidden='true'
@@ -225,7 +226,7 @@ for ($i = 1; $i <= $maxDate + $dayOfWeek; $i++) {
 			<td class='currentday'>
 				<div id='day$j' class='dayicon'>
 					<div class='daylogo'>
-		        <div class='option-linking'>
+		        <div class='option-linking' id='arrowSVG'>
 		        	<span class='linking-text daylogo-text'>$j</span>
 							<svg
 		            aria-hidden='true'
@@ -261,7 +262,7 @@ for ($i = 1; $i <= $maxDate + $dayOfWeek; $i++) {
 			<td class='selectedday'>
 				<div id='day$j' class='dayiconactive'>
 					<div class='daylogoactive'>
-		        <div class='option-linking'>
+		        <div class='option-linking' id='arrowSVG'>
 		        	<span class='linking-text daylogo-text'>$j</span>
 							<svg
 		            aria-hidden='true'
@@ -297,7 +298,7 @@ for ($i = 1; $i <= $maxDate + $dayOfWeek; $i++) {
 			<td class='day'>
 				<div id='day$j' class='dayicon'>
 					<div class='daylogo'>
-		        <div class='option-linking'>
+		        <div class='option-linking' id='arrowSVG'>
 		        	<span class='linking-text daylogo-text'>$j</span>
 							<svg
 		            aria-hidden='true'

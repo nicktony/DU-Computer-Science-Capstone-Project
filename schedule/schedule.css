@@ -13,7 +13,18 @@
 }
 
 button {
-  height: 20px;
+  padding:0.5em 3em;
+  text-align: center;
+  color: var(--text-primary);
+  border-color: var(--text-primary);
+  border-radius: 0.5rem;
+  background-color: transparent;
+  transition: all .5s ease;
+  cursor: pointer;
+}
+button:hover {
+  color: black;
+  background-color: var(--text-primary);
 }
 
 .calendar {
@@ -167,7 +178,7 @@ button {
   overflow: hidden; /*fixes small adjustment of div when clicking arrow animation*/
 }
 .daylogo svg {
-  transform: rotate(0deg);
+
   transition: var(--transition-speed);
 }
 .daylogo-text {
@@ -178,7 +189,7 @@ button {
   font-size: 1.5rem;
 }
 .dayicon:hover .daylogo svg {
-  transform: rotate(90deg);
+
 }
 
 /*********************************Keep Active Date Turned*********************************/
@@ -195,11 +206,11 @@ button {
   overflow: hidden; /*fixes small adjustment of div when clicking arrow animation*/
 }
 .daylogoactive svg {
-  transform: rotate(90deg);
+
   transition: var(--transition-speed);
 }
 .dayiconactive:hover .daylogo svg {
-  transform: rotate(90deg);
+
 }
 
 /*********************************Navigation Bar Hover Colors*********************************/
