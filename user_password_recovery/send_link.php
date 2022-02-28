@@ -14,63 +14,101 @@
 	$webpage = new webpage("send_link.html");
 	$webpage->createPage("Password Recovery");
 	
+	$formContent = "";
+	$pageMessage = "";
+	$verificationMessage = "";
+	$firstAttempt = true;
+	
+	//if this is a second attempt
+	if (isset($_SESSION['incorrect_input'])) {
+		$pageMessage = "An email has been sent to the email address of the user you entered."
+								. " Please enter the code contained within the email in the textbox below.";
+		
+		$formContent = "<form method='POST' action='reset_password.php'>
+									<input type='' name='v_code' /><br>
+									<input type='submit' value='Submit' pattern='^[0-9]{6}$' title='Please enter a 6 digit number' required />
+								</form>";
+		$webpage->convert("FORM_CONTENT", $formContent);
+		//unset the variable
+		unset($_SESSION['incorrect_input']);
+		
+		//clear the tag in the template
+		$webpage->convert("VERIFICATION_MESSAGE", $verificationMessage);
+		
+		//skip the next part of the script and jump to displaying the page
+		$firstAttempt = false;
+	}
+	
 	//get the information from the recovery form
-	if (isset($_REQUEST['username'])) {
+	if (isset($_REQUEST['username']) && $firstAttempt) {
 		$username = $_REQUEST['username'];
+		
 		//get their information from the DB
 		$db_connection = mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
-		$_qry = sprintf("SELECT id, username, password, email, email_verified FROM users WHERE username = '%s';",
+		$_qry = sprintf("SELECT id, password, email, email_verified FROM users WHERE username = '%s';",
 			mysqli_real_escape_string($db_connection, $username));
 		$_result = $db_connection->query($_qry);
-		$db_connection->close();
+		
 		
 		if ($_result->num_rows == 1) {
-			$pageMessage = "";
-			
 			//check that the email is verified
 			$_row = $_result->fetch_array(MYSQLI_BOTH);
+			
+			
 			if (!$_row['email_verified']) {
-				$pageMessage .= "The email address you have provided has not been verified.<br>";
+				$verificationMessage = "The email address you have provided has not been verified.";
+			} else {
+				$verificationMessage = "Thank you for having a verified email address!";
 			}
+			$webpage->convert("VERIFICATION_MESSAGE", $verificationMessage);
 			
-			$username = $_row['username'];
+			//create a verification code
+			$verificationCode = rand(100000, 999999);
+			$user_id = $_row['id'];
 			
-			//create the recovery link
-			$recovery_link = "https://www.taskless.app/user_password_recovery/reset_password.php?file=".
-				hash('sha256', $_row['username'], false).
-				"&reset=".
-				hash('sha256', $_row['password'], false);
-				
+			//store it in the database along with the date of creation
+			$_qry = sprintf("UPDATE users SET verification_code = %d, v_code_valid_date = '%s' WHERE id = %d;",
+							mysqli_real_escape_string($db_connection, $verificationCode),
+							mysqli_real_escape_string($db_connection, date('Y-m-d')),
+							mysqli_real_escape_string($db_connection, $user_id));
+			$db_connection->query($_qry);
 			
 			//create the email
 			$recipient = $_row['email'];
 			$subject = "Recover your Taskless password";
 			
-			//add headers
-			$headers = 'MIME-Version 1.0\r\n';
-			$headers .= 'Content-type: text/html; charset=iso-8859-1\r\n';
-			$headers .= "To: {$username} <{$recipient}>\r\n";
-			$headers .= 'From: Taskless Support <support@taskless.app>';
-			
-			//use the webpage class and an html doc to create the email body
-			$emailPage = new webpage("emailhtml.html");
-			$emailPage->createPage("Password Recovery");
-			$emailPage->convert("RECOVERY_LINK", $recovery_link);
-			
-			$message = $emailPage->html;
+			$message = "Hello {$username}, we are sorry that you have lost your Taskless password.\r\n"
+						. "We have provided a verification code below, enter it into our password recovery page "
+						. "and you will be able to reset your password.\r\n"
+						. "Verification Code: {$verificationCode}\r\n";
 			
 			//send it, if everything works let the user know
-			if (mail($recipient, $subject, $message, $headers)) {
-				$pageMessage .= "An email has been sent to the email address of the user you entered.";
+			if (true /*mail($recipient, $subject, $message, $headers)*/) {
+				$pageMessage = "An email has been sent to the email address of the user you entered."
+								. " Please enter the code contained within the email in the textbox below.";
+								
+				$formContent = "<form method='POST' action='reset_password.php'>
+									<input type='' name='v_code' /><br>
+									<input type='submit' value='Submit' pattern='^[0-9]{6}$' title='Please enter a 6 digit number' required />
+								</form>";
+				$webpage->convert("FORM_CONTENT", $formContent);
+				
+				$_SESSION['recovery_id'] = $user_id;
 			} else {
-				$pageMessage .= "An error has occured, the email was not sent.";
+				$pageMessage = "An error has occured, the email was not sent."
+								. " Please try again later or contact Taskless support.";
 			}
 			
 			$webpage->convert("MESSAGE", $pageMessage);
 		} else {
 			//query error, more than one user with the same username
 			$webpage->convert("MESSAGE", "Could not find the username you specified");
+			$webpage->convert("FORM_CONTENT", $formContent);
+			$webpage->convert("VERIFICATION_MESSAGE", $verificationMessage);
 		}
+		
+		//close the connection to the database
+		$db_connection->close();
 	}
 	$webpage->printPage();
 ?>

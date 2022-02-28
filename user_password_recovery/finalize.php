@@ -15,13 +15,13 @@
 	$webpage->createPage("Password Reset");
 	
 	//get the information from the recovery form
-	if (isset($_REQUEST['file']) && isset($_REQUEST['reset']) && isset($_REQUEST['newpassword']) && isset($_REQUEST['p_confirm'])) {
-		$hashed_username = $_REQUEST['file'];
-		$hashed_password = $_REQUEST['reset'];
+	if (isset($_SESSION['recovery_id']) && isset($_REQUEST['newpassword']) && isset($_REQUEST['p_confirm'])) {
 		$new_password = $_REQUEST['newpassword'];
 		$pass_confirm = $_REQUEST['p_confirm'];
+		$user_id = $_SESSION['recovery_id'];
+		$verificationCode = $_SESSION['v_code'];
 		
-		$try_again_link = "<a href='reset_password.php?file={$hashed_username}&reset={$hashed_password}'>Try Again</a>";
+		$try_again_link = "<a href='reset_password.php?v_code={$verificationCode}'>Try Again</a>";
 		//check that the password and confirmation password match
 		if ($new_password != $pass_confirm) {
 			$webpage->convert("RESET_MESSAGE", "Passwords do not match!");
@@ -38,17 +38,15 @@
 				//create database connection
 				$db_connection = mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
 				//find the username for the user
-				$_qry = sprintf("SELECT id, username FROM users WHERE SHA2(username, 256)='%s' AND SHA2(password, 256)='%s';",
-					mysqli_real_escape_string($db_connection, $hashed_username),
-					mysqli_real_escape_string($db_connection, $hashed_password));
+				$_qry = sprintf("SELECT username FROM users WHERE id=%d;",
+					mysqli_real_escape_string($db_connection, $user_id));
 				$_result = $db_connection->query($_qry);
 				if ($_result->num_rows == 1) {
 					$_row = $_result->fetch_array(MYSQLI_BOTH);
 					$username = $_row['username'];
-					$user_id = $_row['id'];
 					
 					//now with the username we can salt the new password
-					$_qry = sprintf("UPDATE users SET password='%s' WHERE id='%d';",
+					$_qry = sprintf("UPDATE users SET password='%s' WHERE id=%d;",
 						mysqli_real_escape_string($db_connection, crypt($new_password, $username)),
 						mysqli_real_escape_string($db_connection, $user_id));
 					if ($db_connection->query($_qry)) {
@@ -57,6 +55,9 @@
 						$webpage->convert("RESET_LINK", "<a href='..'>Go Home</a>");
 					}
 				}
+				$db_connection->close();
+				unset($_SESSION['v_code']);
+				unset($_SESSION['recovery_id']);
 			}
 		}
 	}
