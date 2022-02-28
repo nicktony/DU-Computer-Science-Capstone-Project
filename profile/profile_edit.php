@@ -34,7 +34,6 @@ $post_theme = isset($_POST['theme']) ? $_POST['theme'] : NULL;
 // Query for current profile info
 $sql = "SELECT username, password, email, email_verified, name, phone, bio, theme FROM users WHERE username = '$username' LIMIT 1";
 $result = $conn->query($sql);
-
 while($row = $result->fetch_assoc()) {
 	$username = $row['username'];
 	$password = $row['password'];
@@ -46,15 +45,19 @@ while($row = $result->fetch_assoc()) {
 	$theme = $row['theme'];
 }
 
-// Check for difference in post and db values
+// Check for difference in POST and DB values
 if ($post_name != NULL) $name = $post_name;
 if ($post_phone != NULL) $phone = $post_phone;
 if ($post_email != NULL) $email = $post_email;
 if ($post_verified != NULL) $verfied = $post_verified;
 if ($post_bio != NULL) $bio = $post_bio;
-if ($post_theme != NULL) $theme = 'Dark';
-else $theme = 'Light';
+if (!isset($_POST['theme'])) {
+	// Don't change, use DB value for theme when loading in the first time
+} else {
+	$theme = $post_theme;
+}
 
+// Update DB values from user input
 try {
 	// Update DB
 	$sql = "UPDATE users SET name='$name', phone='$phone', bio='$bio', theme='$theme' WHERE username = '$username'";
@@ -73,7 +76,9 @@ if ($theme == 'Dark') {
 
 // Email verified symbol
 if ($email_verified > 0) {
-
+	$varified = "<span class='material-icons'>
+task_alt
+</span>";
 } else {
 
 }
