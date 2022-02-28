@@ -70,12 +70,7 @@ function getTasks(id) {
 		tasks = JSON.parse(this.responseText);
 		for (var t in tasks)
 			TaskDataCorrector(tasks[t]);
-		// tasks.sort(TaskClusterByRollover);
 		
-		// get the elemend we append all the tasks into
-		// var taskBody = document.getElementById("task-body");
-		
-		// appendTasksToElement(taskBody);
 		updateTaskUI();
 	}
 	
@@ -89,10 +84,16 @@ function createTask() {
 	request.onload = function() {
 		//get the task from the return value
 		newTask = JSON.parse(this.responseText);
+		
+		
 		TaskDataCorrector(newTask);
 		
-		//add it to the current list of tasks
-		tasks.push(newTask);
+		//add it to the frontend task queue if it's for today
+		dateParts = newTask.start_date.split('-');
+		var taskDate = new Date(dateParts[0], dateParts[1]-1, dateParts[2]); //create the date for the task
+		
+		if (taskDate - new Date(new Date().toDateString()) == 0) //date - today = 0 if date == today
+			tasks.push(newTask);
 		
 		//sort and place tasks in the UI container
 		updateTaskUI();
@@ -166,8 +167,6 @@ function appendTasksToElement(ElementToAppendTo) {
 		}
 		
 		//get recurrence attributes of the task and get ic images
-		// var RIvalue = parseInt(tasks[t].recurrence_interval, 10);
-		// if (RIvalue > 0) {
 		if (tasks[t].recurrence_interval > 0) {
 			//create the container
 			var toolTipContainer = document.createElement('div');
