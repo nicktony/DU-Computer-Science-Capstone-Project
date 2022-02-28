@@ -57,6 +57,7 @@ if (isset($_REQUEST['input'])) {
 		$factory = new TaskFactory();
 		
 		$newTask = $factory->CreateTask($user_id, $title, $description, $start_date, $recurrence_interval, $recurrence_unit, $priority, $rolls_over);
+		
 		echo json_encode($newTask);
 	}
 }
