@@ -1,7 +1,7 @@
 <?php
 
 // Load in DB information
-require_once '../utilities/app_config.php';
+require_once "../utilities/app_config.php";
 
 class webpage {
 	
