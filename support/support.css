@@ -1,12 +1,20 @@
-
-body{
-	margin:0px;
-	padding: 0px;
-  text-align: left;
-  background: linear-gradient(rgba(0,0,50,0.5),rgba(0,0,50,0.5)), url(BG.png);
-  background-size: cover;
-  background-position: center;
-	font-family: sans-serif;
+:root {
+  font-size: 16px;
+  font-family: 'Open Sans';
+  --text-primary: #b6b6b6;
+  --text-secondary: #ececec;
+  --bg-primary: #23232e;
+  --bg-secondary: #141418;
+  --bg-third: #4F4F52;
+  --blue-one: #ADB5C1;
+  --blue-two: #0C3FB7;
+  --blue-three: #33A7D6;
+  --transition-speed: 1s;
+}
+body {
+  height: 100vh;
+  overflow: hidden;
+  background: var(--bg-third);
 }
 .contact-tittle
 {
@@ -54,20 +62,38 @@ input
 }
 form .submit
 {
-  background: #00bcd4;
-  border-color: transparent;
-  color: #fff;
-  font-size: 20px;
-  font-weight: bold;
-  letter-spacing: 2px;
+	width: 100%;
   height: 50px;
-  margin-top: 20px;
-}
-form .submit: hover
-{
-  background-color: #f545;
+  border: 1px solid;
+  border-radius: 25px;
+  font-size: 18px;
+  font-weight: 700;
+
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  border-color: var(--bg-secondary);
+
   cursor: pointer;
+  outline: none;
 }
+input[type="submit"]:hover {
+  border-color: var(--text-primary);
+  transition: 3s;
+}
+.goback_link {
+  margin: 30px 0px 30px 0px;
+  text-align: center;
+  font-size: 16px;
+  color: var(--text-primary);
+}
+.goback_link a {
+  color: var(--blue-three);
+  text-decoration: none;
+}
+.goback_link a:hover {
+  text-decoration: underline;
+}
+
 .container
 {
   width: 100%;
