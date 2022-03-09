@@ -1,5 +1,5 @@
 <?php
-	
+
 // Required files
 require_once '../classes/webpage.class.php';
 require_once '../utilities/app_config.php';
@@ -19,12 +19,16 @@ if (isset($_SESSION['username'])) {
 $err_msg = "";
 
 //initiate variables
+$full_name = "";
+$phone_number = "";
 $username = "";
 $email_address = "";
 
+
 //submit form by default
 $submit_form = true;
-
+$full_name = "";
+$phone_number = "";
 $username = "";
 $email_address = "";
 
@@ -39,7 +43,7 @@ if (isset($_REQUEST['newusername'])) {
 		$username = "";
 		$submit_form = false; //if they don't match, don't submit the form
 	}
-	
+
 	//make sure username is unique
 	$db_connection = mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
 	$_qry = sprintf("SELECT %s FROM users WHERE %s = '%s';",
@@ -53,7 +57,7 @@ if (isset($_REQUEST['newusername'])) {
 		$username = "";
 		$submit_form = false;
 	}
-	
+
 	//populate form fields with values that were still valid
 } else { $submit_form = false; }
 
@@ -83,8 +87,8 @@ if (isset($_REQUEST['email_address'])) {
 		$err_msg = "Invalid Email Address";
 	} else {
 		$email_address = $_REQUEST['email_address'];
-		
-		
+
+
 	}
 } else { $submit_form = false; }
 
@@ -99,7 +103,7 @@ if (($submit_form) && ($password == $p_confirm)) {
 				mysqli_real_escape_string($db_connection, $username),
 				mysqli_real_escape_string($db_connection, crypt($password, $username)), //always make sure to encrypt passwords
 				mysqli_real_escape_string($db_connection, $email_address));
-	
+
 	if ($db_connection->query($_qry)) {
 		$db_connection->close();
 		//automatically log the user in if the query went okay
@@ -117,6 +121,8 @@ if (($submit_form) && ($password == $p_confirm)) {
 	$webpage->convert("ERR_MSG", "<font style='color:red; font-size: 1em; padding-left: 1em;'>{$err_msg}</font>");
 
 	//populate form fields with values that were still valid
+	$webpage->convert("FULL_NAME", $full_name);
+	$webpage->convert("PHONE_NUMBER", $phone_number);
 	$webpage->convert("EMAIL_ADDRESS", $email_address);
 	$webpage->convert("USERNAME", $username);
 }

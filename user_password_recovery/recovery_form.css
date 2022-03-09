@@ -1,86 +1,124 @@
-/* Bordered form */
-header {
-  width:100%;
-  height: 70px;
-  background-color: #323333;
+
+/*********************************Prerequisites*********************************/
+:root {
+  font-size: 16px;
+  font-family: 'Open Sans';
+  --text-primary: #b6b6b6;
+  --text-secondary: #ececec;
+  --bg-primary: #23232e;
+  --bg-secondary: #141418;
+  --bg-third: #4F4F52;
+  --blue-one: #ADB5C1;
+  --blue-two: #0C3FB7;
+  --blue-three: #33A7D6;
+  --transition-speed: 1s;
+}
+body {
+  height: 100vh;
+  overflow: hidden;
+  background: var(--bg-third);
 }
 
-form {
-  border: 3px solid #f1f1f1;
-}
+/**********************************Containers**********************************/
+.upper_container {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -25%);
 
-/* Full-width inputs */
-input[type=text], input[type=password], input[type=email] {
-  width: 40%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
+  background: var(--bg-secondary);
+  border-radius: 10px;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+.upper_container h1 {
+  font-size: 50px;
+  text-align: center;
+  padding: 30px 0px 1px 0px;
+  color: var(--text-primary);
+  margin-bottom: -10px;
+}
+.upper_container h2 {
+  text-align: center;
+  padding: 1px 0px 20px 0px;
+  color: var(--text-primary);
+}
+.lower_container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  background: var(--bg-primary);
+  border-radius: 10px;
+}
+.lower_container form {
+  padding: 0px 40px 0px 40px;
   box-sizing: border-box;
 }
 
-/* Set a style for all buttons */
-button {
-  background-color: #04AA6D;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
+/***************************Username Input***************************/
+form .text_area {
+  position: relative;
+  border-bottom: 2px solid #adadad;
+  margin: 30px 0;
+}
+.text_area input {
   width: 100%;
+  padding: 0 5px;
+  height: 40px;
+  font-size: 16px;
+
+  border: none;
+  background: none;
+  outline: none;
+}
+.text_area label {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  color: var(--text-primary);
+  transform: translateY(-50%);
+  font-size: 16px;
+  pointer-events: none;
+  transition: 0.8s;
+}
+.text_area input:focus ~ label,
+.text_area input:valid ~ label {
+  top: -5px;
 }
 
-/* Add a hover effect for buttons */
-button:hover {
-  opacity: 0.8;
-}
+/*********************************Send GoBack_LINK Button*********************************/
+input[type="submit"] {
+  width: 100%;
+  height: 50px;
+  border: 1px solid;
+  border-radius: 25px;
+  font-size: 18px;
+  font-weight: 700;
 
-/* Extra style for the cancel button (red) */
-.cancelbtn {
-  width: auto;
-  padding: 10px 18px;
-  background-color: #f44336;
-}
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  border-color: var(--bg-secondary);
 
-.newaccbtn {
-  width: auto;
-  padding: 10px 18px;
-  background-color: blue;
+  cursor: pointer;
+  outline: none;
 }
-
-/* Center the avatar image inside this container */
-.imgcontainer {
+input[type="submit"]:hover {
+  border-color: var(--text-primary);
+  transition: 3s;
+}
+/************************************Go Back************************************/
+.goback_link {
+  margin: 30px 0px 30px 0px;
   text-align: center;
-  margin: 24px 0 12px 0;
+  font-size: 16px;
+  color: var(--text-primary);
 }
-
-/* Add padding to containers */
-.container {
-  padding: 16px;
+.goback_link a {
+  color: var(--blue-three);
+  text-decoration: none;
 }
-
-/* The "Forgot password" text */
-span.psw {
-  float: right;
-  padding-top: 16px;
-}
-
-/* Change styles for span and cancel button on extra small screens */
-@media screen and (max-width: 300px) {
-  span.psw {
-    display: block;
-    float: none;
-  }
-  .cancelbtn {
-    width: 100%;
-  }
-}
-
-h1 {
-  font-family: 'Alfa Slab One', cursive;
-  color: #ffffff;
-}
-
-span {
-  color: #115FAC;
+.goback_link a:hover {
+  text-decoration: underline;
 }
