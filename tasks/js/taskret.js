@@ -85,7 +85,6 @@ function createTask() {
 		//get the task from the return value
 		newTask = JSON.parse(this.responseText);
 		
-		
 		TaskDataCorrector(newTask);
 		
 		//add it to the frontend task queue if it's for today
