@@ -21,30 +21,6 @@ class Task {
 	public $rolls_over;
 	
 	
-	
-	//HTML output for this task
-	function getTaskHTML() {
-		$html = <<<EOD
-		
-<div class="task-container" id="task{$this->id}">
-	<img class="ic-hidden" src="img/taskcheck.png" />
-	<h3 class="task-title">{$this->title}</h3>
-	<p class="task-description">{$this->description}</p>
-</div>
-<!--
-<b>task id</b> : {$this->id}<br>
-<b>user id</b> : {$this->user_id}<br>
-<b>title</b> : {$this->title}<br>
-<b>descritpion</b> : {$this->description}<br>
-<b>start date</b> : {$this->start_date}<br>
-<b>recurrence interval</b> : {$this->recurrence_interval}<br>
-<b>interval unit</b> : {$this->interval_unit}<br>
-<b>priority</b> : {$this->priority}<br>
-<b>is complete</b> : {$this->is_complete}<br>
-<b>rolls over</b> : {$this->rolls_over}<br>
-//-->
-EOD;
-		return $html;
-	}
+
 }
 ?>
