@@ -17,6 +17,15 @@ class TaskFactory {
 	const DEFAULT_ROLLS_OVER = false;
 	const DEFAULT_IS_COMPLETE = false;
 	
+	
+	/***
+	*	UpdateRolloverAndRecurrenceTasks(...)
+			$db_connection: A reference to the database connection we'll be using to perform the updates.
+			$user_id:		The user ID we'll be updating tasks for.
+			
+			Description: If tasks for a user are set to a previous date, but have rollover or recurrence attributes
+					that would set them to start on today, then the start_date attribute is updated for them.
+	*/
 	function UpdateRolloverAndRecurrenceTasks($db_connection, $user_id) {
 		//daily
 		$_qry = sprintf("UPDATE tasks " .
@@ -234,18 +243,22 @@ class TaskFactory {
 			if ($updateRRintervalOrRecurrenceFlag && $updateRRstartDateFlag)
 				$this->UpdateRolloverAndRecurrenceTasks($db_connection, $user_id);
 			
+			//create a new task to return
 			$obj = new Task();
 			
+			//retrieve it from the database (it may have been changed from UpdateRolloverAndRecurrenceTasks(...)
 			$_qry = sprintf("Select start_date from tasks where id = %d;", mysqli_real_escape_string($db_connection, $insert_id));
 			if ($_result = $db_connection->query($_qry))
 				if ($_result->num_rows == 1){
 					$_row = $_result->fetch_array(MYSQLI_BOTH);
-					
+					//if good, change the start date
 					$obj->start_date = $_row['start_date'];
 				} else {
+					//if an error occured we can just use the old one, however it may not appear on the front end until a refresh
 					$obj->start_date = $start_date;
 				}
 			
+			//set the other fields
 			$obj->id = $insert_id;
 			$obj->user_id = $user_id;
 			$obj->title = $title;
