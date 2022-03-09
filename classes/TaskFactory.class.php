@@ -17,6 +17,75 @@ class TaskFactory {
 	const DEFAULT_ROLLS_OVER = false;
 	const DEFAULT_IS_COMPLETE = false;
 	
+	
+	/***
+	*	UpdateRolloverAndRecurrenceTasks(...)
+			$db_connection: A reference to the database connection we'll be using to perform the updates.
+			$user_id:		The user ID we'll be updating tasks for.
+			
+			Description: If tasks for a user are set to a previous date, but have rollover or recurrence attributes
+					that would set them to start on today, then the start_date attribute is updated for them.
+	*/
+	function UpdateRolloverAndRecurrenceTasks($db_connection, $user_id) {
+		//daily
+		$_qry = sprintf("UPDATE tasks " .
+						"SET start_date = '%s', is_complete = %d " .
+						"WHERE user_id = %d ".
+						"AND recurrence_interval > 0 AND interval_unit = 0 ". 
+						"AND CURDATE() = DATE_ADD(start_date, INTERVAL recurrence_interval DAY);",
+						mysqli_real_escape_string($db_connection, date('Y-m-d')),
+						mysqli_real_escape_string($db_connection, false),
+						mysqli_real_escape_string($db_connection, $user_id));
+		
+		$db_connection->query($_qry);
+		
+		//weekly
+		$_qry = sprintf("UPDATE tasks " .
+						"SET start_date = '%s', is_complete = %d " .
+						"WHERE user_id = %d ".
+						"AND recurrence_interval > 0 AND interval_unit = 1 ". 
+						"AND CURDATE() = DATE_ADD(start_date, INTERVAL recurrence_interval WEEK);",
+						mysqli_real_escape_string($db_connection, date('Y-m-d')),
+						mysqli_real_escape_string($db_connection, false),
+						mysqli_real_escape_string($db_connection, $user_id));
+		
+		$db_connection->query($_qry);
+		
+		//monthly
+		$_qry = sprintf("UPDATE tasks " .
+						"SET start_date = '%s', is_complete = %d " .
+						"WHERE user_id = %d ".
+						"AND recurrence_interval > 0 AND interval_unit = 2 ". 
+						"AND CURDATE() = DATE_ADD(start_date, INTERVAL recurrence_interval MONTH);",
+						mysqli_real_escape_string($db_connection, date('Y-m-d')),
+						mysqli_real_escape_string($db_connection, false),
+						mysqli_real_escape_string($db_connection, $user_id));
+		
+		$db_connection->query($_qry);
+		
+		//yearly
+		$_qry = sprintf("UPDATE tasks " .
+						"SET start_date = '%s', is_complete = %d " .
+						"WHERE user_id = %d ".
+						"AND recurrence_interval > 0 AND interval_unit = 3 ". 
+						"AND CURDATE() = DATE_ADD(start_date, INTERVAL recurrence_interval YEAR);",
+						mysqli_real_escape_string($db_connection, date('Y-m-d')),
+						mysqli_real_escape_string($db_connection, false),
+						mysqli_real_escape_string($db_connection, $user_id));
+		
+		$db_connection->query($_qry);
+		
+		//rolls over all incomplete tasks from the previous day(s)
+		$_qry = sprintf("UPDATE tasks SET start_date = '%s' WHERE user_id = %d AND start_date < '%s' AND rolls_over = %d and is_complete = %d;",
+						mysqli_real_escape_string($db_connection, date('Y-m-d')),
+						mysqli_real_escape_string($db_connection, $user_id),
+						mysqli_real_escape_string($db_connection, date('Y-m-d')),
+						mysqli_real_escape_string($db_connection, true),
+						mysqli_real_escape_string($db_connection, false));
+		
+		$db_connection->query($_qry);
+	}
+	
 	//retrieve tasks from the database
 	function FetchTasks($user_id, $lastUpdateDate) {
 		//connect to the database
@@ -25,65 +94,8 @@ class TaskFactory {
 		
 		//if rollovers/recurrences haven't been updated yet
 		if (strlen($lastUpdateDate) == 0 || $lastUpdateDate < date('Y-m-d')) {
-			
 			//update recurring tasks
-			//daily
-			$_qry = sprintf("UPDATE tasks " .
-							"SET start_date = '%s', is_complete = %d " .
-							"WHERE user_id = %d ".
-							"AND recurrence_interval > 0 AND interval_unit = 0 ". 
-							"AND CURDATE() = DATE_ADD(start_date, INTERVAL recurrence_interval DAY);",
-							mysqli_real_escape_string($db_connection, date('Y-m-d')),
-							mysqli_real_escape_string($db_connection, false),
-							mysqli_real_escape_string($db_connection, $user_id));
-			
-			$db_connection->query($_qry);
-			
-			//weekly
-			$_qry = sprintf("UPDATE tasks " .
-							"SET start_date = '%s', is_complete = %d " .
-							"WHERE user_id = %d ".
-							"AND recurrence_interval > 0 AND interval_unit = 1 ". 
-							"AND CURDATE() = DATE_ADD(start_date, INTERVAL recurrence_interval WEEK);",
-							mysqli_real_escape_string($db_connection, date('Y-m-d')),
-							mysqli_real_escape_string($db_connection, false),
-							mysqli_real_escape_string($db_connection, $user_id));
-			
-			$db_connection->query($_qry);
-			
-			//monthly
-			$_qry = sprintf("UPDATE tasks " .
-							"SET start_date = '%s', is_complete = %d " .
-							"WHERE user_id = %d ".
-							"AND recurrence_interval > 0 AND interval_unit = 2 ". 
-							"AND CURDATE() = DATE_ADD(start_date, INTERVAL recurrence_interval MONTH);",
-							mysqli_real_escape_string($db_connection, date('Y-m-d')),
-							mysqli_real_escape_string($db_connection, false),
-							mysqli_real_escape_string($db_connection, $user_id));
-			
-			$db_connection->query($_qry);
-			
-			//yearly
-			$_qry = sprintf("UPDATE tasks " .
-							"SET start_date = '%s', is_complete = %d " .
-							"WHERE user_id = %d ".
-							"AND recurrence_interval > 0 AND interval_unit = 3 ". 
-							"AND CURDATE() = DATE_ADD(start_date, INTERVAL recurrence_interval YEAR);",
-							mysqli_real_escape_string($db_connection, date('Y-m-d')),
-							mysqli_real_escape_string($db_connection, false),
-							mysqli_real_escape_string($db_connection, $user_id));
-			
-			$db_connection->query($_qry);
-			
-			//rolls over all incomplete tasks from the previous day(s)
-			$_qry = sprintf("UPDATE tasks SET start_date = '%s' WHERE user_id = %d AND start_date < '%s' AND rolls_over = %d and is_complete = %d;",
-							mysqli_real_escape_string($db_connection, date('Y-m-d')),
-							mysqli_real_escape_string($db_connection, $user_id),
-							mysqli_real_escape_string($db_connection, date('Y-m-d')),
-							mysqli_real_escape_string($db_connection, true),
-							mysqli_real_escape_string($db_connection, false));
-			
-			$db_connection->query($_qry);
+			$this->UpdateRolloverAndRecurrenceTasks($db_connection, $user_id);
 		}
 		
 		
@@ -145,6 +157,10 @@ class TaskFactory {
 		//this array holds the input parameters
 		$queryVals = array();
 		
+		//flags to check rollovers and recurrences
+		$updateRRstartDateFlag = false;
+		$updateRRintervalOrRecurrenceFlag = false;
+		
 		//if any value is set
 		if (isset($user_id)) {
 			//push them into the string arrays for the query
@@ -168,6 +184,14 @@ class TaskFactory {
 			array_push($insertVals, "start_date");
 			array_push($valuesVals, "'%s'");
 			array_push($queryVals, mysqli_real_escape_string($db_connection, $start_date));
+			
+			//if set on a date before today we might have to update
+			if ($start_date < date('Y-m-d'))
+				$updateRRstartDateFlag = true;
+		} else {
+			array_push($insertVals, "start_date");
+			array_push($valuesVals, "'%s'");
+			array_push($queryVals, mysqli_real_escape_string($db_connection, date('Y-m-d')));
 		}
 		//these two only get inserted as a pair
 		if (isset($recurrence_interval) && isset($recurrence_unit)) {
@@ -178,6 +202,8 @@ class TaskFactory {
 			array_push($valuesVals, "%d");
 			array_push($queryVals, mysqli_real_escape_string($db_connection, $recurrence_unit));
 			
+			//set the flag
+			$updateRRintervalOrRecurrenceFlag = true;
 		}
 		if (isset($priority)) {
 			array_push($insertVals, "priority");
@@ -188,6 +214,9 @@ class TaskFactory {
 			array_push($insertVals, "rolls_over");
 			array_push($valuesVals, "%d");
 			array_push($queryVals, mysqli_real_escape_string($db_connection, $rolls_over));
+			
+			//set the flag
+			$updateRRintervalOrRecurrenceFlag = true;
 		}
 		
 		//loop through the array values to dynamically create a query string
@@ -207,12 +236,33 @@ class TaskFactory {
 		
 		//perform the query and if good, create a task object
 		if ($db_connection->query($_qry)) {
+			
+			$insert_id = $db_connection->insert_id;
+			
+			//if necessary, update the DB
+			if ($updateRRintervalOrRecurrenceFlag && $updateRRstartDateFlag)
+				$this->UpdateRolloverAndRecurrenceTasks($db_connection, $user_id);
+			
+			//create a new task to return
 			$obj = new Task();
-			$obj->id = $db_connection->insert_id;
+			
+			//retrieve it from the database (it may have been changed from UpdateRolloverAndRecurrenceTasks(...)
+			$_qry = sprintf("Select start_date from tasks where id = %d;", mysqli_real_escape_string($db_connection, $insert_id));
+			if ($_result = $db_connection->query($_qry))
+				if ($_result->num_rows == 1){
+					$_row = $_result->fetch_array(MYSQLI_BOTH);
+					//if good, change the start date
+					$obj->start_date = $_row['start_date'];
+				} else {
+					//if an error occured we can just use the old one, however it may not appear on the front end until a refresh
+					$obj->start_date = $start_date;
+				}
+			
+			//set the other fields
+			$obj->id = $insert_id;
 			$obj->user_id = $user_id;
 			$obj->title = $title;
 			$obj->description = $description;
-			$obj->start_date = $start_date;
 			$obj->recurrence_interval = $recurrence_interval;
 			$obj->interval_unit = $recurrence_unit;
 			$obj->priority = $priority;
