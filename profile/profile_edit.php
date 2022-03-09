@@ -4,6 +4,7 @@
 session_start();
 if (isset($_SESSION['username'])) {
 	$username = $_SESSION['username'];
+  	//echo "<div style='margin-left: 5rem; padding: 1rem'>Session is active with $temp</div>";
 } else {
 	header("Location: ../user_login/login.php");
 }
@@ -38,7 +39,7 @@ $webpage = new webpage();
 $webpage->createPage('Profile');
 
 // Html body contents in template
-$html = file_get_contents('./profile.html');
+$html = file_get_contents('./profile_edit.html');
 
 // Jquery
 $jQuery = "
@@ -80,22 +81,20 @@ while($row = $result->fetch_assoc()) {
 }
 
 // Email verified symbol
-$verifiedText = "";
-if ($email_verified == true) {
-	$verifiedText .= "(verified)";
+if ($email_verified > 0) {
+
 } else {
-	$verifiedText .= "(<a href='../email_verification/verifyEmail.php'>Click here to verify!</a>)";
+
 }
 
 // Profile pic
 $webpage->convert('pic', '../images/test.jpg');
 
-
 // Insert profile details
 $webpage->convert('name', $name);
 $webpage->convert('phone', $phone);
 $webpage->convert('email', $email);
-$webpage->convert('verified', $verifiedText);
+$webpage->convert('verified', $email_verified);
 $webpage->convert('bio', $bio);
 
 $webpage->convert('status', 'Administrator');
