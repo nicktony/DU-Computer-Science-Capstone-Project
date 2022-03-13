@@ -27,35 +27,27 @@ document.getElementById('createTaskButton').onclick = function() {
 	var formContainer = document.getElementById('createTaskFormContainer');
 	
 	//get the button for animations
-	var arrowSVG = document.getElementById('createTaskButton');
+	var arrowSVG = document.getElementById('arrowSVG');
 
 	//whipe it up or down depending upon its current height
 	if (formContainer.clientHeight) {
 		formContainer.style.height = 0;
 		//this.classList.remove('active'); //nick
+
+		// Rotate arrow svg
+		$(arrowSVG).css({
+	        'transform': 'rotate(0deg)'
+	    });
 	} else {
 		formContainer.style.height = formContainer.scrollHeight + 'px';
 		//this.classList.add('active'); //nick
-	}
-}
 
-//global variable to check rotation of svg
-var rotated = false;
-
-//arrow animation
-$('#arrowSVG').click(function() {
-    if (rotated == false) {
-	    $(this).css({
+		// Rotate arrow svg
+		$(arrowSVG).css({
 	        'transform': 'rotate(90deg)'
 	    });
-	    rotated = true;
-    } else if (rotated == true) {
-    	$(this).css({
-	        'transform': 'rotate(0deg)'
-	    });
-	    rotated = false;
-    }
-});
+	}
+}
 
 //global for the tasks collection
 var tasks;
@@ -186,7 +178,7 @@ function appendTasksToElement(ElementToAppendTo) {
 					taskRecurrenceType.setAttribute('src', 'img/daily.png');
 					//set the tooltip text
 					if (isSingular)
-						toolTipText.appendChild(document.createTextNode('Repeats every day'));
+						toolTipText.appendChild(document.createTextNode('1'));
 					else
 						toolTipText.appendChild(document.createTextNode(tasks[t].recurrence_interval));
 				break;
@@ -200,14 +192,14 @@ function appendTasksToElement(ElementToAppendTo) {
 				case 2: //Monthly
 					taskRecurrenceType.setAttribute('src', 'img/monthly.png');
 					if (isSingular)
-						toolTipText.appendChild(document.createTextNode('Repeats every month'));
+						toolTipText.appendChild(document.createTextNode('1'));
 					else
 						toolTipText.appendChild(document.createTextNode(tasks[t].recurrence_interval));
 				break;
 				case 3: //Yearly
 					taskRecurrenceType.setAttribute('src', 'img/yearly.png');
 					if (isSingular)
-						toolTipText.appendChild(document.createTextNode('Repeats every year'));
+						toolTipText.appendChild(document.createTextNode('1'));
 					else
 						toolTipText.appendChild(document.createTextNode(tasks[t].recurrence_interval));
 				break;
