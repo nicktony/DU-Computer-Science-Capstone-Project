@@ -77,7 +77,7 @@ button:hover {
   padding: 0px;
   background: white;
   width: 14%;
-  height: 150px;
+  height: 200px;
   text-align: left;
   vertical-align: top;
   border: solid black 1px;
@@ -91,7 +91,7 @@ button:hover {
   padding: 0px;
   background: white;
   width: 14%;
-  height: 150px;
+  height: 200px;
   text-align: left;
   vertical-align: top;
   border: solid black 1px;
@@ -106,7 +106,7 @@ button:hover {
   padding: 0px;
   background: white;
   width: 14%;
-  height: 150px;
+  height: 200px;
   text-align: left;
   vertical-align: top;
   border: solid black 1px;
@@ -154,16 +154,16 @@ button:hover {
   background: var(--bg-secondary);
   color: var(--text-secondary);
 }
-.linking-text {
-  display: none;
-  margin-left: 0.8rem;
-  font-size: 2rem;
-}
 .option-linking svg {
   width: 1.5rem;
   min-width: 2rem;
   margin: 0rem 0rem 0rem auto;
   display: inline-block;
+}
+.linking-text {
+  display: none;
+  margin-left: 0.8rem;
+  font-size: 2rem;
 }
 .daylogo {
   font-weight: bold;
@@ -178,8 +178,7 @@ button:hover {
   overflow: hidden; /*fixes small adjustment of div when clicking arrow animation*/
 }
 .daylogo svg {
-
-  transition: var(--transition-speed);
+  /*transition: var(--transition-speed);*/
 }
 .daylogo-text {
   display: inline;
@@ -206,8 +205,7 @@ button:hover {
   overflow: hidden; /*fixes small adjustment of div when clicking arrow animation*/
 }
 .daylogoactive svg {
-
-  transition: var(--transition-speed);
+  /*transition: var(--transition-speed);*/
 }
 .dayiconactive:hover .daylogo svg {
 
