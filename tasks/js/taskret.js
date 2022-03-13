@@ -27,35 +27,27 @@ document.getElementById('createTaskButton').onclick = function() {
 	var formContainer = document.getElementById('createTaskFormContainer');
 	
 	//get the button for animations
-	var arrowSVG = document.getElementById('createTaskButton');
+	var arrowSVG = document.getElementById('arrowSVG');
 
 	//whipe it up or down depending upon its current height
 	if (formContainer.clientHeight) {
 		formContainer.style.height = 0;
 		//this.classList.remove('active'); //nick
+
+		// Rotate arrow svg
+		$(arrowSVG).css({
+	        'transform': 'rotate(0deg)'
+	    });
 	} else {
 		formContainer.style.height = formContainer.scrollHeight + 'px';
 		//this.classList.add('active'); //nick
-	}
-}
 
-//global variable to check rotation of svg
-var rotated = false;
-
-//arrow animation
-$('#arrowSVG').click(function() {
-    if (rotated == false) {
-	    $(this).css({
+		// Rotate arrow svg
+		$(arrowSVG).css({
 	        'transform': 'rotate(90deg)'
 	    });
-	    rotated = true;
-    } else if (rotated == true) {
-    	$(this).css({
-	        'transform': 'rotate(0deg)'
-	    });
-	    rotated = false;
-    }
-});
+	}
+}
 
 //global for the tasks collection
 var tasks;
@@ -140,12 +132,12 @@ function appendTasksToElement(ElementToAppendTo) {
 		//create the hidden checkmark (for incomplete ones)
 		var taskImg = document.createElement('img');
 		taskImg.setAttribute('class', 'ic-hidden');
-		taskImg.setAttribute('id', 'task_'+tasks[t].id+'checkImg');
+		taskImg.setAttribute('id', 'task_' + tasks[t].id + 'checkImg');
 		taskImg.setAttribute('src', 'img/taskcheck.png');
 		//when the checkmark finishes its transition specified by the
 		//css, then the UI should be updated/resorted
 		taskImg.addEventListener('transitionend', updateTaskUI);
-		
+
 		//get rollover attributes
 		if (tasks[t].rolls_over == true) {
 			//create elements to contain the icon and tooltip
@@ -153,7 +145,7 @@ function appendTasksToElement(ElementToAppendTo) {
 			toolTipContainer.setAttribute('class', 'tooltip-container');
 			
 			var toolTipText = document.createElement('span');
-			//toolTipText.appendChild(document.createTextNode('This task rolls over to the next day if incomplete')); // nick
+			/*toolTipText.appendChild(document.createTextNode('Next day roll over if incomplete'));*/ // nick
 			
 			var taskRolloverImg = document.createElement('img');
 			taskRolloverImg.setAttribute('class', 'ic-taskinfo');
@@ -161,7 +153,7 @@ function appendTasksToElement(ElementToAppendTo) {
 			
 			//add elements in the appropriate order
 			toolTipContainer.appendChild(taskRolloverImg);
-			toolTipContainer.appendChild(toolTipText);
+			/*toolTipContainer.appendChild(toolTipText);*/ //nick
 			taskContainer.appendChild(toolTipContainer);
 		}
 		
@@ -186,36 +178,35 @@ function appendTasksToElement(ElementToAppendTo) {
 					taskRecurrenceType.setAttribute('src', 'img/daily.png');
 					//set the tooltip text
 					if (isSingular)
-						toolTipText.appendChild(document.createTextNode('This task repeats every day'));
+						toolTipText.appendChild(document.createTextNode('1'));
 					else
-						toolTipText.appendChild(document.createTextNode('This task repeats every ' + tasks[t].recurrence_interval + ' days'));
+						toolTipText.appendChild(document.createTextNode(tasks[t].recurrence_interval));
 				break;
 				case 1: //Weekly
 					taskRecurrenceType.setAttribute('src', 'img/weekly.png');
 					if (isSingular)
-						toolTipText.appendChild(document.createTextNode('This task repeats every week'));
+						toolTipText.appendChild(document.createTextNode('1'));
 					else
-						toolTipText.appendChild(document.createTextNode('This task repeats every ' + tasks[t].recurrence_interval + ' weeks'));
+						toolTipText.appendChild(document.createTextNode(tasks[t].recurrence_interval));
 				break;
 				case 2: //Monthly
 					taskRecurrenceType.setAttribute('src', 'img/monthly.png');
 					if (isSingular)
-						toolTipText.appendChild(document.createTextNode('This task repeats every month'));
+						toolTipText.appendChild(document.createTextNode('1'));
 					else
-						toolTipText.appendChild(document.createTextNode('This task repeats every ' + tasks[t].recurrence_interval + ' months'));
+						toolTipText.appendChild(document.createTextNode(tasks[t].recurrence_interval));
 				break;
 				case 3: //Yearly
 					taskRecurrenceType.setAttribute('src', 'img/yearly.png');
 					if (isSingular)
-						toolTipText.appendChild(document.createTextNode('This task repeats every year'));
+						toolTipText.appendChild(document.createTextNode('1'));
 					else
-						toolTipText.appendChild(document.createTextNode('This task repeats every ' + tasks[t].recurrence_interval + ' years'));
+						toolTipText.appendChild(document.createTextNode(tasks[t].recurrence_interval));
 				break;
 			}
 			
 			toolTipContainer.appendChild(taskRecurrenceType);
 			toolTipContainer.appendChild(toolTipText);
-			
 			taskContainer.appendChild(toolTipContainer);
 		}
 		

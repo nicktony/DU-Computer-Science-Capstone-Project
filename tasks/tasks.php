@@ -23,10 +23,10 @@ $currentDate = date('Y-m-d');
 $createNewTaskForm = <<<EOD
 
 <div class="tasks">
-	<div class="createTaskHeader">
+	<div id="createTaskButton" class="createTaskHeader">
 		<span>Create Task</span>
-		<div id="createTaskButton" class="createTaskButton">
-			<div class="option-linking" id="arrowSVG">
+		<div class="createTaskButton">
+			<div class="option-linking">
 				<svg
 					aria-hidden='true'
 					focusable='false'
@@ -35,7 +35,9 @@ $createNewTaskForm = <<<EOD
 					role='img'
 					xmlns='http://www.w3.org/2000/svg'
 					viewBox='0 0 448 512'
-					class='svg-inline--fa fa-angle-double-right fa-w-14 fa-5x'>
+					class='svg-inline--fa fa-angle-double-right fa-w-14 fa-5x'
+					id='arrowSVG'
+					style='transition: all .5s ease'>
 					<g class='fa-group'>
 						<path
 							fill='currentColor'
@@ -56,9 +58,9 @@ $createNewTaskForm = <<<EOD
 		<div class="filler"></div>
 		<form name="taskCreateForm">
 			<div class="createTask-left">
-				<input name="title" type="text" placeholder="Add Title" maxlength="128" required autofocus />
+				<input name="title" type="text" placeholder="Add Title" maxlength="128" style="width: 20rem" required autofocus />
 				<br>
-				<textarea class="resizing-textbox" name="description" placeholder="Add Description" rows="10" cols="64" maxlength="256"></textarea>
+				<textarea class="" name="description" placeholder="Add Description" rows="10" cols="70" maxlength="256"></textarea>
 				<br>
 			</div>
 			<div class="createTask-right">

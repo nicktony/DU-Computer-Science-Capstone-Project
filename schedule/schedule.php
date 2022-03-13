@@ -63,21 +63,36 @@ $webpage = new webpage();
 $webpage->createPage('Schedule');
 
 // JavaScript Ajax
-$ajaxGetDay = "";
+$JsGetDay = '';
 for ($i = 1; $i <= 31; $i++) {
-	$ajaxGetDay .= "
+	$JsGetDay .= "
+
 		$('#day$i').click(function() {
-				day = $i;
-				$('#page').load('schedule.php', {
-					selected_day: day,
-					selected_month: month,
-					selected_year: year
-				});
-				$('html,body').animate({scrollTop: document.body.scrollHeight},'slow');
-			});";
+			
+			// Update day variable to reflect day clicked
+			day = $i;
+
+			// Refresh page and update day variable
+			$('#tasknotes').load('./tasknotes.php', {
+				selected_day: day,
+				selected_month: month,
+				selected_year: year
+			});
+
+			// Reset arrows
+  		resetArrows($i);
+
+  		// Rotate clicked arrow SVG
+      $(svg$i).css({
+        'transform': 'rotate(90deg)'
+      });
+			$('html,body').animate({scrollTop: document.body.scrollHeight},'slow');
+		});
+	";
 }
 
-$ajax = "
+$Js = "
+	<script src='./js/schedule.js'></script>
 	<script>
 		$(document).ready(function() {
 
@@ -119,14 +134,14 @@ $ajax = "
 				});
 			});
 
-			$ajaxGetDay
+			$JsGetDay
 		});
 	</script>
 ";
 
 // Generate calendar headers
 $html = "
-$ajax
+$Js
 <div class='calendar'>
 	<table class='month'>
 		<tr>
@@ -167,18 +182,29 @@ for ($i = 1; $i <= $maxDate + $dayOfWeek; $i++) {
 	$tempDate = $year . '-' . $month . '-' . $j;
 
 	// Query for tasks
-	$sql = "SELECT tasks.title, tasks.description, tasks.start_date, tasks.priority, tasks.is_complete FROM tasks INNER JOIN users ON tasks.user_id = users.id WHERE start_date = '$tempDate' AND users.username = '$username'";
+	$sql = "SELECT tasks.title, tasks.description, tasks.start_date, tasks.priority, tasks.is_complete FROM tasks INNER JOIN users ON tasks.user_id = users.id WHERE start_date = '$tempDate' AND users.username = '$username' ORDER BY tasks.title asc";
 	$result = $conn->query($sql);
+	$numTasks = 0;
 
   // Grab each task asscoiated with the date
   while($row = $result->fetch_assoc()) {
-  	$title = $row['title'];
-  	$description = $row['description'];
-  	$start_date = $row['start_date'];
-  	$priority = $row['priority'];
-  	$is_complete = $row['is_complete'];
+  	$numTasks++;
 
-    $dayTasks .= "<div>&nbsp;$title</div>";
+  	// Limit task output to 5 for spacing
+  	if ($numTasks <= 5) {
+	  	$title = $row['title'];
+	  	$description = $row['description'];
+	  	$start_date = $row['start_date'];
+	  	$priority = $row['priority'];
+	  	$is_complete = $row['is_complete'];
+
+	    $dayTasks .= "<div>&nbsp;$title</div>";
+  	} else {
+  		break;
+  	}
+  }
+  if ($result->num_rows > 5) {
+  	$dayTasks .= "<div>&nbsp;&nbsp;.&nbsp;.&nbsp;.&nbsp;.&nbsp;.</div>";
   }
   $dayTasks .= "</div>";
 
@@ -188,9 +214,9 @@ for ($i = 1; $i <= $maxDate + $dayOfWeek; $i++) {
 		if ($j == date('d') && $month == date('m') && $year == date('Y') && $j == $day) {
 			$html .= "
 			<td class='currentday'>
-				<div id='day$j' class='dayiconactive'>
+				<div class='dayiconactive'>
 					<div class='daylogoactive'>
-		        <div class='option-linking'>
+		        <div class='option-linking' id='day$j'>
 		        	<span class='linking-text daylogo-text'>$j</span>
 							<svg
 		            aria-hidden='true'
@@ -200,7 +226,9 @@ for ($i = 1; $i <= $maxDate + $dayOfWeek; $i++) {
 		            role='img'
 		            xmlns='http://www.w3.org/2000/svg'
 		            viewBox='0 0 448 512'
-		            class='svg-inline--fa fa-angle-double-right fa-w-14 fa-5x'>
+		            class='svg-inline--fa fa-angle-double-right fa-w-14 fa-5x'
+		            id='svg$j'
+								style='transition: all .5s ease'>
 			          <g class='fa-group'>
 									<path
 										fill='currentColor'
@@ -223,9 +251,9 @@ for ($i = 1; $i <= $maxDate + $dayOfWeek; $i++) {
 		} else if ($j == date('d') && $month == date('m') && $year == date('Y')) {
 			$html .= "
 			<td class='currentday'>
-				<div id='day$j' class='dayicon'>
+				<div class='dayicon'>
 					<div class='daylogo'>
-		        <div class='option-linking'>
+		        <div class='option-linking' id='day$j'>
 		        	<span class='linking-text daylogo-text'>$j</span>
 							<svg
 		            aria-hidden='true'
@@ -235,20 +263,21 @@ for ($i = 1; $i <= $maxDate + $dayOfWeek; $i++) {
 		            role='img'
 		            xmlns='http://www.w3.org/2000/svg'
 		            viewBox='0 0 448 512'
-		            class='svg-inline--fa fa-angle-double-right fa-w-14 fa-5x'>
-		          
-		          <g class='fa-group'>
-								<path
-									fill='currentColor'
-									d='M224 273L88.37 409a23.78 23.78 0 0 1-33.8 0L32 386.36a23.94 23.94 0 0 1 0-33.89l96.13-96.37L32 159.73a23.94 23.94 0 0 1 0-33.89l22.44-22.79a23.78 23.78 0 0 1 33.8 0L223.88 239a23.94 23.94 0 0 1 .1 34z'
-									class='fa-secondary'>
-								</path>
-								<path
-									fill='currentColor'
-									d='M415.89 273L280.34 409a23.77 23.77 0 0 1-33.79 0L224 386.26a23.94 23.94 0 0 1 0-33.89L320.11 256l-96-96.47a23.94 23.94 0 0 1 0-33.89l22.52-22.59a23.77 23.77 0 0 1 33.79 0L416 239a24 24 0 0 1-.11 34z'
-									class='fa-third'>
-								</path>
-		          </g>
+		            class='svg-inline--fa fa-angle-double-right fa-w-14 fa-5x'
+								id='svg$j'
+								style='transition: all .5s ease'>
+			          <g class='fa-group'>
+									<path
+										fill='currentColor'
+										d='M224 273L88.37 409a23.78 23.78 0 0 1-33.8 0L32 386.36a23.94 23.94 0 0 1 0-33.89l96.13-96.37L32 159.73a23.94 23.94 0 0 1 0-33.89l22.44-22.79a23.78 23.78 0 0 1 33.8 0L223.88 239a23.94 23.94 0 0 1 .1 34z'
+										class='fa-secondary'>
+									</path>
+									<path
+										fill='currentColor'
+										d='M415.89 273L280.34 409a23.77 23.77 0 0 1-33.79 0L224 386.26a23.94 23.94 0 0 1 0-33.89L320.11 256l-96-96.47a23.94 23.94 0 0 1 0-33.89l22.52-22.59a23.77 23.77 0 0 1 33.79 0L416 239a24 24 0 0 1-.11 34z'
+										class='fa-third'>
+									</path>
+			          </g>
 		          </svg>
 		        </div>
 			    </div>
@@ -259,9 +288,9 @@ for ($i = 1; $i <= $maxDate + $dayOfWeek; $i++) {
 		} else if ($j == $day) {
 			$html .= "
 			<td class='selectedday'>
-				<div id='day$j' class='dayiconactive'>
+				<div class='dayiconactive'>
 					<div class='daylogoactive'>
-		        <div class='option-linking'>
+		        <div class='option-linking' id='day$j'>
 		        	<span class='linking-text daylogo-text'>$j</span>
 							<svg
 		            aria-hidden='true'
@@ -271,20 +300,21 @@ for ($i = 1; $i <= $maxDate + $dayOfWeek; $i++) {
 		            role='img'
 		            xmlns='http://www.w3.org/2000/svg'
 		            viewBox='0 0 448 512'
-		            class='svg-inline--fa fa-angle-double-right fa-w-14 fa-5x'>
-		          
-		          <g class='fa-group'>
-								<path
-									fill='currentColor'
-									d='M224 273L88.37 409a23.78 23.78 0 0 1-33.8 0L32 386.36a23.94 23.94 0 0 1 0-33.89l96.13-96.37L32 159.73a23.94 23.94 0 0 1 0-33.89l22.44-22.79a23.78 23.78 0 0 1 33.8 0L223.88 239a23.94 23.94 0 0 1 .1 34z'
-									class='fa-secondary'>
-								</path>
-								<path
-									fill='currentColor'
-									d='M415.89 273L280.34 409a23.77 23.77 0 0 1-33.79 0L224 386.26a23.94 23.94 0 0 1 0-33.89L320.11 256l-96-96.47a23.94 23.94 0 0 1 0-33.89l22.52-22.59a23.77 23.77 0 0 1 33.79 0L416 239a24 24 0 0 1-.11 34z'
-									class='fa-third'>
-								</path>
-		          </g>
+		            class='svg-inline--fa fa-angle-double-right fa-w-14 fa-5x'
+		            id='svg$j'
+								style='transition: all .5s ease'>
+			          <g class='fa-group'>
+									<path
+										fill='currentColor'
+										d='M224 273L88.37 409a23.78 23.78 0 0 1-33.8 0L32 386.36a23.94 23.94 0 0 1 0-33.89l96.13-96.37L32 159.73a23.94 23.94 0 0 1 0-33.89l22.44-22.79a23.78 23.78 0 0 1 33.8 0L223.88 239a23.94 23.94 0 0 1 .1 34z'
+										class='fa-secondary'>
+									</path>
+									<path
+										fill='currentColor'
+										d='M415.89 273L280.34 409a23.77 23.77 0 0 1-33.79 0L224 386.26a23.94 23.94 0 0 1 0-33.89L320.11 256l-96-96.47a23.94 23.94 0 0 1 0-33.89l22.52-22.59a23.77 23.77 0 0 1 33.79 0L416 239a24 24 0 0 1-.11 34z'
+										class='fa-third'>
+									</path>
+			          </g>
 		          </svg>
 		        </div>
 			    </div>
@@ -295,9 +325,9 @@ for ($i = 1; $i <= $maxDate + $dayOfWeek; $i++) {
 		} else {
 			$html .= "
 			<td class='day'>
-				<div id='day$j' class='dayicon'>
+				<div class='dayicon'>
 					<div class='daylogo'>
-		        <div class='option-linking'>
+		        <div class='option-linking' id='day$j'>
 		        	<span class='linking-text daylogo-text'>$j</span>
 							<svg
 		            aria-hidden='true'
@@ -307,20 +337,21 @@ for ($i = 1; $i <= $maxDate + $dayOfWeek; $i++) {
 		            role='img'
 		            xmlns='http://www.w3.org/2000/svg'
 		            viewBox='0 0 448 512'
-		            class='svg-inline--fa fa-angle-double-right fa-w-14 fa-5x'>
-		          
-		          <g class='fa-group'>
-								<path
-									fill='currentColor'
-									d='M224 273L88.37 409a23.78 23.78 0 0 1-33.8 0L32 386.36a23.94 23.94 0 0 1 0-33.89l96.13-96.37L32 159.73a23.94 23.94 0 0 1 0-33.89l22.44-22.79a23.78 23.78 0 0 1 33.8 0L223.88 239a23.94 23.94 0 0 1 .1 34z'
-									class='fa-secondary'>
-								</path>
-								<path
-									fill='currentColor'
-									d='M415.89 273L280.34 409a23.77 23.77 0 0 1-33.79 0L224 386.26a23.94 23.94 0 0 1 0-33.89L320.11 256l-96-96.47a23.94 23.94 0 0 1 0-33.89l22.52-22.59a23.77 23.77 0 0 1 33.79 0L416 239a24 24 0 0 1-.11 34z'
-									class='fa-third'>
-								</path>
-		          </g>
+		            class='svg-inline--fa fa-angle-double-right fa-w-14 fa-5x'
+		            id='svg$j'
+								style='transition: all .5s ease'>
+			          <g class='fa-group'>
+									<path
+										fill='currentColor'
+										d='M224 273L88.37 409a23.78 23.78 0 0 1-33.8 0L32 386.36a23.94 23.94 0 0 1 0-33.89l96.13-96.37L32 159.73a23.94 23.94 0 0 1 0-33.89l22.44-22.79a23.78 23.78 0 0 1 33.8 0L223.88 239a23.94 23.94 0 0 1 .1 34z'
+										class='fa-secondary'>
+									</path>
+									<path
+										fill='currentColor'
+										d='M415.89 273L280.34 409a23.77 23.77 0 0 1-33.79 0L224 386.26a23.94 23.94 0 0 1 0-33.89L320.11 256l-96-96.47a23.94 23.94 0 0 1 0-33.89l22.52-22.59a23.77 23.77 0 0 1 33.79 0L416 239a24 24 0 0 1-.11 34z'
+										class='fa-third'>
+									</path>
+			          </g>
 		          </svg>
 		        </div>
 			    </div>
@@ -345,22 +376,8 @@ for ($i = 1; $i <= (7 - $dayOfWeekCounter) && $dayOfWeekCounter > 0; $i++) {
 }
 $html .= "</tr></table>";
 
-// Query tasks for selected day
-$html .= "<table class='tasks'>";
-$sql = "SELECT title, description FROM tasks INNER JOIN users ON tasks.user_id = users.id WHERE tasks.start_date = '$date' AND users.username = '$username'";
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-  // Output data of each row
-  while($row = $result->fetch_assoc()) {
-  	$title = $row['title'];
-  	$description = $row['description'];
-
-    $html .= "<tr><td><b>$title</b>: $description</td></tr>";
-  }
-} else {
-  //echo "0 results";
-}
+// Query tasks for selected day, this id id replaced by tasknotes.php when day is clicked
+$html .= "<table class='tasks' id='tasknotes'>";
 
 // Close DB connection, end table
 $conn->close();
