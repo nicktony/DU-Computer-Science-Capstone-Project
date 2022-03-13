@@ -5,6 +5,7 @@
 
 	// Create webpage
 	$webpage = new webpage('recovery_form.html');
+	$webpage->createPage('Password Recovery');
 
 	// Redirect if session is already started
 	session_start();
