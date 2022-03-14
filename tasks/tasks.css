@@ -91,6 +91,7 @@ div.tooltip-container span {
 
 /* Task Creation Form */
 .createTaskHeader {
+	transition: var(--transition-speed);
 	position: relative;
 	z-index: 1;
 	background-color: var(--bg-secondary);
@@ -105,7 +106,8 @@ div.tooltip-container span {
 	background-color: #0e5372;
 }
 .createTaskHeader:hover {
-	/*background-color: var(--blue-two);*/
+	transition: var(--transition-speed);
+	color: white;
 }
 .createTaskHeader img {
 	margin: .25em 0;
@@ -195,8 +197,8 @@ div.filler { height: 2em; }
   cursor: pointer;
 }
 .option-linking:hover {
-  filter: grayscale(0%) opacity(1);
-  color: var(--text-secondary);
+  /*filter: grayscale(0%) opacity(1);
+  color: var(--text-secondary);*/
 }
 .option-linking svg {
   min-width: 3rem;
