@@ -49,6 +49,26 @@ document.getElementById('createTaskButton').onclick = function() {
 	}
 }
 
+//event handlers for hovering over the create task button
+document.getElementById('createTaskButton').onmouseover = function() {
+	//get the button for animations
+	var arrowSVG = document.getElementById('arrowSVG');
+
+	// Rotate arrow svg
+	$(arrowSVG).css({
+        'filter': 'grayscale(0%) opacity(1)'
+    });
+}
+document.getElementById('createTaskButton').onmouseout = function() {
+	//get the button for animations
+	var arrowSVG = document.getElementById('arrowSVG');
+
+	// Rotate arrow svg
+	$(arrowSVG).css({
+        'filter': 'grayscale(100%) opacity(0.7)'
+    });
+}
+
 //global for the tasks collection
 var tasks;
 
