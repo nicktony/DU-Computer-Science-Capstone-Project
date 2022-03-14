@@ -182,7 +182,7 @@ for ($i = 1; $i <= $maxDate + $dayOfWeek; $i++) {
 	$tempDate = $year . '-' . $month . '-' . $j;
 
 	// Query for tasks
-	$sql = "SELECT tasks.title, tasks.description, tasks.start_date, tasks.priority, tasks.is_complete FROM tasks INNER JOIN users ON tasks.user_id = users.id WHERE start_date = '$tempDate' AND users.username = '$username' ORDER BY tasks.title asc";
+	$sql = "SELECT tasks.title, tasks.description, tasks.start_date, tasks.priority, tasks.is_complete FROM tasks INNER JOIN users ON tasks.user_id = users.id WHERE start_date = '$tempDate' AND users.username = '$username' ORDER BY tasks.priority, tasks.start_date asc";
 	$result = $conn->query($sql);
 	$numTasks = 0;
 
