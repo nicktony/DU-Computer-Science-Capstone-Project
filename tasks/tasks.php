@@ -59,7 +59,7 @@ $createNewTaskForm = <<<EOD
 			<div class="createTask-left">
 				<input name="title" type="text" placeholder="Add Title" maxlength="128" style="width: 20rem" required autofocus />
 				<br>
-				<textarea class="" name="description" placeholder="Add Description" rows="10" cols="70" maxlength="256"></textarea>
+				<textarea class="task-description" name="description" placeholder="Add Description" rows="10" cols="70" maxlength="256"></textarea>
 				<br>
 			</div>
 			<div class="createTask-right">

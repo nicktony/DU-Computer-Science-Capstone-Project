@@ -145,9 +145,21 @@ $Js
 <div class='calendar'>
 	<table class='month'>
 		<tr>
-			<td class='prev'><div id='prev'><button>Previous Month</button></div><div id='reset'><button>Reset Calendar</button></div></td>
+			<td class='prev'>
+				<div id='reset'>
+					<button class='reset'><span class='material-icons'>restart_alt</span></button>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td class='prev'>
+				<div id='prev'><button><span>Previous</span></button></div>
+			</td>
 			<td class='monthandyear'>$month_string<br><span style='font-size:18px'>$year</span></td>
-			<td class='next'><div id='next'><button>Next Month</button></div></td>
+			<td class='next'>
+				<div id='next'><button><span>Next</span></button>
+				</div>
+			</td>
 		</tr>
 	</table>
 
@@ -182,7 +194,7 @@ for ($i = 1; $i <= $maxDate + $dayOfWeek; $i++) {
 	$tempDate = $year . '-' . $month . '-' . $j;
 
 	// Query for tasks
-	$sql = "SELECT tasks.title, tasks.description, tasks.start_date, tasks.priority, tasks.is_complete FROM tasks INNER JOIN users ON tasks.user_id = users.id WHERE start_date = '$tempDate' AND users.username = '$username' ORDER BY tasks.title asc";
+	$sql = "SELECT tasks.title, tasks.description, tasks.start_date, tasks.priority, tasks.is_complete FROM tasks INNER JOIN users ON tasks.user_id = users.id WHERE start_date = '$tempDate' AND users.username = '$username' ORDER BY tasks.priority, tasks.start_date asc";
 	$result = $conn->query($sql);
 	$numTasks = 0;
 
@@ -191,19 +203,19 @@ for ($i = 1; $i <= $maxDate + $dayOfWeek; $i++) {
   	$numTasks++;
 
   	// Limit task output to 5 for spacing
-  	if ($numTasks <= 5) {
+  	if ($numTasks <= 3) {
 	  	$title = $row['title'];
 	  	$description = $row['description'];
 	  	$start_date = $row['start_date'];
 	  	$priority = $row['priority'];
 	  	$is_complete = $row['is_complete'];
 
-	    $dayTasks .= "<div>&nbsp;$title</div>";
+	    $dayTasks .= "<div class='embeddedtask-text'>&nbsp;$title</div>";
   	} else {
   		break;
   	}
   }
-  if ($result->num_rows > 5) {
+  if ($result->num_rows > 3) {
   	$dayTasks .= "<div>&nbsp;&nbsp;.&nbsp;.&nbsp;.&nbsp;.&nbsp;.</div>";
   }
   $dayTasks .= "</div>";

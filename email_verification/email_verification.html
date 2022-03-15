@@ -12,15 +12,19 @@
 			  <h1>Taskless</h1>
 			  <h2>Less Work, More Doing</h2>
 			</div>
-			<form action="send_link.php" method="post">
-				<div class="text_area">
-				  <input type="text" name="username" style="color:white" required>
-				  <label>Enter Username</label>
+			<form method="post" action="thankyou.php">
+				<div>
+					<label class="info_text">A verification code has been sent to your email address.</label>
 				</div>
-				<input type="submit" value="Send Link">
-				<div class="goback_link">
-				  Don't need password reset? <a href="../user_login/login.php">Go Back</a>
-				  <br>
+				<div class="text_area">
+					<input type="text" pattern="^[0-9]{6}$" name="emailVerificationCode" title="Enter a 6 digit number" style="color: white" required>
+					<label>Enter Verification Code</label>
+				</div>
+				<div>
+					<input type="submit" value="Confirm Email" />
+					<br>
+					<br>
+					<br>
 				</div>
 			</form>
 		</div>

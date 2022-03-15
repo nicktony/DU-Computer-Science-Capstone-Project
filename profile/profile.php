@@ -82,9 +82,11 @@ while($row = $result->fetch_assoc()) {
 // Email verified symbol
 $verifiedText = "";
 if ($email_verified == true) {
-	$verifiedText .= "(verified)";
+	$verifiedText .= "<span style='color:green' class='material-icons'>
+done
+</span>";
 } else {
-	$verifiedText .= "(<a href='../email_verification/verifyEmail.php'>Click here to verify!</a>)";
+	$verifiedText .= "(<a class='email_link' href='../email_verification/verifyEmail.php'>Click here to verify!</a>)";
 }
 
 // Profile pic

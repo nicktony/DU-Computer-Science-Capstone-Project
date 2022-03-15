@@ -50,7 +50,8 @@
 			
 			//send it, if everything works let the user know
 			if (true /*mail($recipient, $subject, $message, $headers)*/) {
-				$html = file_get_contents('./emailConfirmationCode.html');
+				$html = file_get_contents('./email_verification.html');
+				$webpage->inputCSS('./email_verification.css');
 			} else {
 				$html = "<p>There was a problem sending you a verification email</p>";
 			}

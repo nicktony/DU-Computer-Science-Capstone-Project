@@ -47,7 +47,7 @@ date_default_timezone_set('America/New_York');
 
 // Query tasks for selected day
 $html = "<table class='tasks'>";
-$sql = "SELECT title, description FROM tasks INNER JOIN users ON tasks.user_id = users.id WHERE tasks.start_date = '$date' AND users.username = '$username'";
+$sql = "SELECT title, description FROM tasks INNER JOIN users ON tasks.user_id = users.id WHERE tasks.start_date = '$date' AND users.username = '$username' ORDER BY tasks.priority, tasks.start_date asc";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
