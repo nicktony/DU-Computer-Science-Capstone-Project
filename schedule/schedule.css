@@ -13,7 +13,7 @@
 }
 
 button {
-  padding:0.5em 3em;
+  padding: 0.5em 3em;
   text-align: center;
   color: var(--text-primary);
   border-color: var(--text-primary);
@@ -21,6 +21,7 @@ button {
   background-color: transparent;
   transition: all .5s ease;
   cursor: pointer;
+  width: 8rem;
 }
 button:hover {
   color: black;
@@ -34,7 +35,7 @@ button:hover {
 
 /*********************************Month Header*********************************/
 .month {
-  padding: 70px 25px;
+  padding: 10px 25px 70px 25px;
   width: 100%;
   color: var(--text-primary);
   background: var(--bg-primary);
@@ -76,8 +77,8 @@ button:hover {
   margin: 0px;
   padding: 0px;
   background: white;
-  width: 14%;
-  height: 200px;
+  width: 150px;
+  height: 10px;
   text-align: left;
   vertical-align: top;
   border: solid black 1px;
@@ -90,13 +91,14 @@ button:hover {
   margin: 0px;
   padding: 0px;
   background: white;
-  width: 14%;
-  height: 200px;
+  width: 150px;
+  height: 10px;
   text-align: left;
   vertical-align: top;
   border: solid black 1px;
   background-color: var(--bg-third);
   color: black;
+
 }
 .currentday:hover {
   /*background-color: blue;*/
@@ -105,8 +107,8 @@ button:hover {
   margin: 0px;
   padding: 0px;
   background: white;
-  width: 14%;
-  height: 200px;
+  width: 150px;
+  height: 10px;
   text-align: left;
   vertical-align: top;
   border: solid black 1px;
@@ -121,8 +123,9 @@ button:hover {
   border-collapse: collapse;
 }
 .reset {
-  margin: 5px, 0px, 0px, 0px;
-  background: var(--blue-two);
+  margin-bottom: 3rem;
+  width: 2rem;
+  padding: 0.2rem 0 0 0;
 }
 .tasks {
   width: 100%;
@@ -143,7 +146,7 @@ button:hover {
 .option-linking {
   display: flex;
   align-items: center;
-  height: 2rem;
+  height: 100%;
   color: var(--text-primary);
   text-decoration: none;
   filter: grayscale(100%) opacity(0.7);
@@ -174,6 +177,7 @@ button:hover {
   background: var(--bg-primary);
   font-size: 3rem;
   display: inline-block;
+  height: 100%;
   width: 100%;
   overflow: hidden; /*fixes small adjustment of div when clicking arrow animation*/
 }
@@ -228,17 +232,30 @@ button:hover {
 
 /*********************************Embedded Tasks For Each Day*********************************/
 .embeddedtask {
-  width: 100%;
-  height: 60%;
+  width: 5.2rem;
+  height: 5.2rem;
 }
 .embeddedtask:hover {
   filter: grayscale(100%) opacity(0.7);
+}
+.embeddedtask-text {
+  font-size: 1rem;
 }
 
 /*********************************Small Screens*********************************/
 @media only screen and (max-width: 800px) {
   button {
-    height: 40px;
+    height: 30px;
+    width: 5rem;
+    padding: 0;
+    margin: 0 0.5rem;
+  }
+  .reset {
+    padding: 0;
+    margin-bottom: 0;
+  }
+  .month {
+    padding: 0 0 0.5rem 0;
   }
   .calendar {
     margin: 1rem auto 6rem auto;
@@ -252,6 +269,31 @@ button:hover {
   }
   .linking-text {
     font-size: 0.75rem;
+  }
+  .embeddedtask {
+    width: 3rem;
+    height: 3rem;
+  }
+  .embeddedtask:hover {
+    filter: grayscale(100%) opacity(0.7);
+  }
+  .embeddedtask-text {
+    font-size: 0.5rem;
+  }
+  .day {
+    width: 14%;
+    height: 50px;
+  }
+  .currentday {
+    width: 50px;
+    height: 50px;
+  }
+  .selectedday {
+    width: 50px;
+    height: 50px;
+  }
+  .option-linking {
+    font-size: 2rem;
   }
 }
 
