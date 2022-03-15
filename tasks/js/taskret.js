@@ -251,7 +251,7 @@ function appendTasksToElement(ElementToAppendTo) {
 		//if this task has a description, then get it and append it to the task container too
 		if (tasks[t].description != "") {
 			var taskDescription = document.createElement('p');
-			taskDescription.setAttribute('class', 'task-description');
+			taskDescription.setAttribute('class', 'embedded-task-description');
 			taskDescription.appendChild(document.createTextNode(tasks[t].description));
 			
 			taskContainer.appendChild(taskDescription);

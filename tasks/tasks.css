@@ -14,6 +14,7 @@
 	/*border: 1px solid black;*/
 	overflow: auto;
 	color: var(--text-primary);
+	cursor: pointer;
 }
 .task-container:hover {
 	background-color: var(--blue-two);
@@ -28,17 +29,26 @@
 	margin-top: 0.5em;
 	margin-left: 1em;
 	font-weight: bold;
+	rows: 100;
+	columns: 100;
 }
 .task-description {
 	text-indent: 0em;
 	font-size: .85em;
 	font-weight: normal;
-	margin-left: 1.5em;
+  max-width: 95%;
 }
 .task-priority {
 	clear: both;
 	font-size: .75em;
 	margin-left: 1.5em;
+}
+.embedded-task-description {
+	text-indent: 0em;
+	font-size: .85em;
+	font-weight: normal;
+  max-width: 95%;
+  margin-left: 1.4em;
 }
 
 /* The Checkmark */
@@ -101,6 +111,7 @@ div.tooltip-container span {
 	/*border: 1px solid black;*/
 	overflow: auto;
 	color: var(--text-primary);
+	font-size: 0.9rem;
 }
 .active {
 	background-color: #0e5372;
@@ -108,6 +119,7 @@ div.tooltip-container span {
 .createTaskHeader:hover {
 	transition: var(--transition-speed);
 	color: white;
+	cursor: pointer;
 }
 .createTaskHeader img {
 	margin: .25em 0;
