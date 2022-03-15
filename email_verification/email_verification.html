@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="#css_path#">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap"/>
+		<title>#TITLE#</title>
+	</head>
+	<body>
+		<div class="lower_container">
+			<div class="upper_container">
+			  <h1>Taskless</h1>
+			  <h2>Less Work, More Doing</h2>
+			</div>
+			<form method="post" action="thankyou.php">
+				<div>
+					<label class="info_text">A verification code has been sent to your email address.</label>
+				</div>
+				<div class="text_area">
+					<input type="text" pattern="^[0-9]{6}$" name="emailVerificationCode" title="Enter a 6 digit number" required>
+					<label>Enter Verification Code</label>
+				</div>
+				<div>
+					<input type="submit" value="Confirm Email" />
+					<br>
+					<br>
+					<br>
+				</div>
+			</form>
+		</div>
+	</body>
+</html>
