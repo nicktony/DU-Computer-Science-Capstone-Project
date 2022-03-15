@@ -102,6 +102,15 @@ span {
     line-height: 25px;
 }
 
+/*********************************Email*********************************/
+.email_link {
+  color: var(--blue-three);
+  text-decoration: none;
+}
+.email_link:hover {
+  text-decoration: underline;
+}
+
 /*********************************Small Screens*********************************/
 @media only screen and (max-width: 800px) {
     .profilebox {

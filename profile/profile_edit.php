@@ -75,12 +75,13 @@ if ($theme == 'Dark') {
 }
 
 // Email verified symbol
-if ($email_verified > 0) {
-	$varified = "<span class='material-icons'>
-task_alt
+$verifiedText = "";
+if ($email_verified == true) {
+	$verifiedText .= "<span style='color:green' class='material-icons'>
+done
 </span>";
 } else {
-
+	$verifiedText .= "(<a class='email_link' href='../email_verification/verifyEmail.php'>Click here to verify!</a>)";
 }
 
 // Create webpage
@@ -106,7 +107,7 @@ $webpage->convert('pic', '../images/test.jpg');
 $webpage->convert('name', $name);
 $webpage->convert('phone', $phone);
 $webpage->convert('email', $email);
-$webpage->convert('verified', $email_verified);
+$webpage->convert('verified', $verifiedText);
 $webpage->convert('bio', $bio);
 $webpage->convert('checked', $checked);
 
