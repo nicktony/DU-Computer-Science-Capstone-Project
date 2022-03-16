@@ -1,22 +1,11 @@
-/*********************************Prerequisites*********************************/
-:root {
-    /*font-size: 16px;
-    font-family: 'Open Sans';
-  --text-primary: #b6b6b6;
-  --text-secondary: #ececec;
-  --bg-primary: #23232e;
-  --bg-secondary: #141418;
-  --blue-one: #ADB5C1;
-  --blue-two: #0C3FB7;
-  --blue-three: #33A7D6;
-  --transition-speed: 1s;*/
-}
 
+
+/*********************************Prerequisites*********************************/
 span {
     font-size: 1.2rem;
 }
 
-/*********************************Profile Picture Box*********************************/
+/*********************************Profile*********************************/
 .profile {
     color: var(--text-primary);
     background: var(--bg-third);
@@ -185,12 +174,25 @@ input:checked + .slider:before {
 
 /*********************************Small Screens*********************************/
 @media only screen and (max-width: 800px) {
+    .profile {
+        margin-bottom: 80px;
+        padding: 0;
+    }
     .profilebox {
-        max-width: 98%;
+        max-width: 100%;
+        border-radius: 0;
     }
     .profileinfo {
-        max-width: 98%;
-        margin: 0 auto 5rem auto;
+        max-width: 100%;
+        margin: 0 auto 0 auto;
+    }
+    .info {
+        margin: 0;
+        border-bottom: 1px solid black;
+        border-radius: 0;
+    }
+    span {
+        font-size: 0.9rem;
     }
 }
 

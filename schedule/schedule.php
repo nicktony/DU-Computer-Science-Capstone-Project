@@ -226,7 +226,7 @@ for ($i = 1; $i <= $maxDate + $dayOfWeek; $i++) {
 		if ($j == date('d') && $month == date('m') && $year == date('Y') && $j == $day) {
 			$html .= "
 			<td class='currentday'>
-				<div class='dayiconactive'>
+				<div class='dayicon'>
 					<div class='daylogoactive'>
 		        <div class='option-linking' id='day$j'>
 		        	<span class='linking-text daylogo-text'>$j</span>
@@ -300,7 +300,7 @@ for ($i = 1; $i <= $maxDate + $dayOfWeek; $i++) {
 		} else if ($j == $day) {
 			$html .= "
 			<td class='selectedday'>
-				<div class='dayiconactive'>
+				<div class='dayicon'>
 					<div class='daylogoactive'>
 		        <div class='option-linking' id='day$j'>
 		        	<span class='linking-text daylogo-text'>$j</span>

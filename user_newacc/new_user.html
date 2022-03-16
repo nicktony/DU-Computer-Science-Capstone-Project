@@ -15,29 +15,22 @@
 			#ERR_MSG#
 			<form method="post" action="new_user.php">
 				<div class="text_area">
-					<input type="email" placeholder="" name="email_address" value="#EMAIL_ADDRESS#" style="color:white" required>
-					<input type="name" placeholder="" name="full_name" value="#FULL_NAME#" required>
-					<label>Full Name</label>
+					<input type="name" name="full_name" value="#FULL_NAME#" placeholder="Full Name" style="color:white" required>
 				</div>
 				<div class="text_area">
-					<label for="phone">Phone Number</label>
-					<input type="tel" id="phone" name="phone_number" value="#PHONE_NUMBER#"pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}">
+					<input type="tel" name="phone_number" value="#PHONE_NUMBER#" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" placeholder="Phone Number" style="color:white" required>
 				</div>
 				<div class="text_area">
-				  <input type="email" placeholder="" name="email_address" value="#EMAIL_ADDRESS#" required>
-				  <label>Email Address</label>
+				  <input type="email" name="email_address" value="#EMAIL_ADDRESS#" placeholder="Email Address" style="color: white" required>
 				</div>
 				<div class="text_area">
-				  <input type="text" pattern="^[A-Za-z0-9_]{5,20}$" name="newusername" value="#USERNAME#" title="Requirments" style="color:white" required>
-				  <label>New Username</label>
+				  <input type="text" pattern="^[A-Za-z0-9_]{5,20}$" name="newusername" value="#USERNAME#" title="Requirments" placeholder="New Username" style="color:white" required>
 				</div>
 				<div class="text_area">
-				  <input type="password" pattern="^.{5,20}$" name="newpassword" title="Requirments" style="color:white" required>
-				  <label>New Password</label>
+				  <input type="password" pattern="^.{5,20}$" name="newpassword" title="Requirments"placeholder="New Password" style="color:white" required>
 				</div>
 				<div class="text_area">
-				  <input type="password" pattern="^.{5,20}$" name="p_confirm" title="Requirments" style="color:white" required>
-				  <label>Confirm Password</label>
+				  <input type="password" pattern="^.{5,20}$" name="p_confirm" title="Requirments" placeholder="Confirm Password" style="color:white" required>
 				</div>
 				<input type="submit" value="Create Account">
 				<div class="signup_link">
