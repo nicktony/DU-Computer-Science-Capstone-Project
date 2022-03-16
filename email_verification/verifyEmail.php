@@ -33,7 +33,7 @@
 			
 			//create the email
 			$recipient = $_row['email'];
-			$subject = "Verify Your Email";
+			$subject = "Email Verification";
 			
 			//add headers
 			$headers = "To: {$username} <{$recipient}>\r\n";
@@ -46,7 +46,7 @@
 			$message = wordwrap($message, 70, '\r\n');
 			
 			$webpage = new webpage();
-			$webpage->createPage("Verify Email");
+			$webpage->createPage("Verify");
 			
 			//send it, if everything works let the user know
 			if (true /*mail($recipient, $subject, $message, $headers)*/) {

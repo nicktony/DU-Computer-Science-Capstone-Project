@@ -29,8 +29,6 @@
 	margin-top: 0.5em;
 	margin-left: 1em;
 	font-weight: bold;
-	rows: 100;
-	columns: 100;
 }
 .task-description {
 	text-indent: 0em;
@@ -217,25 +215,45 @@ div.filler { height: 2em; }
   margin: 0rem 0rem 0rem auto;
   display: inline-block;
 }
+.title-input {
+	max-width: 95%;
+}
 
 /*********************************Small Screens*********************************/
 @media only screen and (max-width: 800px) {
+	main {
+		margin-bottom: 80px;
+	}
 	.tasks {
-		margin: 1rem auto 5.5rem auto;
+		max-width: 100%;
+		margin: 0;
+	}
+	.task-container {
+		border-radius: 0;
+		margin: 0;
+		border-bottom: 1px solid black;
 	}
 	.createTask-left {
 		float: left;
-		width: 98%;
+		width: 100%;
 		overflow-wrap: wrap;
 	}
 	.createTask-right {
 		float: left;
-		width: 98%;
+		width: 100%;
 		padding-bottom: 2rem;
 		overflow-wrap: wrap;
 	}
+	.createTaskHeader {
+		border-radius: 0;
+		font-size: 0.8rem;
+	}
+	.createTaskFormContainer {
+		border-radius: 0;
+		top: 0;
+	}
 	.createTaskFormContainer textarea {
-		width: 98%;
+		width: 100%;
 		padding:1%;
 		border:none;
 	}
