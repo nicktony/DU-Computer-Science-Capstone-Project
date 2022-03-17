@@ -32,7 +32,31 @@ $phone_number = "";
 $username = "";
 $email_address = "";
 
+
 //begin serverside validation of inputs
+
+//check the name
+if (isset($_REQUEST['full_name'])) {
+	$full_name = $_REQUEST['full_name'];
+	$pattern = "/^.{1,128}$/";
+	if (!preg_match($pattern, $full_name)) {
+		$err_msg = "The name you entered has invalid formatting.";
+		$full_name = "";
+		$submit_form = false;
+	}
+} else { $submit_form = false; }
+
+//check the phone number
+if (isset($_REQUEST['phone_number'])) {
+	$phone_number = $_REQUEST['phone_number'];
+	$pattern = "/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/";
+	if (!preg_match($pattern, $phone_number)) {
+		$err_msg = "The phone number you entered has invalid formatting.";
+		$phone_number = "";
+		$submit_form = false;
+	}
+} else { $submit_form = false; }
+
 if (isset($_REQUEST['newusername'])) {
 	//get values from the form and check against regex
 	$username = $_REQUEST['newusername'];
