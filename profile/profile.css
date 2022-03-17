@@ -101,7 +101,7 @@ span {
 }
 
 /*********************************Small Screens*********************************/
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 600px) {
     .profile {
         margin-bottom: 80px;
         padding: 0;

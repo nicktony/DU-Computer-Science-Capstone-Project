@@ -24,7 +24,7 @@ $createNewTaskForm = <<<EOD
 
 <div class="tasks">
 	<div id="createTaskButton" class="createTaskHeader">
-		<span>Create Task</span>
+		<span>Create</span>
 		<div class="createTaskButton">
 			<div class="option-linking" id='arrowSVG'>
 				<svg
