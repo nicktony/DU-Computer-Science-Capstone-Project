@@ -83,9 +83,10 @@ form .text_area {
   pointer-events: none;
   transition: 0.8s;
 }
-.text_area input:focus ~ label,
-.text_area input:valid ~ label {
-  top: -5px;
+
+/* Used some JS to keep the label up when the input loses focus */
+.text_area .slide-up , .text_area input:focus ~ label {
+	top: -5px;
 }
 
 /*********************************Login Button*********************************/
