@@ -16,6 +16,9 @@
 	color: var(--text-primary);
 	cursor: pointer;
 }
+.task-container > * { pointer-events: none; }
+.task-container.deletion-indicator {background-color: red;}
+.task-container.deletion-indicator.marked {background-color: purple;}
 .task-container:hover {
 	background-color: var(--blue-two);
 	transition: background-color 0.5s ease;
@@ -216,6 +219,30 @@ div.filler { height: 2em; }
   min-width: 3rem;
   margin: 0rem 0rem 0rem auto;
   display: inline-block;
+}
+
+/* Toolbar */
+.toolbar {
+	position: fixed;
+	top: 0;
+	right: 0;
+	display: flex;
+	flex-direction: horizontal;
+	border-radius: 0 0 0 .2em;
+	background-color: var(--bg-secondary);
+}
+.toolbar-button {
+	margin: 5px;
+	padding: 2px;
+}
+.toolbar-button[data-button-delete] > button{
+	pointer-events: none;
+	width: 5em;
+	height: 5em;
+	background: url("./img/trash.png");
+	background-size: cover;
+	border: 1px solid black;
+	border-radius: .25em;
 }
 
 /*********************************Small Screens*********************************/
