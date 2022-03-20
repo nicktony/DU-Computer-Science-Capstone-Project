@@ -2,48 +2,80 @@
 
 /*********************************Prerequisites*********************************/
 body {
-  height: 100vh;
-  overflow: hidden;
   background: var(--bg-third);
+  height: 100%;
+  overflow: hidden;
+}
+button {
+  padding: 0.5em 3em;
+  text-align: center;
+  color: var(--text-primary);
+  border-color: var(--text-primary);
+  border-radius: 0.5rem;
+  background-color: transparent;
+  transition: all .5s ease;
+  cursor: pointer;
+  width: 8rem;
+}
+button:hover {
+  color: black;
+  background-color: var(--text-primary);
+}
+a {
+  cursor: pointer;
+  color: var(--text-primary);
+  border-color: var(--text-primary);
+}
+a:hover {
+  color: black;
+}
+h1 {
+  cursor: default;
+}
+h2 {
+  cursor: default;
+}
+form {
+  cursor: default;
 }
 
 /**********************************Containers**********************************/
 .upper_container {
   position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -25%);
-
   background: var(--bg-secondary);
   border-radius: 10px;
   border-bottom-right-radius: 0px;
   border-bottom-left-radius: 0px;
-  width: 100%;
+  margin: 0 auto;
 }
 .upper_container h1 {
   font-size: 50px;
   text-align: center;
-  padding: 30px 0px 1px 0px;
+  padding: 30px 0px 0px 0px;
   color: var(--text-primary);
   margin-bottom: -10px;
+  margin-top: 0;
 }
 .upper_container h2 {
   text-align: center;
-  padding: 1px 0px 20px 0px;
+  padding: 0px 0px 35px 0px;
   color: var(--text-primary);
 }
 .lower_container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 400px;
+  margin: 50rem auto;
   background: var(--bg-primary);
   border-radius: 10px;
+  padding-bottom: 30px;
 }
 .lower_container form {
   padding: 0px 40px 0px 40px;
   box-sizing: border-box;
+}
+.reset {
+  width: 2rem;
+  padding: 0.2rem 0 0 0;
+  margin: 1rem 0 0 1rem;
 }
 
 /***************************Email Input***************************/
@@ -76,9 +108,11 @@ form .text_area {
 .text_area input:valid ~ label {
   top: -5px;
 }
-
 .info_text {
-	left: 5px;
+  color: var(--text-primary);
+}
+.info_text:hover {
+  color: var(--text-primary);
 }
 
 /*********************************Confirm Email Button*********************************/
@@ -107,4 +141,25 @@ input[type="submit"]:hover {
 	.lower_container {
 	  width: 90%;
 	}
+}
+
+/*********************************Small Screens*********************************/
+@media only screen and (max-width: 600px) {
+  body {
+    max-width: 100%;
+    margin: 0 auto 0 auto;
+    overflow: auto;
+  }
+  .lower_container {
+    width: 100%;
+    border-radius: 0;
+  }
+  .upper_container {
+    border-radius: 0;
+  }
+}
+
+/*********************************Large Screens*********************************/
+@media only screen and (min-width: 600px) {
+  
 }

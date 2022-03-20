@@ -40,7 +40,7 @@ $createNewTaskForm = <<<EOD
 
 <div class="tasks">
 	<div id="createTaskButton" class="createTaskHeader">
-		<span>Create Task</span>
+		<span>Create</span>
 		<div class="createTaskButton">
 			<div class="option-linking" id='arrowSVG'>
 				<svg
@@ -73,7 +73,7 @@ $createNewTaskForm = <<<EOD
 		<div class="filler"></div>
 		<form name="taskCreateForm">
 			<div class="createTask-left">
-				<input name="title" type="text" placeholder="Add Title" maxlength="128" style="width: 20rem" required autofocus />
+				<input name="title" type="text" placeholder="Add Title" maxlength="128" class="title-input" required autofocus />
 				<br>
 				<textarea class="task-description" name="description" placeholder="Add Description" rows="10" cols="70" maxlength="256"></textarea>
 				<br>
