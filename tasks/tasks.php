@@ -22,6 +22,22 @@ $webpage->createPage('Tasks');
 $currentDate = date('Y-m-d');
 $createNewTaskForm = <<<EOD
 
+<div class="toolbar">
+	<div class="toolbar-button" data-button-delete>
+		<button></button>
+	</div>
+	<div class="toolbar-button" data-button-sort-standard>
+		SORT BY PRIORITY
+	</div>
+	<div class="toolbar-button" data-button-sort-rollover>
+		CLUSTER BY ROLLOVER
+	</div>
+	<div class="toolbar-button" data-button-sort-interval>
+		SORT BY RECURRENCE INTERVAL
+	</div>
+</div>
+
+
 <div class="tasks">
 	<div id="createTaskButton" class="createTaskHeader">
 		<span>Create</span>
@@ -96,6 +112,7 @@ $html .= <<<EOD
 	</div>
 	<script src="js/sorting.js"></script>
 	<script src="js/taskret.js"></script>
+	<script src="js/tasktoolbar.js"></script>
 	<script>
 		window.onload = function() {
 			getTasks({$user_id});

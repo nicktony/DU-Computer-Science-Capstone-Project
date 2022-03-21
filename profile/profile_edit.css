@@ -75,9 +75,76 @@ span {
     width: 4rem;
     height: 2rem;
 }
-.save:hover {
+.save:hover, #passwordChanger:hover {
     color: black;
     background-color: var(--text-primary);
+}
+
+/** Change Password Tool **/
+.cp-input {
+	width: 0%;
+	transition: width .5s ease-in;background-color: var(--text-primary);
+    border-radius: 1rem;
+    border-color: transparent;
+    margin: 0.5rem 0 0.5rem 0;
+	margin-left: 1rem;
+    outline: none;
+    font-size: 16px;
+    font-family: 'Open Sans';
+}
+
+.out { width: 0%; }
+.in { width: 90%; }
+
+#passwordChanger {
+	margin-left: 1rem;
+	margin-right: 1rem;
+	padding: 0 1rem 0 1rem;
+    display: block;
+    text-align: center;
+    color: var(--text-primary);
+    border-color: var(--text-primary);
+    border-radius: 0.5rem;
+    background-color: transparent;
+    transition: all .5s ease;
+    cursor: pointer;
+    height: 2rem;
+}
+/** Toast **/
+#toaster {
+	z-index: 1;
+	position: fixed;
+	right: 0;
+	top: 0;
+	overflow: hidden;
+}
+.toast {
+	visibility: hidden;
+	background-color: red;
+	color: white;
+	text-align: center;
+	border-radius: 1em 0 0 1em;
+	padding: .25em;
+}
+
+.toast.show {
+	visibility: visible;
+	animation: slide-in 8s alternate forwards;
+}
+
+@keyframes slide-in {
+	0% {
+		transform: translateX(100%);
+	}
+	10% {
+		transform: translateX(0%);
+	}
+	90% {
+		transform: translateX(0%);
+	}
+	100% {
+		transform: translateX(100%);
+	}
 }
 
 /*********************************Profile Information*********************************/

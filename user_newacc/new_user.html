@@ -13,24 +13,34 @@
 			  <h2>Less Work, More Doing</h2>
 			</div>
 			#ERR_MSG#
-			<form method="post" action="new_user.php">
+			<form method="post" name="new_user_form" action="new_user.php">
 				<div class="text_area">
-					<input type="name" name="full_name" value="#FULL_NAME#" placeholder="Full Name" style="color:white" required>
+					<input type="name" placeholder="" name="full_name" value="#FULL_NAME#" pattern="^.{1,128}$" style="color:white"
+						title="Please enter your name." required>
+					<label>Full Name</label>
 				</div>
 				<div class="text_area">
-					<input type="tel" name="phone_number" value="#PHONE_NUMBER#" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" placeholder="Phone Number" style="color:white" required>
+					<input type="text" id="phone" name="phone_number" value="#PHONE_NUMBER#" style="color:white"
+						title="Enter a valid phone number as XXX-XXX-XXXX" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+					<label>Phone Number</label>
 				</div>
 				<div class="text_area">
-				  <input type="email" name="email_address" value="#EMAIL_ADDRESS#" placeholder="Email Address" style="color: white" required>
+				  <input type="email" placeholder="" name="email_address" value="#EMAIL_ADDRESS#"
+						title="Please enter a valid email address."  style="color:white" required>
+				  <label>Email Address</label>
 				</div>
 				<div class="text_area">
-				  <input type="text" pattern="^[A-Za-z0-9_]{5,20}$" name="newusername" value="#USERNAME#" title="Requirments" placeholder="New Username" style="color:white" required>
+					<input type="text" pattern="^[A-Za-z0-9_]{5,20}$" name="newusername" value="#USERNAME#"
+						title="Alphanumeric characters and underscores up to 20 characters in length." style="color:white" required>
+					<label>New Username</label>
 				</div>
 				<div class="text_area">
-				  <input type="password" pattern="^.{5,20}$" name="newpassword" title="Requirments"placeholder="New Password" style="color:white" required>
+					<input type="password" pattern="^.{5,20}$" name="newpassword" title="Must be between 5 and 20 characters in length." style="color:white" required>
+					<label>New Password</label>
 				</div>
 				<div class="text_area">
-				  <input type="password" pattern="^.{5,20}$" name="p_confirm" title="Requirments" placeholder="Confirm Password" style="color:white" required>
+					<input type="password" pattern="^.{5,20}$" name="p_confirm" title="Must be between 5 and 20 characters in length." style="color:white" required>
+					<label>Confirm Password</label>
 				</div>
 				<input type="submit" value="Create Account">
 				<div class="signup_link">
@@ -39,5 +49,6 @@
 				</div>
 			</form>
 		</div>
+		<script src="new_user.js"></script>
 	</body>
 </html>

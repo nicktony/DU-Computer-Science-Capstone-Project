@@ -1,4 +1,5 @@
 <div class='profile'>
+	<div id="toaster"></div>
 	<div class='profilebox'>
 		<button class='edit' onclick="location.href = './profile.php'">Back</button>
 		<img class='profilepic' src='#pic#' alt='Profile Picture'>
@@ -58,12 +59,23 @@
 			<div class='info'>
 				<table style='width:100%'>
 					<tr>
+						<td class='infoleft'><span>Password:</span></td>
+						<td id='form-body'>
+							<button id="passwordChanger">Click here to change your password</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class='info'>
+				<table style='width:100%'>
+					<tr>
 						<td class='infoleft'><span>Save All</span></td>
 						<td class='inforight'>
 							<button type='submit' id='save' value='save' class='save'>Save</button>
 						</td>
 					</tr>
 				</table>
+				<script src="./js/cpform.js" defer></script>
 			</div>
 		</div>
 	</form>

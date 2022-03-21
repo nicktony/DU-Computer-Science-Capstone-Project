@@ -123,12 +123,10 @@ function createTask() {
 
 //updates the UI according to the state of the tasks by sorting them
 //and then replacing them
-function updateTaskUI() {
+function updateTaskUI(sortingMethod = TaskStandardSort) {
 	
-	//currently just the one sort
-	//eventually a user specified sort will be used here
-	//switch statement?
-	tasks.sort(TaskStandardSort);
+	//sort based on the provided method
+	tasks.sort(sortingMethod);
 	
 	//remove elements from the task body
 	var taskBody = document.getElementById("task-body");
@@ -140,6 +138,11 @@ function updateTaskUI() {
 	appendTasksToElement(taskBody);
 }
 
+//this function has to be here to fix a bug in the transitionend event handler
+function updateTaskUIEvent() {
+	updateTaskUI();
+}
+
 function appendTasksToElement(ElementToAppendTo) {
 	//foreach of the tasks
 	for (var t in tasks) {
@@ -147,7 +150,9 @@ function appendTasksToElement(ElementToAppendTo) {
 		var taskContainer = document.createElement('div');
 		taskContainer.setAttribute('class', 'task-container');
 		taskContainer.setAttribute('id', 'task_'+tasks[t].id);
-		taskContainer.addEventListener('click', function() { markTask(this.id); });
+		taskContainer.addEventListener('click', markTask);
+		//taskContainer.addEventListener('click', function() { markTask(this.id); console.log(this); });
+		taskContainer.setAttribute('data-task','');
 		
 		//create the hidden checkmark (for incomplete ones)
 		var taskImg = document.createElement('img');
@@ -156,7 +161,7 @@ function appendTasksToElement(ElementToAppendTo) {
 		taskImg.setAttribute('src', 'img/taskcheck.png');
 		//when the checkmark finishes its transition specified by the
 		//css, then the UI should be updated/resorted
-		taskImg.addEventListener('transitionend', updateTaskUI);
+		taskImg.addEventListener('transitionend', updateTaskUIEvent);
 
 		//get rollover attributes
 		if (tasks[t].rolls_over == true) {
@@ -269,14 +274,16 @@ function appendTasksToElement(ElementToAppendTo) {
 	}
 }
 
-function markTask(id) {
+function markTask(e) {
+	var id = this.id;
+	
 	//get this DOM element
 	var thisTask = document.getElementById(id);
 	var completed = thisTask.classList.contains('completed');
 	
 	//make i refer to the task in the collection doing a linear search
 	for (var i = 0, length = tasks.length; i < length; i++) {
-		if (tasks[i].id == id.slice(5))
+		if (tasks[i].id == this.id.slice(5))
 			break;
 	}
 	
