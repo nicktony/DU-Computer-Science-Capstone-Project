@@ -22,23 +22,34 @@ $webpage->createPage('Tasks');
 $currentDate = date('Y-m-d');
 $createNewTaskForm = <<<EOD
 
-<div class="toolbar">
-	<div class="toolbar-button" data-button-delete>
-		<button></button>
-	</div>
-	<div class="toolbar-button" data-button-sort-standard>
-		SORT BY PRIORITY
-	</div>
-	<div class="toolbar-button" data-button-sort-rollover>
-		CLUSTER BY ROLLOVER
-	</div>
-	<div class="toolbar-button" data-button-sort-interval>
-		SORT BY RECURRENCE INTERVAL
-	</div>
-</div>
-
-
 <div class="tasks">
+	<div class="toolbar">	
+		<div class="toolbar-button" data-button-delete>
+			<button><span id="trashIcon" class="material-icons">delete</span></button>
+		</div>
+		<table style='text-align:center; width:100%'>
+			<tr>
+				<th colspan='2'>Sort By</th>
+				<th>Cluster By</th>
+			</tr>
+			<tr>
+				<td>
+					<div class="toolbar-button" data-button-sort-standard>
+						Priority
+					</div>
+				<td>
+					<div class="toolbar-button" data-button-sort-interval>
+						Recurrence
+					</div>
+				</td>
+				<td>
+					<div class="toolbar-button" data-button-sort-rollover>
+						Rollover
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
 	<div id="createTaskButton" class="createTaskHeader">
 		<span>Create</span>
 		<div class="createTaskButton">

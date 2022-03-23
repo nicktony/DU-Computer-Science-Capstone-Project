@@ -86,20 +86,19 @@ span {
 	transition: width .5s ease-in;background-color: var(--text-primary);
     border-radius: 1rem;
     border-color: transparent;
-    margin: 0.5rem 0 0.5rem 0;
-	margin-left: 1rem;
     outline: none;
     font-size: 16px;
     font-family: 'Open Sans';
 }
 
-.out { width: 0%; }
-.in { width: 90%; }
+.out { 
+    width: 0%; 
+}
+.in { 
+    width: 90%; 
+}
 
 #passwordChanger {
-	margin-left: 1rem;
-	margin-right: 1rem;
-	padding: 0 1rem 0 1rem;
     display: block;
     text-align: center;
     color: var(--text-primary);
