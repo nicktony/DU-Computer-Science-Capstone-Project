@@ -62,7 +62,7 @@ main {
 }
 .nav-link:hover {
   filter: grayscale(0%) opacity(1);
-  background: var(--bg-secondary);
+  /*background: var(--bg-secondary);*/
   color: var(--text-secondary);
 }
 .link-text {
@@ -94,7 +94,6 @@ main {
 .logo {
   font-weight: bold;
   text-transform: uppercase;
-  margin-bottom: 1rem;
   text-align: center;
   color: var(--text-secondary);
   background: var(--bg-secondary);
@@ -145,7 +144,7 @@ main {
     height: 3rem;
   }
   .nav-link:hover {
-    background: var(--bg-primary);
+    /*background: var(--bg-primary);*/
   }
   main {
     margin: 0;
