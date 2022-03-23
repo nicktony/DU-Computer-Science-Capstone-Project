@@ -2,7 +2,7 @@
 const toolbar = document.querySelector('.toolbar');
 
 //reset the margin of the main body of the page based on the height of the toolbar
-document.querySelector('.tasks').style.marginTop = toolbar.clientHeight + 5 + "px";
+//document.querySelector('.tasks').style.marginTop = toolbar.clientHeight + 5 + "px";
 
 //reference to the tasks in the DOM
 var domTasks;
@@ -13,9 +13,26 @@ var tasksToBeDeleted = new Array();
 //track the deletion state
 var deletionState = false;
 
+//variables for toggle trash icon color
+var trashBool = false;
+var trashIcon = document.getElementById('trashIcon');
+
 //click event for all the buttons in the toolbar
 toolbar.addEventListener('click', e => {
 	if (e.target.matches('[data-button-delete]')) {
+		//toggle trash icon color
+		if (trashBool == false) {
+			$(trashIcon).css({
+			    'color': 'red'
+			});
+			trashBool = true;
+		} else if (trashBool == true) {
+			$(trashIcon).css({
+			    'color': 'var(--text-primary)'
+			});
+			trashBool = false;
+		}
+
 		//get all the tasks in the DOM
 		domTasks = Array.from(document.querySelectorAll('[data-task]'));
 		/* 

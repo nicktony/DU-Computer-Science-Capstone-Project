@@ -16,9 +16,21 @@
 	color: var(--text-primary);
 	cursor: pointer;
 }
-.task-container > * { pointer-events: none; }
-.task-container.deletion-indicator {background-color: red;}
-.task-container.deletion-indicator.marked {background-color: purple;}
+.task-container > * { 
+	pointer-events: none; 
+}
+.task-container.deletion-indicator {
+	background-color: var(--bg-secondary);
+	filter: grayscale(100%) opacity(0.7);
+}
+.task-container.deletion-indicator:hover {
+	background-color: red;  
+	filter: grayscale(20%) opacity(0.9); 
+}
+.task-container.deletion-indicator.marked {
+	background-color: red; 
+	filter: grayscale(20%) opacity(0.9); 
+}
 .task-container:hover {
 	background-color: var(--blue-two);
 	transition: background-color 0.5s ease;
@@ -106,6 +118,7 @@ div.tooltip-container span {
 	position: relative;
 	z-index: 1;
 	background-color: var(--bg-secondary);
+	margin-top: 4.8rem;
 	padding: .5em;
 
 	border-radius: 1em;
@@ -224,30 +237,47 @@ div.filler { height: 2em; }
 
 /* Toolbar */
 .toolbar {
+	z-index: 2;
 	position: fixed;
 	top: 0;
 	right: 0;
 	display: flex;
 	flex-direction: horizontal;
-	border-radius: 0 0 0 .2em;
+	border-radius: 1rem;
+	margin: 0 1% 0 0;
+	padding: 0 1rem 0 0;
 	background-color: var(--bg-secondary);
 }
 .toolbar-button {
 	margin: 5px;
 	padding: 2px;
+	cursor: pointer;
 }
-.toolbar-button[data-button-delete] > button{
+.toolbar-button[data-button-delete] > button {
 	pointer-events: none;
 	width: 5em;
 	height: 5em;
-	background: url("./img/trash.png");
+	/*background: url("./img/trash.png");*/
 	background-size: cover;
-	border: 1px solid black;
+	border: none;
 	border-radius: .25em;
+	background-color: var(--bg-secondary);
+}
+.toolbar-button[data-button-delete] > button > span {
+	font-size: 4rem;
+	color: var(--text-primary);
+	transition: var(--transition-speed);
+}
+.toolbar-button[data-button-delete]:hover > button > span {
+	color: red;
+	transition: var(--transition-speed);
+}
+th {
+	cursor: default;
 }
 
 /*********************************Small Screens*********************************/
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 600px) {
 	main {
 		margin-bottom: 80px;
 	}
@@ -274,6 +304,10 @@ div.filler { height: 2em; }
 	.createTaskHeader {
 		border-radius: 0;
 		font-size: 0.8rem;
+		margin: 0;
+		border-top: 1px solid black;
+		border-bottom: 1px solid black;
+		margin-top: 5rem;
 	}
 	.createTaskFormContainer {
 		border-radius: 0;
@@ -283,6 +317,18 @@ div.filler { height: 2em; }
 		width: 100%;
 		padding:1%;
 		border:none;
+	}
+	.toolbar {
+		border-radius: 0;
+		border-bottom: 1px solid black;
+		font-size: 0.8rem;
+		margin: 0;
+		width: 100%;
+		padding: 0;
+		padding-right: 0.2rem;
+	}
+	.toolbar-button[data-button-delete] > button > span {
+		font-size: 3rem;
 	}
 }
 
