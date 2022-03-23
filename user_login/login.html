@@ -5,6 +5,7 @@
 		<link rel="stylesheet" type="text/css" href="#css_path#">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap"/>
 		<title>#TITLE#</title>
+		<script src="script.js" defer></script>
 	</head>
 	<body>
 		<div class="lower_container">
@@ -12,12 +13,14 @@
 			  <h1>Taskless</h1>
 			  <h2>Less Work, More Doing</h2>
 			</div>
-			<form method="post">
+			<form method="post" name="loginForm">
 				<div class="text_area">
-				  <input type="text" name="username" placeholder="Username" style="color: white" required>
+				  <input type="text" name="username" style="color: white" required>
+				  <label>Username</label>
 				</div>
 				<div class="text_area">
-				  <input type="password" name="password" placeholder="Password" style="color: white" required>
+				  <input type="password" name="password" style="color: white" required>
+				  <label>Password</label>
 				</div>
 				<div class="password_link"><a href="../user_password_recovery/recovery_form.php">Forgot Password?</a></div>
 				<input type="submit" value="Login">
