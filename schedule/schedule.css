@@ -30,7 +30,7 @@ button:hover {
   background-color: var(--text-primary);
 }
 .calendar {
-  margin-bottom: 80px;
+  /*margin-bottom: 80px;*/
 }
 
 /*********************************Month Header*********************************/
