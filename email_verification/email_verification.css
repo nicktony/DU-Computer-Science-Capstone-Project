@@ -63,7 +63,7 @@ form {
 }
 .lower_container {
   width: 400px;
-  margin: 50rem auto;
+  margin: 5rem auto;
   background: var(--bg-primary);
   border-radius: 10px;
   padding-bottom: 30px;
@@ -137,25 +137,20 @@ input[type="submit"]:hover {
 }
 
 /*********************************Small Screens*********************************/
-@media only screen and (max-width: 800px) {
-	.lower_container {
-	  width: 90%;
-	}
-}
-
-/*********************************Small Screens*********************************/
 @media only screen and (max-width: 600px) {
   body {
     max-width: 100%;
-    margin: 0 auto 0 auto;
-    overflow: auto;
+    margin: 0 auto;
+    overflow: hidden;
+    background: var(--bg-primary);
+  }
+  .upper_container {
+    border-radius: 0;
   }
   .lower_container {
     width: 100%;
     border-radius: 0;
-  }
-  .upper_container {
-    border-radius: 0;
+    margin: 0 auto;
   }
 }
 

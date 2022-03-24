@@ -1,0 +1,244 @@
+
+
+/*********************************Prerequisites*********************************/
+main {
+    margin: 0 0 0 5rem;
+    max-width: 100%;
+}
+button {
+    float: right;
+    text-align: center;
+    color: var(--text-primary);
+    border-color: var(--text-primary);
+    background-color: transparent;
+    transition: all .5s ease;
+    cursor: pointer;
+    height: 1.8rem;
+}
+button:hover {
+    color: black;
+    background-color: var(--text-primary);
+}
+.infodiv {
+    align-content: center;
+    height: 90vh;
+    margin-top: 5vh;
+}
+.header {
+    background: var(--bg-secondary);
+    cursor: default;
+}
+.header span {
+    font-size: 3rem;
+    color: white;
+}
+.header2 {
+    margin-top: 1.5rem;
+    cursor: default;
+}
+.header2 span {
+    font-size: 2rem;
+    color: white;
+}
+.searchbar {
+    padding: 0;
+    height: 1.5rem;
+    margin-bottom: 0.4rem;
+}
+.searchbar input {
+    width: 100%;
+    height: 100%;
+    background: var(--text-primary);
+    border-color: transparent;
+    margin: 0 0 0.5rem 0;
+    outline: none;
+}
+
+/*********************************Info Box Right*********************************/
+.infobox-right {
+    background: var(--bg-primary);
+    text-align: center;
+    margin: 0 2.5% 0 0;
+    min-width: 30%;
+    max-width: 30%;
+    height: 100%;
+    border-radius: 5px;
+    float: right;
+    overflow: hidden;
+}
+.infobox-inside-right {
+    background: var(--bg-primary);
+    text-align: center;
+    overflow: auto;
+    min-height: 89.2%;
+    max-height: 89.2%;
+    margin-top: 0.2rem;
+}
+.infobox-inside-right table {
+    min-width: 100%;
+    border-radius: 1rem;
+    border-collapse: collapse;
+}
+.infobox-inside-right tr {
+    background: var(--bg-primary);
+    height: 2rem;
+    margin: 0;
+    cursor: default;
+}
+.infobox-inside-right td {
+    text-align: left;
+    min-width: 100%;
+    padding: 0 0 0 0.5rem;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    margin: 0;
+}
+.infobox-inside-right td > div {
+    float: left;
+    padding-top: 0.2rem;
+}
+
+/*********************************Info Box Center*********************************/
+.infobox-center {
+    background: var(--bg-primary);
+    text-align: center;
+    margin: auto 2.5%;
+    min-width: 30%;
+    max-width: 30%;
+    height: 100%;
+    border-radius: 5px;
+    float: right;
+    overflow: hidden;
+}
+.infobox-inside-center {
+    background: var(--bg-primary);
+    text-align: center;
+    overflow: hidden;
+}
+.piechart1 {
+    display: inline-block;
+    margin: 1rem auto 0 1rem;
+}
+.piechart2 {
+    display: inline-block;
+    margin: 1rem auto 0 1rem;
+}
+
+/*********************************Info Box Left*********************************/
+.infobox-left {
+    background: var(--bg-primary);
+    text-align: center;
+    margin: 0 0 0 2.5%;
+    min-width: 30%;
+    max-width: 30%;
+    height: 100%;
+    border-radius: 5px;
+    table-layout: fixed;
+    float: right;
+    overflow: hidden;
+}
+.infobox-inside-left {
+    background: var(--bg-primary);
+    text-align: center;
+    overflow: auto;
+    min-height: 35.2%;
+    max-height: 35.2%;
+    margin-top: 0.2rem;
+}
+.infobox-inside-left table {
+    min-width: 100%;
+    border-radius: 1rem;
+    border-collapse: collapse;
+}
+.infobox-inside-left tr {
+    background: var(--bg-primary);
+    height: 2rem;
+    margin: 0;
+    cursor: default;
+}
+.infobox-inside-left td {
+    text-align: left;
+    min-width: 100%;
+    padding: 0 0 0 0.5rem;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    margin: 0;
+}
+.infobox-inside-left td > div {
+    float: left;
+    padding-top: 0.2rem;
+}
+
+/*********************************Small Screens*********************************/
+@media only screen and (max-width: 600px) {
+    main {
+        margin: 0 0 80px 0;
+    }
+    .infodiv {
+        height: 100vh;
+        margin-top: 0;
+    }
+    .infobox-left { 
+        margin: 0;
+        border-radius: 0;
+    }
+    .infobox-inside-right {
+        max-height: 88.5%;
+    }
+    .infobox-center { 
+        margin: 0;
+        border-radius: 0;
+    }
+    .infobox-left { 
+        margin: 0;
+        border-radius: 0;
+    }
+}
+
+/*********************************Medium-size Screens*********************************/
+@media only screen and (max-width: 1300px) {
+    .infodiv {
+        height: 100vh;
+        margin-top: 0;
+        border-radius: 0;
+    }
+    .infobox-left {
+        background: var(--bg-primary);
+        text-align: center;
+        margin: 0;
+        min-width: 100%;
+        height: 100%;
+        float: none;
+        border-radius: 0;
+    }
+    .infobox-center {
+        background: var(--bg-primary);
+        text-align: center;
+        margin: 0;
+        min-width: 100%;
+        height: 100%;
+        float: none;
+        border-radius: 0;
+    }
+    .infobox-right {
+        background: var(--bg-primary);
+        text-align: center;
+        margin: 0;
+        min-width: 100%;
+        height: 100%;
+        float: none;
+        border-radius: 0;
+    }
+    .infobox-inside-right {
+        max-height: 88.5%;
+    }
+}
+
+@media only screen and (max-width: 1300px) { 
+    .piechart1 {
+        margin-left: 1rem;
+    }
+    .piechart2 {
+        margin-left: 1rem;
+    }
+}
