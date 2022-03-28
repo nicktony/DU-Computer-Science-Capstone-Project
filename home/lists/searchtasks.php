@@ -18,47 +18,16 @@ require_once '../../utilities/app_config.php';
 // Create connection
 $conn = mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
+// Start of html
+$tasks = "<table>";
+
 // Query for current day tasks
 $current_date = date('Y-m-d', strtotime('-7 days'));
 $sql = "SELECT tasks.title FROM tasks INNER JOIN users ON tasks.user_id = users.id WHERE start_date > '$current_date' AND title LIKE '%$name%' AND is_complete = 0 AND users.username = '$username' ORDER BY tasks.priority, tasks.start_date desc";
 $result = $conn->query($sql);
-$tasks = "<table>";
 
-// Grab each task asscoiated with the date
-while($row = $result->fetch_assoc()) {
-  	$title = $row['title'];
-  	if (strlen($title) > 35) {
-  		$title = substr($title, 0, 27) . ". . .";
-  	} else {
-  		$title = substr($title, 0, 27);
-  	}
-
-  	/*$tasks .= "
-  	<tr>
-			<td>
-				<div>$title</div><button>Complete+</button>
-			</td>
-		</tr>"
-		;*/
-  	
-  	$tasks .= "
-  	<tr>
-			<td>
-				<div>$title</div>
-			</td>
-		</tr>"
-		;
-}
-
-// If number of rows is 0, list all tasks
-if ($result->num_rows == 0) {
-	// Query for current day tasks
-	$current_date = date('Y-m-d', strtotime('-7 days'));
-	$sql = "SELECT tasks.title FROM tasks INNER JOIN users ON tasks.user_id = users.id WHERE start_date > '$current_date' AND is_complete = 0 AND users.username = '$username' ORDER BY tasks.priority, tasks.start_date desc";
-	$result = $conn->query($sql);
-	$tasks = "<table>";
-
-	// Grab each task asscoiated with the date
+if ($result->num_rows > 0) {
+	// Grab each task associated with the date
 	while($row = $result->fetch_assoc()) {
 	  	$title = $row['title'];
 	  	if (strlen($title) > 35) {
@@ -69,19 +38,50 @@ if ($result->num_rows == 0) {
 
 	  	/*$tasks .= "
 	  	<tr>
-				<td>
-					<div>$title</div><button>Complete+</button>
-				</td>
-			</tr>"
-			;*/
+			<td>
+				<div>$title</div><button>Complete+</button>
+			</td>
+		</tr>"
+		;*/
 	  	
 	  	$tasks .= "
 	  	<tr>
-				<td>
-					<div>$title</div>
-				</td>
-			</tr>"
-			;
+			<td>
+				<div>$title</div>
+			</td>
+		</tr>"
+		;
+	}
+} else {
+	// Query for current day tasks
+	$current_date = date('Y-m-d', strtotime('-7 days'));
+	$sql = "SELECT tasks.title FROM tasks INNER JOIN users ON tasks.user_id = users.id WHERE start_date > '$current_date' AND is_complete = 0 AND users.username = '$username' ORDER BY tasks.priority, tasks.start_date desc";
+	$result = $conn->query($sql);
+
+	// Grab each task associated with the date
+	while($row = $result->fetch_assoc()) {
+	  	$title = $row['title'];
+	  	if (strlen($title) > 35) {
+	  		$title = substr($title, 0, 27) . ". . .";
+	  	} else {
+	  		$title = substr($title, 0, 27);
+	  	}
+
+	  	/*$tasks .= "
+	  	<tr>
+			<td>
+				<div>$title</div><button>Complete+</button>
+			</td>
+		</tr>"
+		;*/
+	  	
+	  	$tasks .= "
+	  	<tr>
+			<td>
+				<div>$title</div>
+			</td>
+		</tr>"
+		;
 	}
 }
 
