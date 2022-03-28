@@ -1,0 +1,82 @@
+<div class='profile'>
+	<div id="toaster"></div>
+	<div class='profilebox'>
+		<button class='edit' onclick="location.href = './profile.php'">Back</button>
+		<img class='profilepic' src='#pic#' alt='Profile Picture'>
+		<div class='profilename'>#name#</div>
+		<div class='profiletitle'>#email#</div>
+		<div class='profiledetail'><i class='material-icons'>person</i>#status#</div>
+	</div>
+
+	<form method='post'>
+		<div class='profileinfo'>
+			<div class='info'>
+				<table style='width:100%'>
+					<tr>
+						<td class='infoleft'><span>Name:</span></td>
+						<td class='inforight'><input type="text" id="name" name="name" placeholder="#name#"></td>
+					</tr>
+				</table>
+			</div>
+			<div class='info'>
+				<table style='width:100%'>
+					<tr>
+						<td class='infoleft'><span>Phone:</span></td>
+						<td class='inforight'><input type="text" id="phone" name="phone" placeholder="#phone#"></td>
+					</tr>
+				</table>
+			</div>
+			<div class='info'>
+				<table style='width:100%'>
+					<tr>
+						<td class='infoleft'><span>Email:</span></td>
+						<td class='inforight'><span>#email##verified#</span></td>
+					</tr>
+				</table>
+			</div>
+			<div class='info'>
+				<table style='width:100%'>
+					<tr>
+						<td class='infoleft'><span>Bio:</span></td>
+						<td class='inforight'><input type="text" id="bio" name="bio" placeholder="#bio#"></td>
+					</tr>
+				</table>
+			</div>
+			<div class='info'>
+				<table style='width:100%'>
+					<tr>
+						<td class='infoleft'><span>Theme:</span></td>
+						<td class='inforight'>
+							<label class="switch">
+								<input type='hidden' name='theme' value='Light' >
+								<input type="checkbox" name='theme' value='Dark' #checked#>
+								<span class="slider"></span>
+							</label>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class='info'>
+				<table style='width:100%'>
+					<tr>
+						<td class='infoleft'><span>Password:</span></td>
+						<td style='padding-left: 1rem' id='form-body'>
+							<button id="passwordChanger">Click here to change your password</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class='info'>
+				<table style='width:100%'>
+					<tr>
+						<td class='infoleft'><span>Save All</span></td>
+						<td class='inforight'>
+							<button type='submit' id='save' value='save' class='save'>Save</button>
+						</td>
+					</tr>
+				</table>
+				<script src="./js/cpform.js" defer></script>
+			</div>
+		</div>
+	</form>
+</div>

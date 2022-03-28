@@ -1,0 +1,268 @@
+
+
+/*********************************Prerequisites*********************************/
+span {
+    font-size: 1.2rem;
+}
+
+/*********************************Profile*********************************/
+.profile {
+    color: var(--text-primary);
+    background: var(--bg-third);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+/*********************************Profile Picture Box*********************************/
+.profilebox {
+    background: var(--bg-secondary);
+    text-align: center;
+    max-width: 60%;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-left: 10px;
+    margin: 0rem auto 0rem auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+.profilepic {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 0 auto 20px auto;
+    display: block;
+}
+.profilename {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+.profiletitle {
+    margin-bottom: 20px;
+}
+.profiledetail {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9em;
+}
+.edit {
+    margin-right: 1rem;
+    margin-left: auto;
+    display: block;
+    text-align: center;
+    color: var(--text-primary);
+    border-color: var(--text-primary);
+    border-radius: 0.5rem;
+    background-color: transparent;
+    transition: all .5s ease;
+    cursor: pointer;
+    width: 4rem;
+    height: 2rem;
+}
+.edit:hover {
+    color: black;
+    background-color: var(--text-primary);
+}
+.save {
+    text-align: center;
+    color: var(--text-primary);
+    border-color: var(--text-primary);
+    border-radius: 0.5rem;
+    background-color: transparent;
+    transition: all .5s ease;
+    cursor: pointer;
+    width: 4rem;
+    height: 2rem;
+}
+.save:hover, #passwordChanger:hover {
+    color: black;
+    background-color: var(--text-primary);
+}
+
+/** Change Password Tool **/
+.cp-input {
+	width: 0%;
+	transition: width .5s ease-in;background-color: var(--text-primary);
+    border-radius: 1rem;
+    border-color: transparent;
+    outline: none;
+    font-size: 16px;
+    font-family: 'Open Sans';
+}
+
+.out { 
+    width: 0%; 
+}
+.in { 
+    width: 90%; 
+}
+
+#passwordChanger {
+    display: block;
+    text-align: center;
+    color: var(--text-primary);
+    border-color: var(--text-primary);
+    border-radius: 0.5rem;
+    background-color: transparent;
+    transition: all .5s ease;
+    cursor: pointer;
+    height: 2rem;
+}
+/** Toast **/
+#toaster {
+	z-index: 1;
+	position: fixed;
+	right: 0;
+	top: 0;
+	overflow: hidden;
+}
+.toast {
+	visibility: hidden;
+	background-color: red;
+	color: white;
+	text-align: center;
+	border-radius: 1em 0 0 1em;
+	padding: .25em;
+}
+
+.toast.show {
+	visibility: visible;
+	animation: slide-in 8s alternate forwards;
+}
+
+@keyframes slide-in {
+	0% {
+		transform: translateX(100%);
+	}
+	10% {
+		transform: translateX(0%);
+	}
+	90% {
+		transform: translateX(0%);
+	}
+	100% {
+		transform: translateX(100%);
+	}
+}
+
+/*********************************Profile Information*********************************/
+.profileinfo {
+    max-width: 60%;
+    margin: 0 auto;
+}
+.info {
+    background: var(--bg-primary);
+    margin-top: 0.5rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    min-width: 100%;
+    height: 100%;
+    line-height: 100px;
+}
+.infoleft {
+    text-align: left;
+    width: 30%;
+    padding-left: 1rem;
+}
+.inforight {
+    text-align: left;
+    width: 70%;
+    padding-left: 1rem;
+    line-height: 25px;
+}
+.inforight input {
+    background-color: var(--text-primary);
+    border-radius: 1rem;
+    border-color: transparent;
+    margin: 0.5rem 0 0.5rem 0;
+    outline: none;
+    font-size: 16px;
+    font-family: 'Open Sans'; /* not sure why i had to override it here*/
+    resize: none;
+    width: 90%;
+}
+.disabled {
+    pointer-events: none;
+    filter: grayscale(100%) opacity(0.6);
+}
+
+/*********************************Color Theme Slider*********************************/
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 2rem;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--text-primary);
+  transition: .4s;
+  border-radius: 1rem;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1.5rem;
+  width: 1.5rem;
+  left: 4px;
+  bottom: 4px;
+  background-color: var(--bg-secondary);
+  transition: .4s;
+  border-radius: 1rem;
+}
+input:checked + .slider {
+  background-color: var(--bg-secondary);
+}
+input:checked + .slider:before {
+  transform: translateX(26px);
+  background-color: var(--text-primary);
+}
+
+/*********************************Email*********************************/
+.email_link {
+  color: var(--blue-three);
+  text-decoration: none;
+}
+.email_link:hover {
+  text-decoration: underline;
+}
+
+/*********************************Small Screens*********************************/
+@media only screen and (max-width: 800px) {
+    .profile {
+        margin-bottom: 80px;
+        padding: 0;
+    }
+    .profilebox {
+        max-width: 100%;
+        border-radius: 0;
+    }
+    .profileinfo {
+        max-width: 100%;
+        margin: 0 auto 0 auto;
+    }
+    .info {
+        margin: 0;
+        border-bottom: 1px solid black;
+        border-radius: 0;
+    }
+    span {
+        font-size: 0.9rem;
+    }
+}
+
+/*********************************Large Screens*********************************/
+@media only screen and (min-width: 800px) {
+  
+}

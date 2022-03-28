@@ -1,63 +1,78 @@
 
+
 /*********************************Prerequisites*********************************/
 :root {
   font-size: 16px;
   font-family: 'Open Sans';
   --text-primary: #b6b6b6;
-  --text-secondary: #ececec;
   --bg-primary: #23232e;
   --bg-secondary: #141418;
   --bg-third: #4F4F52;
-  --blue-one: #ADB5C1;
-  --blue-two: #0C3FB7;
   --blue-three: #33A7D6;
-  --transition-speed: 1s;
 }
 body {
+  background: var(--bg-third);
   height: 100vh;
   overflow: hidden;
-  background: var(--bg-third);
+  vertical-align: middle;
+}
+h1 {
+  cursor: default;
+}
+h2 {
+  cursor: default;
+}
+form {
+  cursor: default;
+}
+::placeholder {
+  color: var(--text-primary);
 }
 
 /**********************************Containers**********************************/
 .upper_container {
   position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -25%);
-
   background: var(--bg-secondary);
   border-radius: 10px;
   border-bottom-right-radius: 0px;
   border-bottom-left-radius: 0px;
+  margin: 0 auto;
 }
 .upper_container h1 {
   font-size: 50px;
   text-align: center;
-  padding: 30px 0px 1px 0px;
+  padding: 30px 0px 0px 0px;
   color: var(--text-primary);
   margin-bottom: -10px;
+  margin-top: 0;
 }
 .upper_container h2 {
   text-align: center;
-  padding: 1px 0px 20px 0px;
+  padding: 0px 0px 35px 0px;
   color: var(--text-primary);
 }
 .lower_container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 400px;
+  margin: 0 auto;
   background: var(--bg-primary);
   border-radius: 10px;
+  padding-bottom: 30px;
 }
 .lower_container form {
   padding: 0px 40px 0px 40px;
   box-sizing: border-box;
 }
 
+.message-text {
+	margin: 0px auto;
+	padding: 1em;
+	color: var(--text-primary);
+}
+
 /***************************Username Input***************************/
+form {
+  margin-top: 0;
+}
 form .text_area {
   position: relative;
   border-bottom: 2px solid #adadad;
@@ -68,7 +83,7 @@ form .text_area {
   padding: 0 5px;
   height: 40px;
   font-size: 16px;
-
+  color: white;
   border: none;
   background: none;
   outline: none;
@@ -83,9 +98,9 @@ form .text_area {
   pointer-events: none;
   transition: 0.8s;
 }
-.text_area input:focus ~ label,
-.text_area input:valid ~ label {
-  top: -5px;
+
+.text_area .slide-up , .text_area input:focus ~ label {
+	top: -5px;
 }
 
 /*********************************Send GoBack_LINK Button*********************************/
@@ -121,4 +136,26 @@ input[type="submit"]:hover {
 }
 .goback_link a:hover {
   text-decoration: underline;
+}
+
+/*********************************Small Screens*********************************/
+@media only screen and (max-width: 600px) {
+  body {
+    max-width: 100%;
+    margin: 0 auto 0 auto;
+    overflow: auto;
+    background: var(--bg-primary);
+  }
+  .lower_container {
+    width: 100%;
+    border-radius: 0;
+  }
+  .upper_container {
+    border-radius: 0;
+  }
+}
+
+/*********************************Large Screens*********************************/
+@media only screen and (min-width: 600px) {
+  
 }

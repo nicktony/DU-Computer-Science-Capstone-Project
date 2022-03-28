@@ -4,7 +4,6 @@
 session_start();
 if (isset($_SESSION['username'])) {
 	$username = $_SESSION['username'];
-  	//echo "<div style='margin-left: 5rem; padding: 1rem'>Session is active with $temp</div>";
 } else {
 	header("Location: ../user_login/login.php");
 }
@@ -81,10 +80,13 @@ while($row = $result->fetch_assoc()) {
 }
 
 // Email verified symbol
-if ($email_verified > 0) {
-
+$verifiedText = "";
+if ($email_verified == true) {
+	$verifiedText .= "<span style='color:green' class='material-icons'>
+done
+</span>";
 } else {
-
+	$verifiedText .= "(<a class='email_link' href='../email_verification/verifyEmail.php'>Click here to verify!</a>)";
 }
 
 // Profile pic
@@ -94,22 +96,13 @@ $webpage->convert('pic', '../images/test.jpg');
 $webpage->convert('name', $name);
 $webpage->convert('phone', $phone);
 $webpage->convert('email', $email);
-$webpage->convert('verified', $email_verified);
+$webpage->convert('verified', $verifiedText);
 $webpage->convert('bio', $bio);
-
-$webpage->convert('status', 'Administrator');
-
-
-
-
-
-
-
-
-
-
-
-
+if ($username == 'admin') {
+	$webpage->convert('status', 'Administrator');
+} else {
+	$webpage->convert('status', 'User');
+}
 
 // Input additional css
 $webpage->inputCSS('./profile.css');
