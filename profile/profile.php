@@ -92,27 +92,17 @@ done
 // Profile pic
 $webpage->convert('pic', '../images/test.jpg');
 
-
 // Insert profile details
 $webpage->convert('name', $name);
 $webpage->convert('phone', $phone);
 $webpage->convert('email', $email);
 $webpage->convert('verified', $verifiedText);
 $webpage->convert('bio', $bio);
-
-$webpage->convert('status', 'Administrator');
-
-
-
-
-
-
-
-
-
-
-
-
+if ($username == 'admin') {
+	$webpage->convert('status', 'Administrator');
+} else {
+	$webpage->convert('status', 'User');
+}
 
 // Input additional css
 $webpage->inputCSS('./profile.css');

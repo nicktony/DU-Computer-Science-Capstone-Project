@@ -136,6 +136,7 @@ main {
 }
 .navbar:hover .logo svg {
   transform: rotate(-180deg);
+  padding-right: 2rem;
 }
 
 /*********************************Small Screens*********************************/

@@ -51,7 +51,7 @@ $html = "
 ";
 
 /********************************************************************************************************
- * MIDDLE SIDE 
+ * MIDDLE 
  *******************************************************************************************************/
 
 // Query for all tasks
@@ -62,6 +62,12 @@ $total_tasks_complete = $result->num_rows;
 $sql = "SELECT is_complete FROM tasks INNER JOIN users ON tasks.user_id = users.id WHERE users.username = '$username' AND is_complete = 0";
 $result = $conn->query($sql);
 $total_tasks_incomplete = $result->num_rows;
+
+// Set pie chart to display 1 and 1, 50% for each if no data is found
+if ($total_tasks_complete <= 0 && $total_tasks_incomplete <= 0) {
+	$total_tasks_complete = 0;
+	$total_tasks_incomplete = 0;
+}
 
 // Pie chart javascript
 $html .= "
@@ -154,6 +160,19 @@ $html .= "
  * LEFT SIDE 
  *******************************************************************************************************/
 
+// Ajax to update task search
+$tasksearch = "
+	<script>
+	$(document).ready(function() {
+			$('#individual_search').change(function() {
+				$('#individual_tasks').load('./lists/searchtasks.php', {
+					name: this.value,
+				});
+			});
+		});
+	</script>
+	";
+
 // Query for current day tasks
 $current_date = date('Y-m-d', strtotime('-7 days'));
 $sql = "SELECT tasks.title FROM tasks INNER JOIN users ON tasks.user_id = users.id WHERE start_date > '$current_date' AND is_complete = 0 AND users.username = '$username' ORDER BY tasks.priority, tasks.start_date desc";
@@ -169,17 +188,26 @@ while($row = $result->fetch_assoc()) {
   		$title = substr($title, 0, 27);
   	}
 
+  	/*$tasks .= "
+  	<tr>
+			<td>
+				<div>$title</div><button>Complete+</button>
+			</td>
+		</tr>"
+		;*/
+  	
   	$tasks .= "
   	<tr>
-		<td>
-			<div>$title</div><button>Complete+</button>
-		</td>
-	</tr>"
-	;
+			<td>
+				<div>$title</div>
+			</td>
+		</tr>"
+		;
 }
 
 // Assign left side body contents
 $html .= "
+	$tasksearch
 	<div class='infobox-left'>
 		<div class='header'>
 			<span>Today</span>
@@ -188,9 +216,9 @@ $html .= "
 			<span>Individual Tasks</span>
 		</div>
 		<div class='searchbar'>
-			<input type='text' placeholder='Search...'></input>
+			<input id='individual_search' type='text' placeholder='Search...'></input>
 		</div>
-		<div class='infobox-inside-left'>
+		<div id='individual_tasks' class='infobox-inside-left'>
 			<table>
 				$tasks
 			</table>
