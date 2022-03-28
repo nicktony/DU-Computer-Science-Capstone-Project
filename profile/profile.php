@@ -82,15 +82,22 @@ while($row = $result->fetch_assoc()) {
 // Email verified symbol
 $verifiedText = "";
 if ($email_verified == true) {
+<<<<<<< HEAD
 	$verifiedText .= "<span style='color:green' class='material-icons'>
 done
 </span>";
 } else {
 	$verifiedText .= "(<a class='email_link' href='../email_verification/verifyEmail.php'>Click here to verify!</a>)";
+=======
+	$verifiedText .= "(verified)";
+} else {
+	$verifiedText .= "(<a href='../email_verification/verifyEmail.php'>Click here to verify!</a>)";
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 }
 
 // Profile pic
 $webpage->convert('pic', '../images/test.jpg');
+
 
 // Insert profile details
 $webpage->convert('name', $name);

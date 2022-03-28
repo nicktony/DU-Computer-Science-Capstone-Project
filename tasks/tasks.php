@@ -23,6 +23,7 @@ $currentDate = date('Y-m-d');
 $createNewTaskForm = <<<EOD
 
 <div class="tasks">
+<<<<<<< HEAD
 	<div class="toolbar">	
 		<div class="toolbar-button" data-button-delete>
 			<button><span id="trashIcon" class="material-icons">delete</span></button>
@@ -54,6 +55,12 @@ $createNewTaskForm = <<<EOD
 		<span>Create</span>
 		<div class="createTaskButton">
 			<div class="option-linking" id='arrowSVG'>
+=======
+	<div class="createTaskHeader">
+		<span>Create Task</span>
+		<div id="createTaskButton" class="createTaskButton">
+			<div class="option-linking" id="arrowSVG">
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 				<svg
 					aria-hidden='true'
 					focusable='false'
@@ -62,8 +69,12 @@ $createNewTaskForm = <<<EOD
 					role='img'
 					xmlns='http://www.w3.org/2000/svg'
 					viewBox='0 0 448 512'
+<<<<<<< HEAD
 					class='svg-inline--fa fa-angle-double-right fa-w-14 fa-5x'
 					style='transition: all .5s ease'>
+=======
+					class='svg-inline--fa fa-angle-double-right fa-w-14 fa-5x'>
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 					<g class='fa-group'>
 						<path
 							fill='currentColor'
@@ -84,9 +95,15 @@ $createNewTaskForm = <<<EOD
 		<div class="filler"></div>
 		<form name="taskCreateForm">
 			<div class="createTask-left">
+<<<<<<< HEAD
 				<input name="title" type="text" placeholder="Add Title" maxlength="128" class="title-input" required autofocus />
 				<br>
 				<textarea class="task-description" name="description" placeholder="Add Description" rows="10" cols="70" maxlength="256"></textarea>
+=======
+				<input name="title" type="text" placeholder="Add Title" maxlength="128" required autofocus />
+				<br>
+				<textarea class="resizing-textbox" name="description" placeholder="Add Description" rows="10" cols="64" maxlength="256"></textarea>
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 				<br>
 			</div>
 			<div class="createTask-right">
@@ -123,7 +140,10 @@ $html .= <<<EOD
 	</div>
 	<script src="js/sorting.js"></script>
 	<script src="js/taskret.js"></script>
+<<<<<<< HEAD
 	<script src="js/tasktoolbar.js"></script>
+=======
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 	<script>
 		window.onload = function() {
 			getTasks({$user_id});

@@ -12,6 +12,7 @@ document.getElementById('recurrence_checkbox').onchange = function () {
 	} else {
 		document.getElementById('recurrence_container').style.display = 'none';
 		formContainer.style.height = formContainer.scrollHeight + 'px';
+<<<<<<< HEAD
 	}
 }
 
@@ -69,6 +70,53 @@ document.getElementById('createTaskButton').onmouseout = function() {
     });
 }
 
+=======
+	}
+}
+
+// prevent the default form submit behavior
+document.forms['taskCreateForm'].addEventListener('submit', function(e) {
+	e.preventDefault();
+	createTask();
+});
+
+//event handler for the create task button
+document.getElementById('createTaskButton').onclick = function() {
+	//get the form container
+	var formContainer = document.getElementById('createTaskFormContainer');
+	
+	//get the button for animations
+	var arrowSVG = document.getElementById('createTaskButton');
+
+	//whipe it up or down depending upon its current height
+	if (formContainer.clientHeight) {
+		formContainer.style.height = 0;
+		//this.classList.remove('active'); //nick
+	} else {
+		formContainer.style.height = formContainer.scrollHeight + 'px';
+		//this.classList.add('active'); //nick
+	}
+}
+
+//global variable to check rotation of svg
+var rotated = false;
+
+//arrow animation
+$('#arrowSVG').click(function() {
+    if (rotated == false) {
+	    $(this).css({
+	        'transform': 'rotate(90deg)'
+	    });
+	    rotated = true;
+    } else if (rotated == true) {
+    	$(this).css({
+	        'transform': 'rotate(0deg)'
+	    });
+	    rotated = false;
+    }
+});
+
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 //global for the tasks collection
 var tasks;
 
@@ -97,6 +145,10 @@ function createTask() {
 		//get the task from the return value
 		newTask = JSON.parse(this.responseText);
 		
+<<<<<<< HEAD
+=======
+		
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 		TaskDataCorrector(newTask);
 		
 		//add it to the frontend task queue if it's for today
@@ -123,10 +175,19 @@ function createTask() {
 
 //updates the UI according to the state of the tasks by sorting them
 //and then replacing them
+<<<<<<< HEAD
 function updateTaskUI(sortingMethod = TaskStandardSort) {
 	
 	//sort based on the provided method
 	tasks.sort(sortingMethod);
+=======
+function updateTaskUI() {
+	
+	//currently just the one sort
+	//eventually a user specified sort will be used here
+	//switch statement?
+	tasks.sort(TaskStandardSort);
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 	
 	//remove elements from the task body
 	var taskBody = document.getElementById("task-body");
@@ -138,11 +199,14 @@ function updateTaskUI(sortingMethod = TaskStandardSort) {
 	appendTasksToElement(taskBody);
 }
 
+<<<<<<< HEAD
 //this function has to be here to fix a bug in the transitionend event handler
 function updateTaskUIEvent() {
 	updateTaskUI();
 }
 
+=======
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 function appendTasksToElement(ElementToAppendTo) {
 	//foreach of the tasks
 	for (var t in tasks) {
@@ -150,19 +214,32 @@ function appendTasksToElement(ElementToAppendTo) {
 		var taskContainer = document.createElement('div');
 		taskContainer.setAttribute('class', 'task-container');
 		taskContainer.setAttribute('id', 'task_'+tasks[t].id);
+<<<<<<< HEAD
 		taskContainer.addEventListener('click', markTask);
 		//taskContainer.addEventListener('click', function() { markTask(this.id); console.log(this); });
 		taskContainer.setAttribute('data-task','');
+=======
+		taskContainer.addEventListener('click', function() { markTask(this.id); });
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 		
 		//create the hidden checkmark (for incomplete ones)
 		var taskImg = document.createElement('img');
 		taskImg.setAttribute('class', 'ic-hidden');
+<<<<<<< HEAD
 		taskImg.setAttribute('id', 'task_' + tasks[t].id + 'checkImg');
 		taskImg.setAttribute('src', 'img/taskcheck.png');
 		//when the checkmark finishes its transition specified by the
 		//css, then the UI should be updated/resorted
 		taskImg.addEventListener('transitionend', updateTaskUIEvent);
 
+=======
+		taskImg.setAttribute('id', 'task_'+tasks[t].id+'checkImg');
+		taskImg.setAttribute('src', 'img/taskcheck.png');
+		//when the checkmark finishes its transition specified by the
+		//css, then the UI should be updated/resorted
+		taskImg.addEventListener('transitionend', updateTaskUI);
+		
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 		//get rollover attributes
 		if (tasks[t].rolls_over == true) {
 			//create elements to contain the icon and tooltip
@@ -170,7 +247,11 @@ function appendTasksToElement(ElementToAppendTo) {
 			toolTipContainer.setAttribute('class', 'tooltip-container');
 			
 			var toolTipText = document.createElement('span');
+<<<<<<< HEAD
 			/*toolTipText.appendChild(document.createTextNode('Next day roll over if incomplete'));*/ // nick
+=======
+			//toolTipText.appendChild(document.createTextNode('This task rolls over to the next day if incomplete')); // nick
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 			
 			var taskRolloverImg = document.createElement('img');
 			taskRolloverImg.setAttribute('class', 'ic-taskinfo');
@@ -178,7 +259,11 @@ function appendTasksToElement(ElementToAppendTo) {
 			
 			//add elements in the appropriate order
 			toolTipContainer.appendChild(taskRolloverImg);
+<<<<<<< HEAD
 			/*toolTipContainer.appendChild(toolTipText);*/ //nick
+=======
+			toolTipContainer.appendChild(toolTipText);
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 			taskContainer.appendChild(toolTipContainer);
 		}
 		
@@ -203,35 +288,63 @@ function appendTasksToElement(ElementToAppendTo) {
 					taskRecurrenceType.setAttribute('src', 'img/daily.png');
 					//set the tooltip text
 					if (isSingular)
+<<<<<<< HEAD
 						toolTipText.appendChild(document.createTextNode('1'));
 					else
 						toolTipText.appendChild(document.createTextNode(tasks[t].recurrence_interval));
+=======
+						toolTipText.appendChild(document.createTextNode('This task repeats every day'));
+					else
+						toolTipText.appendChild(document.createTextNode('This task repeats every ' + tasks[t].recurrence_interval + ' days'));
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 				break;
 				case 1: //Weekly
 					taskRecurrenceType.setAttribute('src', 'img/weekly.png');
 					if (isSingular)
+<<<<<<< HEAD
 						toolTipText.appendChild(document.createTextNode('1'));
 					else
 						toolTipText.appendChild(document.createTextNode(tasks[t].recurrence_interval));
+=======
+						toolTipText.appendChild(document.createTextNode('This task repeats every week'));
+					else
+						toolTipText.appendChild(document.createTextNode('This task repeats every ' + tasks[t].recurrence_interval + ' weeks'));
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 				break;
 				case 2: //Monthly
 					taskRecurrenceType.setAttribute('src', 'img/monthly.png');
 					if (isSingular)
+<<<<<<< HEAD
 						toolTipText.appendChild(document.createTextNode('1'));
 					else
 						toolTipText.appendChild(document.createTextNode(tasks[t].recurrence_interval));
+=======
+						toolTipText.appendChild(document.createTextNode('This task repeats every month'));
+					else
+						toolTipText.appendChild(document.createTextNode('This task repeats every ' + tasks[t].recurrence_interval + ' months'));
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 				break;
 				case 3: //Yearly
 					taskRecurrenceType.setAttribute('src', 'img/yearly.png');
 					if (isSingular)
+<<<<<<< HEAD
 						toolTipText.appendChild(document.createTextNode('1'));
 					else
 						toolTipText.appendChild(document.createTextNode(tasks[t].recurrence_interval));
+=======
+						toolTipText.appendChild(document.createTextNode('This task repeats every year'));
+					else
+						toolTipText.appendChild(document.createTextNode('This task repeats every ' + tasks[t].recurrence_interval + ' years'));
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 				break;
 			}
 			
 			toolTipContainer.appendChild(taskRecurrenceType);
 			toolTipContainer.appendChild(toolTipText);
+<<<<<<< HEAD
+=======
+			
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 			taskContainer.appendChild(toolTipContainer);
 		}
 		
@@ -283,7 +396,11 @@ function markTask(e) {
 	
 	//make i refer to the task in the collection doing a linear search
 	for (var i = 0, length = tasks.length; i < length; i++) {
+<<<<<<< HEAD
 		if (tasks[i].id == this.id.slice(5))
+=======
+		if (tasks[i].id == id.slice(5))
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 			break;
 	}
 	

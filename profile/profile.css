@@ -50,6 +50,7 @@ span {
     margin-right: 1rem;
     margin-left: auto;
     display: block;
+<<<<<<< HEAD
     text-align: center;
     color: var(--text-primary);
     border-color: var(--text-primary);
@@ -63,6 +64,8 @@ span {
 .edit:hover {
     color: black;
     background-color: var(--text-primary);
+=======
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 }
 
 /*********************************Profile Information*********************************/

@@ -30,6 +30,7 @@
 						if ($_row['verification_code'] == $verificationCode) { //check that the code the user entered matches
 							//present the reset password form
 							$pageContent = '<p>Please complete the form below to reset your password</p>
+<<<<<<< HEAD
 									<form action="finalize.php" method="POST" name="recoveryForm">
 										<div class="text_area">
 											<input type="password" name="newpassword" pattern="^.{5,20}$"
@@ -41,6 +42,17 @@
 													title="between 5 and 20 characters in length" required />
 											<label for="p_confirm">Confirm New Password: </label>
 										</div>
+=======
+									<form action="finalize.php" method="POST">
+										<label for="newpassword">New Password: </label>
+										<input type="password" name="newpassword" pattern="^.{5,20}$"
+												title="between 5 and 20 characters in length" required />
+										<br>
+										<label for="p_confirm">Confirm New Password: </label>
+										<input type="password" name="p_confirm" pattern="^.{5,20}$"
+												title="between 5 and 20 characters in length" required />
+										<br>
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 										<input type="submit" value="Submit" />
 									</form>';
 							$_SESSION['v_code'] = $verificationCode;

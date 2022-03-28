@@ -33,7 +33,11 @@
 			
 			//create the email
 			$recipient = $_row['email'];
+<<<<<<< HEAD
 			$subject = "Email Verification";
+=======
+			$subject = "Verify Your Email";
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 			
 			//add headers
 			$headers = "To: {$username} <{$recipient}>\r\n";
@@ -46,12 +50,20 @@
 			$message = wordwrap($message, 70, '\r\n');
 			
 			$webpage = new webpage();
+<<<<<<< HEAD
 			$webpage->createPage("Verify");
 			
 			//send it, if everything works let the user know
 			if (true /*mail($recipient, $subject, $message, $headers)*/) {
 				$html = file_get_contents('./email_verification.html');
 				$webpage->inputCSS('./email_verification.css');
+=======
+			$webpage->createPage("Verify Email");
+			
+			//send it, if everything works let the user know
+			if (true /*mail($recipient, $subject, $message, $headers)*/) {
+				$html = file_get_contents('./emailConfirmationCode.html');
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 			} else {
 				$html = "<p>There was a problem sending you a verification email</p>";
 			}

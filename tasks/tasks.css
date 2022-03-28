@@ -1,8 +1,12 @@
 /* Page content */
 .tasks {
 	max-width: 98%;
+<<<<<<< HEAD
 	margin: 1rem auto 0.5rem auto;
 	overflow-x: hidden;
+=======
+	margin: 1rem auto 1rem auto;
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 }
 
 /* The entire task container */
@@ -14,6 +18,7 @@
 	/*border: 1px solid black;*/
 	overflow: auto;
 	color: var(--text-primary);
+<<<<<<< HEAD
 	cursor: pointer;
 }
 .task-container > * { 
@@ -30,6 +35,8 @@
 .task-container.deletion-indicator.marked {
 	background-color: red; 
 	filter: grayscale(20%) opacity(0.9); 
+=======
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 }
 .task-container:hover {
 	background-color: var(--blue-two);
@@ -49,12 +56,17 @@
 	text-indent: 0em;
 	font-size: .85em;
 	font-weight: normal;
+<<<<<<< HEAD
   max-width: 95%;
+=======
+	margin-left: 1.5em;
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 }
 .task-priority {
 	clear: both;
 	font-size: .75em;
 	margin-left: 1.5em;
+<<<<<<< HEAD
 }
 .embedded-task-description {
 	text-indent: 0em;
@@ -62,6 +74,8 @@
 	font-weight: normal;
   max-width: 95%;
   margin-left: 1.4em;
+=======
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 }
 
 /* The Checkmark */
@@ -91,6 +105,7 @@ div.tooltip-container {
 	position: relative;
 	float: right;
 	height: 4em;
+<<<<<<< HEAD
 	width: 5rem;
 	margin-right: .75em;
 	margin-top: .25em;
@@ -110,30 +125,62 @@ div.tooltip-container span {
 	padding: 0 .15rem 0 .15rem;
 	text-align: center;
 	border: 1px solid black;
+=======
+	margin-right: .75em;
+	margin-top: .25em;
+}
+div.tooltip-container span {
+	opacity: 0;
+	position: absolute;
+	bottom: 0px;
+	left: 0;
+	background: #000;
+	color: #fff;
+	font-size: .75em;
+	border-radius: 8px;
+	padding: 1px;
+	transition: opacity 0.4s;
+}
+div.tooltip-container:hover span {
+	/*opacity: 1;*/
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 }
 
 /* Task Creation Form */
 .createTaskHeader {
+<<<<<<< HEAD
 	transition: var(--transition-speed);
 	position: relative;
 	z-index: 1;
 	background-color: var(--bg-secondary);
 	margin-top: 4.8rem;
+=======
+	position: relative;
+	z-index: 1;
+	background-color: var(--bg-secondary);
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 	padding: .5em;
 
 	border-radius: 1em;
 	/*border: 1px solid black;*/
 	overflow: auto;
 	color: var(--text-primary);
+<<<<<<< HEAD
 	font-size: 0.9rem;
+=======
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 }
 .active {
 	background-color: #0e5372;
 }
 .createTaskHeader:hover {
+<<<<<<< HEAD
 	transition: var(--transition-speed);
 	color: white;
 	cursor: pointer;
+=======
+	/*background-color: var(--blue-two);*/
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 }
 .createTaskHeader img {
 	margin: .25em 0;
@@ -155,6 +202,10 @@ div.tooltip-container span {
 	float: right;
 	width: auto;
 	height: 4em;
+<<<<<<< HEAD
+=======
+	cursor: pointer;
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 }
 .createTaskFormContainer {
 	position: relative;
@@ -203,6 +254,61 @@ div.tooltip-container span {
 	background-color: transparent;
 	transition: all .5s ease;
 	cursor: pointer;
+<<<<<<< HEAD
+=======
+}
+.createTask-right button:hover {
+	color: black;
+	border-color: var(--blue-two);
+	background-color: var(--blue-two);
+}
+div.filler { height: 2em; }
+
+/* Arrow animation SVG */
+.option-linking {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  color: var(--text-primary);
+  text-decoration: none;
+  filter: grayscale(100%) opacity(0.7);
+  transition: var(--transition-speed);
+  margin-right: 1rem;
+}
+.option-linking:hover {
+  filter: grayscale(0%) opacity(1);
+  color: var(--text-secondary);
+}
+.option-linking svg {
+  min-width: 3rem;
+  margin: 0rem 0rem 0rem auto;
+  display: inline-block;
+}
+
+/*********************************Small Screens*********************************/
+@media only screen and (max-width: 600px) {
+	.createTask-left {
+		float: left;
+		width: 98%;
+		overflow-wrap: wrap;
+	}
+	.createTask-right {
+		float: left;
+		width: 98%;
+		padding-bottom: 2rem;
+		overflow-wrap: wrap;
+	}
+	.createTaskFormContainer textarea {
+		width: 98%;
+		padding:1%;
+		border:none;
+	}
+}
+
+/*********************************Large Screens*********************************/
+@media only screen and (min-width: 600px) {
+
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 }
 .createTask-right button:hover {
 	color: black;

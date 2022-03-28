@@ -24,11 +24,16 @@
 		$pageMessage = "An email has been sent to the email address of the user you entered."
 								. " Please enter the code contained within the email in the textbox below.";
 		
+<<<<<<< HEAD
 		$formContent = "<form method='POST' action='reset_password.php' name='recoveryForm'>
 									<div class='text_area'>
 										<input type='text' name='v_code' />
 										<label>Verification Code</label>
 									</div>
+=======
+		$formContent = "<form method='POST' action='reset_password.php'>
+									<input type='' name='v_code' /><br>
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 									<input type='submit' value='Submit' pattern='^[0-9]{6}$' title='Please enter a 6 digit number' required />
 								</form>";
 		$webpage->convert("FORM_CONTENT", $formContent);
@@ -37,7 +42,10 @@
 		
 		//clear the tag in the template
 		$webpage->convert("VERIFICATION_MESSAGE", $verificationMessage);
+<<<<<<< HEAD
 		$webpage->convert("MESSAGE", $pageMessage);
+=======
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 		
 		//skip the next part of the script and jump to displaying the page
 		$firstAttempt = false;
@@ -91,11 +99,16 @@
 				$pageMessage = "An email has been sent to the email address of the user you entered."
 								. " Please enter the code contained within the email in the textbox below.";
 								
+<<<<<<< HEAD
 				$formContent = "<form method='POST' action='reset_password.php' name='recoveryForm'>
 									<div class='text_area'>
 										<input type='text' name='v_code' />
 										<label>Verification Code</label>
 									</div>
+=======
+				$formContent = "<form method='POST' action='reset_password.php'>
+									<input type='' name='v_code' /><br>
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 									<input type='submit' value='Submit' pattern='^[0-9]{6}$' title='Please enter a 6 digit number' required />
 								</form>";
 				$webpage->convert("FORM_CONTENT", $formContent);

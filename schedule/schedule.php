@@ -193,7 +193,11 @@ for ($i = 1; $i <= $maxDate + $dayOfWeek; $i++) {
 	$tempDate = $year . '-' . $month . '-' . $j;
 
 	// Query for tasks
+<<<<<<< HEAD
 	$sql = "SELECT tasks.title, tasks.description, tasks.start_date, tasks.priority, tasks.is_complete FROM tasks INNER JOIN users ON tasks.user_id = users.id WHERE start_date = '$tempDate' AND users.username = '$username' ORDER BY tasks.priority, tasks.start_date asc";
+=======
+	$sql = "SELECT tasks.title, tasks.description, tasks.start_date, tasks.priority, tasks.is_complete FROM tasks INNER JOIN users ON tasks.user_id = users.id WHERE start_date = '$tempDate' AND users.username = '$username'";
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 	$result = $conn->query($sql);
 	$numTasks = 0;
 
@@ -230,9 +234,13 @@ for ($i = 1; $i <= $maxDate + $dayOfWeek; $i++) {
 		            role='img'
 		            xmlns='http://www.w3.org/2000/svg'
 		            viewBox='0 0 448 512'
+<<<<<<< HEAD
 		            class='svg-inline--fa fa-angle-double-right fa-w-14 fa-5x'
 		            id='svg$j'
 								style='transition: all .5s ease'>
+=======
+		            class='svg-inline--fa fa-angle-double-right fa-w-14 fa-5x'>
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 			          <g class='fa-group'>
 									<path
 										fill='currentColor'
@@ -380,8 +388,27 @@ for ($i = 1; $i <= (7 - $dayOfWeekCounter) && $dayOfWeekCounter > 0; $i++) {
 }
 $html .= "</tr></table>";
 
+<<<<<<< HEAD
 // Query tasks for selected day, this id id replaced by tasknotes.php when day is clicked
 $html .= "<table class='tasks' id='tasknotes'>";
+=======
+// Query tasks for selected day
+$html .= "<table class='tasks'>";
+$sql = "SELECT title, description FROM tasks INNER JOIN users ON tasks.user_id = users.id WHERE tasks.start_date = '$date' AND users.username = '$username'";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  // Output data of each row
+  while($row = $result->fetch_assoc()) {
+  	$title = $row['title'];
+  	$description = $row['description'];
+
+    $html .= "<tr><td><b>$title</b>: $description</td></tr>";
+  }
+} else {
+  //echo "0 results";
+}
+>>>>>>> 84968e3336806504266a8c307577a7de85c83f69
 
 // Close DB connection, end table
 $conn->close();
