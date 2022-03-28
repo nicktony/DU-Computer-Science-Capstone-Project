@@ -66,7 +66,6 @@ $webpage->createPage('Schedule');
 $JsGetDay = '';
 for ($i = 1; $i <= 31; $i++) {
 	$JsGetDay .= "
-
 		$('#day$i').click(function() {
 			
 			// Update day variable to reflect day clicked
@@ -200,23 +199,16 @@ for ($i = 1; $i <= $maxDate + $dayOfWeek; $i++) {
 
   // Grab each task asscoiated with the date
   while($row = $result->fetch_assoc()) {
-  	$numTasks++;
+  	$title = $row['title'];
+  	$description = $row['description'];
+  	$start_date = $row['start_date'];
+  	$priority = $row['priority'];
+  	$is_complete = $row['is_complete'];
 
-  	// Limit task output to 5 for spacing
-  	if ($numTasks <= 3) {
-	  	$title = $row['title'];
-	  	$description = $row['description'];
-	  	$start_date = $row['start_date'];
-	  	$priority = $row['priority'];
-	  	$is_complete = $row['is_complete'];
+  	// Take first line of title
+  	//$title = substr($title, 0, 25);
 
-	    $dayTasks .= "<div class='embeddedtask-text'>&nbsp;$title</div>";
-  	} else {
-  		break;
-  	}
-  }
-  if ($result->num_rows > 3) {
-  	$dayTasks .= "<div>&nbsp;&nbsp;.&nbsp;.&nbsp;.&nbsp;.&nbsp;.</div>";
+    $dayTasks .= "<div class='embeddedtask-text'>$title</div>";
   }
   $dayTasks .= "</div>";
 

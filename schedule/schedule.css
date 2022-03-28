@@ -78,7 +78,7 @@ button:hover {
   padding: 0px;
   background: white;
   width: 150px;
-  height: 100px;
+  height: 130px;
   text-align: left;
   vertical-align: top;
   border: solid black 1px;
@@ -92,7 +92,7 @@ button:hover {
   padding: 0px;
   background: white;
   width: 150px;
-  height: 100px;
+  height: 130px;
   text-align: left;
   vertical-align: top;
   border: solid black 1px;
@@ -108,7 +108,7 @@ button:hover {
   padding: 0px;
   background: white;
   width: 150px;
-  height: 100px;
+  height: 130px;
   text-align: left;
   vertical-align: top;
   border: solid black 1px;
@@ -230,11 +230,14 @@ button:hover {
 
 /*********************************Embedded Tasks For Each Day*********************************/
 .embeddedtask {
-  width: inherit;
+  min-width: inherit;
   height: inherit;
+  overflow-wrap: anywhere;
+  overflow: hidden;
+  padding-left: 0.25rem;
 }
 .embeddedtask:hover {
-  filter: grayscale(100%) opacity(0.7);
+  /*filter: grayscale(100%) opacity(0.7);*/
 }
 .embeddedtask-text {
   font-size: 1rem;
@@ -242,6 +245,9 @@ button:hover {
 
 /*********************************Small Screens*********************************/
 @media only screen and (max-width: 800px) {
+  main {
+    margin-bottom: 80px;
+  }
   button {
     height: 30px;
     width: 5rem;
@@ -279,12 +285,6 @@ button:hover {
     font-size: 0.7rem;
     padding: 0;
     margin: 0 0 0 0.2rem;
-  }
-  .embeddedtask {
-    height: 3rem;
-  }
-  .embeddedtask:hover {
-    filter: grayscale(100%) opacity(0.7);
   }
   .embeddedtask-text {
     font-size: 0.5rem;
