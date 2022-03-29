@@ -36,7 +36,7 @@ $email_address = "";
 //begin serverside validation of inputs
 
 //check the name
-if (isset($_REQUEST['full_name'])) {
+if (isset($_REQUEST['full_name']) && $_REQUEST['full_name'] != "") {
 	$full_name = $_REQUEST['full_name'];
 	$pattern = "/^.{1,128}$/";
 	if (!preg_match($pattern, $full_name)) {
@@ -44,10 +44,10 @@ if (isset($_REQUEST['full_name'])) {
 		$full_name = "";
 		$submit_form = false;
 	}
-} else { $submit_form = false; }
+} else { $full_name = ""; }
 
 //check the phone number
-if (isset($_REQUEST['phone_number'])) {
+if (isset($_REQUEST['phone_number']) && $_REQUEST['phone_number'] != "") {
 	$phone_number = $_REQUEST['phone_number'];
 	$pattern = "/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/";
 	if (!preg_match($pattern, $phone_number)) {
@@ -55,7 +55,7 @@ if (isset($_REQUEST['phone_number'])) {
 		$phone_number = "";
 		$submit_form = false;
 	}
-} else { $submit_form = false; }
+} else { $phone_number = ""; }
 
 if (isset($_REQUEST['newusername'])) {
 	//get values from the form and check against regex
@@ -122,11 +122,13 @@ if (($submit_form) && ($password == $p_confirm)) {
 	$db_connection = mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
 	$err_msg = "Success!";
 	$_qry = sprintf("INSERT INTO users " .
-				"(username, password, email) " .
-				"VALUES ('%s', '%s', '%s');",
+				"(username, password, email, phone, name) " .
+				"VALUES ('%s', '%s', '%s', '%s', '%s');",
 				mysqli_real_escape_string($db_connection, $username),
 				mysqli_real_escape_string($db_connection, crypt($password, $username)), //always make sure to encrypt passwords
-				mysqli_real_escape_string($db_connection, $email_address));
+				mysqli_real_escape_string($db_connection, $email_address),
+				mysqli_real_escape_string($db_connection, $phone_number),
+				mysqli_real_escape_string($db_connection, $full_name));
 
 	if ($db_connection->query($_qry)) {
 		$db_connection->close();
