@@ -16,12 +16,12 @@
 			<form method="post" name="new_user_form" action="new_user.php">
 				<div class="text_area">
 					<input type="name" placeholder="" name="full_name" value="#FULL_NAME#" pattern="^.{1,128}$" style="color:white"
-						title="Please enter your name." required>
+						title="Please enter your name.">
 					<label>Full Name</label>
 				</div>
 				<div class="text_area">
 					<input type="text" id="phone" name="phone_number" value="#PHONE_NUMBER#" style="color:white"
-						title="Enter a valid phone number as XXX-XXX-XXXX" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+						title="Enter a valid phone number as XXX-XXX-XXXX" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
 					<label>Phone Number</label>
 				</div>
 				<div class="text_area">
@@ -41,6 +41,9 @@
 				<div class="text_area">
 					<input type="password" pattern="^.{5,20}$" name="p_confirm" title="Must be between 5 and 20 characters in length." style="color:white" required>
 					<label>Confirm Password</label>
+				</div>
+				<div class="message-text">
+					Fields marked with a * are required.
 				</div>
 				<input type="submit" value="Create Account">
 				<div class="signup_link">

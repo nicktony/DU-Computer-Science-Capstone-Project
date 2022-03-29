@@ -13,7 +13,7 @@
 body {
   background: var(--bg-third);
   height: 100vh;
-  overflow: hidden;
+  /* overflow: hidden; */
   vertical-align: middle;
 }
 h1 {
@@ -96,6 +96,18 @@ form .text_area {
 /* Used some JS to keep the label up when the input loses focus */
 .text_area .slide-up , .text_area input:focus ~ label {
 	top: -5px;
+}
+
+input[required] ~ label::before {
+	content: "* ";
+	color: var(--text-primary);
+}
+
+.message-text {
+	margin: 0px auto;
+	margin-bottom: 1em;
+	padding: 1em;
+	color: var(--text-primary);
 }
 
 /*********************************Login Button*********************************/
