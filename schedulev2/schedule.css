@@ -1,0 +1,310 @@
+/*********************************Prerequisites*********************************/
+:root {
+    /*font-size: 16px;
+    font-family: 'Open Sans';
+  --text-primary: #b6b6b6;
+  --text-secondary: #ececec;
+  --bg-primary: #23232e;
+  --bg-secondary: #141418;
+  --blue-one: #ADB5C1;
+  --blue-two: #0C3FB7;
+  --blue-three: #33A7D6;
+  --transition-speed: 1s;*/
+}
+main {
+  overflow: auto;
+}
+button {
+  padding: 0.5em 3em;
+  text-align: center;
+  color: var(--text-primary);
+  border-color: var(--text-primary);
+  border-radius: 0.5rem;
+  background-color: transparent;
+  transition: all .5s ease;
+  cursor: pointer;
+  width: 8rem;
+}
+button:hover {
+  color: black;
+  background-color: var(--text-primary);
+}
+.calendar {
+  /*margin-bottom: 80px;*/
+}
+
+/*********************************Month Header*********************************/
+.month {
+  padding: 10px 25px 70px 25px;
+  width: 100%;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  text-align: center;
+}
+
+/*********************************Buttons Inside Month Header*********************************/
+.month .prev {
+  width: 33%;
+  text-align: left;
+  padding-top: 10px;
+}
+.monthandyear {
+  width: 33%;
+  text-align: center;
+  padding-top: 10px;
+}
+.month .next {
+  width: 33%;
+  text-align: right;
+  padding-top: 10px;
+}
+
+/*********************************Weekdays (Mon-Sun)*********************************/
+.dayofweek {
+  height: 20px;
+  border: solid black 1px;
+  color: black;
+}
+.weekday {
+  margin: 0px;
+  padding: 10px 0;
+  background-color: white;
+  text-align: center;
+}
+
+/*********************************Days (1-31)*********************************/
+.day {
+  margin: 0px;
+  padding: 0px;
+  background: white;
+  width: 150px;
+  height: 130px;
+  text-align: left;
+  vertical-align: top;
+  border: solid black 1px;
+  color: black;
+}
+.day:hover {
+  /*background-color: green;*/
+}
+.currentday {
+  margin: 0px;
+  padding: 0px;
+  background: white;
+  width: 150px;
+  height: 130px;
+  text-align: left;
+  vertical-align: top;
+  border: solid black 1px;
+  background-color: var(--bg-third);
+  color: black;
+
+}
+.currentday:hover {
+  /*background-color: blue;*/
+}
+.selectedday {
+  margin: 0px;
+  padding: 0px;
+  background: white;
+  width: 150px;
+  height: 130px;
+  text-align: left;
+  vertical-align: top;
+  border: solid black 1px;
+  color: black;
+} 
+.selectedday:hover {
+  /*background-color: red;*/
+}
+.internalcalendar {
+  width: 100%;
+  height: 100%;
+  border-collapse: collapse;
+}
+.reset {
+  margin-bottom: 3rem;
+  width: 2rem;
+  padding: 0.2rem 0 0 0;
+}
+.tasks {
+  width: 100%;
+  border:solid black 1px;
+  background: white;
+  color: black;
+  height: 100%;
+}
+
+/*********************************Day Logo Animations*********************************/
+.dayicon {
+  position: flex;
+  overflow: hidden;
+  display: inline-block;
+  width: 100%;
+  height: auto;
+}
+.option-linking {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  color: var(--text-primary);
+  text-decoration: none;
+  filter: grayscale(100%) opacity(0.7);
+  transition: var(--transition-speed);
+}
+.option-linking:hover {
+  filter: grayscale(0%) opacity(1);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+}
+.option-linking svg {
+  width: 1.5rem;
+  min-width: 2rem;
+  margin: 0rem 0rem 0rem auto;
+  display: inline-block;
+}
+.linking-text {
+  display: none;
+  margin-left: 0.8rem;
+  font-size: 2rem;
+  pointer-events: none;
+}
+.daylogo {
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 0rem;
+  text-align: center;
+  color: var(--text-secondary);
+  background: var(--bg-primary);
+  font-size: 3rem;
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  overflow: hidden; /*fixes small adjustment of div when clicking arrow animation*/
+}
+.daylogo svg {
+  /*transition: var(--transition-speed);*/
+}
+.daylogo-text {
+  display: inline;
+  position: absolute;
+  /*left: -10px;*/ /*used to be -999*/
+  /*transition: var(--transition-speed);*/ /*no longer need transition*/
+  font-size: 1.5rem;
+}
+.dayicon:hover .daylogo svg {
+
+}
+
+/*********************************Keep Active Date Turned*********************************/
+.daylogoactive {
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 0rem;
+  text-align: center;
+  color: var(--text-secondary);
+  background: var(--bg-primary);
+  font-size: 3rem;
+  display: inline-block;
+  width: 100%;
+  overflow: hidden; /*fixes small adjustment of div when clicking arrow animation*/
+}
+.daylogoactive svg {
+  /*transition: var(--transition-speed);*/
+}
+
+/*********************************Navigation Bar Hover Colors*********************************/
+.fa-primary {
+  color: #ADB5C1;
+}
+.fa-secondary {
+  color: #0C3FB7;
+}
+.fa-third {
+  color: #3363D6;
+}
+.fa-primary,
+.fa-third {
+  transition: var(--transition-speed);
+}
+
+/*********************************Embedded Tasks For Each Day*********************************/
+.embeddedtask {
+  min-width: inherit;
+  height: inherit;
+  overflow-wrap: anywhere;
+  overflow: hidden;
+  padding-left: 0.25rem;
+}
+.embeddedtask:hover {
+  /*filter: grayscale(100%) opacity(0.7);*/
+}
+.embeddedtask-text {
+  font-size: 1rem;
+}
+
+/*********************************Small Screens*********************************/
+@media only screen and (max-width: 800px) {
+  main {
+    margin-bottom: 80px;
+  }
+  button {
+    height: 30px;
+    width: 5rem;
+    padding: 0;
+    margin: 0 0.5rem;
+  }
+  .reset {
+    padding: 0;
+    margin-bottom: 0;
+  }
+  .month {
+    padding: 0 0 0.5rem 0;
+  }
+  .option-linking {
+    font-size: 2rem;
+  }
+  .option-linking svg {
+    width: 0.8rem;
+    min-width: 0.8rem;
+  }
+  .daylogo {
+    height: auto;
+    margin: 0;
+    padding: 0;
+  }
+  .daylogo-text {
+    font-size: 1rem;
+  }
+  .dayicon {
+    height: auto;
+    margin-top: -0.2rem;
+    padding: 0;
+  }
+  .linking-text {
+    font-size: 0.7rem;
+    padding: 0;
+    margin: 0 0 0 0.2rem;
+  }
+  .embeddedtask-text {
+    font-size: 0.5rem;
+  }
+  .day {
+    width: 14%;
+    height: 100px;
+  }
+  .currentday {
+    width: 14%;
+    height: 100px;
+  }
+  .selectedday {
+    width: 14%;
+    height: 100px;
+  }
+}
+
+/*********************************Large Screens*********************************/
+@media only screen and (min-width: 800px) {
+  
+}
