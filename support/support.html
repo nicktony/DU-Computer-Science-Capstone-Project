@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="#css_path#">
+    <title>Contact Us</title>
+  </head>
+  <body>
+    <div class="user-entry">
+      <div class="user-entry-inner">
+        <div class="info_text">
+          <label>Send Us Your Feedback</label>
+        </div>
+        <div class="text_area">
+          <form method="post" name="new_user_form" action="new_user.php">
+            <div class="text_area">
+              <input type="name" placeholder="" name="fullname" value="#FULL_NAME#" pattern="^.{1,128}$" style="color:white" title="Please enter your name.">
+              <label>Full Name</label>
+            </div>
+            <div class="text_area">
+              <input type="text" id="phone" name="phone" value="#PHONE_NUMBER#" style="color:white" title="Enter a valid phone number as XXX-XXX-XXXX" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+              <label>Phone Number</label>
+            </div>
+            <div class="text_area">
+              <input type="email" placeholder="" name="email" value="#EMAIL_ADDRESS#" title="Please enter a valid email address." style="color:white" required>
+              <label>Email Address</label>
+            </div>
+            <textarea name="message" class="message-box" placeholder="Message" row="8" required></textarea>
+            <br>
+            <div class="message-text">
+              Fields marked with a * are required.
+            </div>
+            <input type="submit" value="Submit">
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="contact-information">
+      <div class="google-map-inner">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d908.1415787472849!2d-85.53134607559362!3d42.
+        84948509499112!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8819adbbc7b5231d%3A0x679c199b80d83215!2sDavenport
+        %20University!5e0!3m2!1sen!2sus!4v1644113485454!5m2!1sen!2sus" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+        </iframe>
+      </div>
+      <div class="contact-information-inner">
+        <div class="contact-icon">
+          <span class="material-icons" style="color:crimson;">
+            place
+          </span>
+        </div>
+        <div class="contact-text">
+          6191 Kraft Ave SE, Grand Rapids, MI 49512
+        </div>
+        <div class="contact-icon">
+          <span class="material-icons" style="color:forestgreen;">
+            phone
+          </span>
+        </div>
+        <div class="contact-text">
+          (111) 111-1111
+        </div>
+        <div class="contact-icon">
+          <span class="material-icons" style="color:dodgerblue;">
+            email
+          </span>
+        </div>
+        <div class="contact-text">
+          taskless.app@gmail.com
+        </div>
+      </div>
+    </div>
+    <script src="support.js"></script>
+  </body>
+</html>
