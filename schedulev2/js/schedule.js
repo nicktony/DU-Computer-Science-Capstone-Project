@@ -3,6 +3,7 @@ var table;
 var startDate;
 var endDate;
 var todayDate;
+var loadedTasks;
 
 window.onload = function () {
 	table = document.querySelector('table.internalcalendar tbody');
@@ -41,7 +42,18 @@ function UpdateMonthAndYear() {
 	//AJAX stuff goes here
 	//get a JSON object that bundles all the tasks that occur from startDate to endDate
 	//use when that arrives, use the data to populate a new calendar created using JS
-	CreateCalendar();
+	
+	var request = new XMLHttpRequest();
+	request.onload = function() {
+		// console.log(this.responseText);
+		// console.log(JSON.parse(this.responseText));
+		// let t = JSON.parse(this.responseText);
+		
+		// console.log(t['2022-03-09'][0].title);
+		CreateCalendar(JSON.parse(this.responseText));
+	}
+	request.open('POST', './fetchTasks.php?start_date='+startDate.toISOString().split('T')[0]+'&end_date='+endDate.toISOString().split('T')[0]);
+	request.send();
 }
 
 document.getElementById('next').addEventListener('click', () => {
@@ -59,13 +71,13 @@ document.getElementById('reset').addEventListener('click', () => {
 	UpdateMonthAndYear();
 });
 
-function CreateCalendar() {
+function CreateCalendar(tasks) {
+	loadedTasks = tasks;
+	
 	let titleRow = table.firstChild;
 	while (table.firstChild)
 		table.removeChild(table.lastChild);
 	table.appendChild(titleRow);
-	
-	console.log(todayDate);
 	
 	while (startDate <= endDate) {
 		let weekRow = document.createElement('tr');
@@ -82,7 +94,7 @@ function CreateCalendar() {
 			weekDay.innerHTML = `
 				<div class='dayicon'>
 					<div class='daylogoactive'>
-						<div class='option-linking'>
+						<div class='option-linking' data-tasks-date="${startDate.toISOString().split('T')[0]}">
 							<span class='linking-text daylogo-text'>${startDate.getDate()}</span>
 							<svg
 								aria-hidden='true'
@@ -120,16 +132,41 @@ function CreateCalendar() {
 				let svg = e.target.querySelector('svg');
 				svg.style.transform = "rotate(90deg)";
 				
+				let container = document.getElementById('taskdescriptions');
+				
+				while(container.firstChild)
+					container.removeChild(container.lastChild);
+				
+				let descTable = document.createElement('table');
+				descTable.classList.add('tasks');
+				
+				
+				if (e.target.dataset.tasksDate in loadedTasks)
+					loadedTasks[e.target.dataset.tasksDate].forEach( t => {
+						let tr = document.createElement('tr');
+						let titleTd = document.createElement('td');
+						let descTd = document.createElement('td');
+						
+						titleTd.appendChild(document.createTextNode(t.title+":"));
+						descTd.appendChild(document.createTextNode(t.description));
+						tr.appendChild(titleTd);
+						tr.appendChild(descTd);
+						descTable.appendChild(tr);
+					});
+					
+				container.appendChild(descTable);
+				window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
+				
 				//no fetching from server here, just append text nodes with task descriptions in a box below the table
 			});
-				
-			/*
-				foreach task fetched from the server for this day
-				let t = document.createElement('div');
-				t.classList.add('embeddedtask-text');
-				t.appendChild(document.createTextNode(    THE TASK TITLE    ));
-				weekDay.appendChild(t);
-			*/
+			
+			if (startDate.toISOString().split('T')[0] in tasks)
+				tasks[startDate.toISOString().split('T')[0]].forEach(t => {
+					let taskTitleDiv = document.createElement('div');
+					taskTitleDiv.classList.add('embeddedtask-text');
+					taskTitleDiv.appendChild(document.createTextNode(t.title));
+					weekDay.appendChild(taskTitleDiv);
+				});
 			
 			
 			weekRow.appendChild(weekDay);
