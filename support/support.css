@@ -1,78 +1,164 @@
-:root {
-  font-size: 16px;
-  font-family: 'Open Sans';
-  --text-primary: #b6b6b6;
-  --text-secondary: #ececec;
-  --bg-primary: #23232e;
-  --bg-secondary: #141418;
-  --bg-third: #4F4F52;
-  --blue-one: #ADB5C1;
-  --blue-two: #0C3FB7;
-  --blue-three: #33A7D6;
-  --transition-speed: 1s;
-}
-body {
+
+
+/*********************************Prerequisites*********************************/
+main {
   height: 100vh;
-  overflow: hidden;
+  overflow: auto;
   background: var(--bg-third);
 }
-.contact-tittle
-{
+button {
+  padding: 0.5em 3em;
+  text-align: center;
+  color: var(--text-primary);
+  border-color: var(--text-primary);
+  border-radius: 0.5rem;
+  background-color: transparent;
+  transition: all .5s ease;
+  cursor: pointer;
+  width: 8rem;
+}
+button:hover {
+  color: black;
+  background-color: var(--text-primary);
+}
+a {
+  cursor: pointer;
+  color: var(--text-primary);
+  border-color: var(--text-primary);
+}
+a:hover {
+  color: black;
+}
+h1 {
+  cursor: default;
+}
+h2 {
+  cursor: default;
+}
+form {
+  cursor: default;
+}
+
+/*********************************Left Side Div*********************************/
+.contact-information {
+  /*background: var(--bg-primary);*/
+  text-align: center;
+  margin: 0 0 0 0;
+  min-width: 50%;
+  max-width: 50%;
+  height: 100vh;
+  border-radius: 5px;
+  table-layout: fixed;
+  float: right;
+  overflow: hidden;
+}
+.contact-information-inner {
+  margin-top: 5%;
+}
+.contact-icon {
+}
+.contact-icon span {
+  font-size: 2rem;
+}
+.contact-text {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: white;
+}
+.contact-text:last-child {
+  margin-bottom: 0;
+}
+.google-map-inner {
+  margin: 4rem auto 10rem auto;
+  width: 80%;
+  height: 450px;
+}
+
+/*********************************Right Side Div*********************************/
+.user-entry {
+  background: var(--bg-primary);
+  text-align: center;
+  margin: 0 0 0 0;
+  min-width: 50%;
+  max-width: 50%;
+  height: 100vh;
+  float: right;
+  overflow: hidden;
+}
+.user-entry-inner {
+  margin-top: 20%;
+  padding: 0 10rem 0 10rem;
+}
+form {
+  margin-top: 0;
+}
+form .text_area {
   position: relative;
-  margin-top: 100px;
-	box-sizing: border-box;
-  color:#fff;
-  display: flex;
-  flex-direction: column;
-  text-transform: uppercase;
-  transition: all 4s ease-in-out;
+  border-bottom: 2px solid #adadad;
+  margin: 0 0 30px 0;
 }
-.contact-title h1
-{
-  font-size: 32px;
-  line-height: 10px;
-	text-align: center;
-}
-.contact-title h2
-{
+.text_area input {
+  width: 100%;
+  padding: 0 5px;
+  height: 40px;
   font-size: 16px;
-  line-height: 10px;
-	text-align: center;
-}
-form
-{
-  margin-top: 0px;
-  transition: all 4s ease-in-out;
-	background: lightblue;
-}
-.form-control
-{
-  width: 300px;
-  background: transparent;
   border: none;
+  background: none;
   outline: none;
-  border-bottom: 1px solid grey;
-  color: #fff;
-  font-size: 18px;
-  margin-bottom: 16px;
 }
-input
-{
-  height: 45px;
+.text_area label {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  color: var(--text-primary);
+  transform: translateY(-50%);
+  font-size: 16px;
+  pointer-events: none;
+  transition: 0.8s;
 }
-form .submit
-{
-	width: 100%;
+.text_area textarea {
+  min-height: 100px;
+  max-height: 300px;
+}
+/* Used some JS to keep the label up when the input loses focus */
+.text_area .slide-up , .text_area input:focus ~ label {
+  top: -5px;
+}
+input[required] ~ label::before {
+  content: "* ";
+  color: var(--text-primary);
+}
+.message-box {
+  margin-bottom: 1em;
+  color: black;
+  min-width: 100%;
+  max-width: 100%;
+  background-color: var(--text-primary);
+  border-radius: 1rem;
+  border-color: transparent;
+  margin: 0.5rem 0 0.5rem 0;
+  outline: none;
+  font-size: 16px;
+  font-family: 'Open Sans'; /* not sure why i had to override it here*/
+  resize: vertical;
+}
+.message-text {
+  margin: 1rem auto;
+}
+.info_text {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+input[type="submit"] {
+  width: 100%;
   height: 50px;
   border: 1px solid;
   border-radius: 25px;
   font-size: 18px;
   font-weight: 700;
-
   color: var(--text-primary);
   background: var(--bg-secondary);
   border-color: var(--bg-secondary);
-
   cursor: pointer;
   outline: none;
 }
@@ -80,72 +166,36 @@ input[type="submit"]:hover {
   border-color: var(--text-primary);
   transition: 3s;
 }
-.goback_link {
-  margin: 30px 0px 30px 0px;
-  text-align: center;
-  font-size: 16px;
-  color: var(--text-primary);
-}
-.goback_link a {
-  color: var(--blue-three);
-  text-decoration: none;
-}
-.goback_link a:hover {
-  text-decoration: underline;
+
+/*********************************Small Screens*********************************/
+@media only screen and (max-width: 600px) {
+  main {
+    margin: 0 0 80px 0;
+    height: 100%;
+  }
+  .google-map-inner {
+    margin: 4rem 0 4rem 0;
+    width: 100%;
+  }
 }
 
-.container
-{
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 30px;
-  color:#fff;
-}
-.container .contactInfo
-{
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-}
-.container .contactInfo .box
-{
-  position: relative;
-  padding: 20px 0;
-  display: flex;
-}
-.container .contactInfo .box .icon
-{
-  min-width:45px;
-  height: 45px;
-  background: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius:50%;
-  font-size: 22px;
-}
-.container .contactInfo .box .icon
-{
-  display: flex;
-  margin-left: 20px;
-  font-size:30px;
-  color:#342;
-  flex-direction: column;
-  font-weight: 300;
-}
-.container .contactInfo .box .text
-{
-	display: flex;
-	margin-left: 20px;
-	font-size: 16px;
-  flex-direction: column;
-  color:#fff;
-	font weight: 300;
-}
-.container .contactInfo .box .text h3
-{
-	font weight: 500;
-  color:#00bcd4;
+/*********************************Medium Screens*********************************/
+@media only screen and (max-width: 1300px) {
+  .contact-information { 
+    min-width: 100%;
+    max-width: 100%;
+    height: 100%;
+  }
+  .user-entry {
+    min-width: 100%;
+    max-width: 100%;
+    height: 100%;
+    padding-bottom: 3rem;
+  }
+  .user-entry-inner {
+    padding: 0 3rem;
+  }
+  .contact-text:last-child {
+    margin-bottom: 2rem;
+  }
 }
