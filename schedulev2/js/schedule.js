@@ -39,17 +39,9 @@ function UpdateMonthAndYear() {
 	endDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0);
 	endDate.setDate(endDate.getDate() + 6 - endDate.getDay());
 	
-	//AJAX stuff goes here
-	//get a JSON object that bundles all the tasks that occur from startDate to endDate
-	//use when that arrives, use the data to populate a new calendar created using JS
 	
 	var request = new XMLHttpRequest();
 	request.onload = function() {
-		// console.log(this.responseText);
-		// console.log(JSON.parse(this.responseText));
-		// let t = JSON.parse(this.responseText);
-		
-		// console.log(t['2022-03-09'][0].title);
 		CreateCalendar(JSON.parse(this.responseText));
 	}
 	request.open('POST', './fetchTasks.php?start_date='+startDate.toISOString().split('T')[0]+'&end_date='+endDate.toISOString().split('T')[0]);
@@ -84,11 +76,11 @@ function CreateCalendar(tasks) {
 		for (let day = 0; day < 7; day++) {
 			let weekDay = document.createElement('td');
 			
-			if (startDate.toISOString() == todayDate.toISOString()) {
+			if (startDate.toISOString().split('T')[0] == todayDate.toISOString().split('T')[0]) {
 				weekDay.classList.add('currentday');
 			}
 			else {
-				weekDay.classList.add('selectedday');
+				weekDay.classList.add('day');
 			}
 			
 			weekDay.innerHTML = `
@@ -156,17 +148,21 @@ function CreateCalendar(tasks) {
 					
 				container.appendChild(descTable);
 				window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
-				
-				//no fetching from server here, just append text nodes with task descriptions in a box below the table
 			});
 			
+			let titleContainer = document.createElement('div');
+			titleContainer.classList.add('embeddedtask');
+			let filler = document.createElement('div');
+			filler.classList.add('embeddedtask-text');
+			titleContainer.appendChild(filler);
 			if (startDate.toISOString().split('T')[0] in tasks)
 				tasks[startDate.toISOString().split('T')[0]].forEach(t => {
 					let taskTitleDiv = document.createElement('div');
 					taskTitleDiv.classList.add('embeddedtask-text');
 					taskTitleDiv.appendChild(document.createTextNode(t.title));
-					weekDay.appendChild(taskTitleDiv);
+					titleContainer.appendChild(taskTitleDiv);
 				});
+			weekDay.appendChild(titleContainer);
 			
 			
 			weekRow.appendChild(weekDay);

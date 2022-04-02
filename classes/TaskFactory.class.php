@@ -283,7 +283,8 @@ class TaskFactory {
 	function FetchTasksFromDateRange($user_id, $start_date, $end_date) {
 		$db_connection = mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
 		
-		$_qry = sprintf("SELECT * FROM tasks WHERE (start_date BETWEEN '%s' AND '%s') OR recurrence_interval > 0 ORDER BY start_date ASC;",
+		$_qry = sprintf("SELECT * FROM tasks WHERE user_id = %d AND ((start_date BETWEEN '%s' AND '%s') OR recurrence_interval > 0) ORDER BY start_date ASC;",
+						mysqli_real_escape_string($db_connection, $user_id),
 						mysqli_real_escape_string($db_connection, $start_date),
 						mysqli_real_escape_string($db_connection, $end_date));
 						
