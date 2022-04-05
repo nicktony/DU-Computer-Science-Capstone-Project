@@ -136,13 +136,10 @@ function CreateCalendar(tasks) {
 				if (e.target.dataset.tasksDate in loadedTasks)
 					loadedTasks[e.target.dataset.tasksDate].forEach( t => {
 						let tr = document.createElement('tr');
-						let titleTd = document.createElement('td');
-						let descTd = document.createElement('td');
-						
-						titleTd.appendChild(document.createTextNode(t.title+":"));
-						descTd.appendChild(document.createTextNode(t.description));
-						tr.appendChild(titleTd);
-						tr.appendChild(descTd);
+						let taskTd = document.createElement('td');
+
+						taskTd.appendChild(document.createTextNode(t.title+": "+t.description));
+						tr.appendChild(taskTd);
 						descTable.appendChild(tr);
 					});
 					
@@ -171,6 +168,3 @@ function CreateCalendar(tasks) {
 		table.appendChild(weekRow);
 	}
 }
-
-
-
