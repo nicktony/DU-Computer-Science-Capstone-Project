@@ -162,11 +162,13 @@ button:hover {
   min-width: 2rem;
   margin: 0rem 0rem 0rem auto;
   display: inline-block;
+  pointer-events: none;
 }
 .linking-text {
   display: none;
   margin-left: 0.8rem;
   font-size: 2rem;
+  pointer-events: none;
 }
 .daylogo {
   cursor: pointer;
