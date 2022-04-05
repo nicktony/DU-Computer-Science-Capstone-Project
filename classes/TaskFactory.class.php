@@ -278,5 +278,48 @@ class TaskFactory {
 			return null;
 		}
 	}
+	
+	
+	function FetchTasksFromDateRange($user_id, $start_date, $end_date) {
+		$db_connection = mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
+		
+		$_qry = sprintf("SELECT * FROM tasks WHERE user_id = %d AND ((start_date BETWEEN '%s' AND '%s') OR recurrence_interval > 0) ORDER BY start_date ASC;",
+						mysqli_real_escape_string($db_connection, $user_id),
+						mysqli_real_escape_string($db_connection, $start_date),
+						mysqli_real_escape_string($db_connection, $end_date));
+						
+		$standardTasks = array();
+		$recurrenceTasks = array();
+		
+						
+		if ($_result = $db_connection->query($_qry)) {
+			if ($_result->num_rows > 0) {
+				while ($_row = $_result->fetch_array(MYSQLI_BOTH)) {
+					$obj = new Task();
+					$obj->id = $_row['id'];
+					$obj->user_id = $_row['user_id'];
+					$obj->title = $_row['title'];;
+					$obj->description = $_row['description'];;
+					$obj->start_date = $_row['start_date'];;
+					$obj->recurrence_interval = $_row['recurrence_interval'];
+					$obj->interval_unit = $_row['interval_unit'];
+					$obj->priority = $_row['priority'];;
+					$obj->is_complete = $_row['is_complete'];
+					$obj->rolls_over = $_row['rolls_over'];
+					
+					if ($_row['recurrence_interval'] > 0)
+						array_push($recurrenceTasks, $obj);
+					else
+						array_push($standardTasks, $obj);
+				}
+			}
+		}
+		
+		$db_connection->close();
+		
+		
+		return $tasks = array($recurrenceTasks, $standardTasks);
+	}
+	
 }
 ?>
