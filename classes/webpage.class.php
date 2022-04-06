@@ -85,8 +85,9 @@ class webpage {
 			$username = $_SESSION['username'];
 
 			// Query for theme
-			$sql = "SELECT theme FROM users WHERE username = '$username' LIMIT 1";
+			$sql = "SELECT theme FROM users WHERE username = '$username' LIMIT 1;";
 			$result = $conn->query($sql);
+			$conn->close();
 
 			// Grab user preffered theme
 			while($row = $result->fetch_assoc()) {

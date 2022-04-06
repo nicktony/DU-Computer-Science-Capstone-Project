@@ -32,7 +32,8 @@ $post_bio = isset($_POST['bio']) ? $_POST['bio'] : NULL;
 $post_theme = isset($_POST['theme']) ? $_POST['theme'] : NULL;
 
 // Query for current profile info
-$sql = "SELECT username, password, email, email_verified, name, phone, bio, theme FROM users WHERE username = '$username' LIMIT 1";
+$sql = sprintf("SELECT username, password, email, email_verified, name, phone, bio, theme FROM users WHERE username = '%s' LIMIT 1;",
+				mysqli_real_escape_string($conn, $username));
 $result = $conn->query($sql);
 while($row = $result->fetch_assoc()) {
 	$username = $row['username'];
@@ -60,10 +61,17 @@ if (!isset($_POST['theme'])) {
 // Update DB values from user input
 try {
 	// Update DB
-	$sql = "UPDATE users SET name='$name', phone='$phone', bio='$bio', theme='$theme' WHERE username = '$username'";
+	$sql = sprintf("UPDATE users SET name='%s', phone='%s', bio='%s', theme='%s' WHERE username = '%s';",
+					mysqli_real_escape_string($conn, $name),
+					mysqli_real_escape_string($conn, $phone),
+					mysqli_real_escape_string($conn, $bio),
+					mysqli_real_escape_string($conn, $theme),
+					mysqli_real_escape_string($conn, $username));
 	$conn->query($sql);
+	$conn->close();
 } catch (mysqli_sql_exception $e) {
 	var_dump($e);
+	$conn->close();
 	exit;
 }
 

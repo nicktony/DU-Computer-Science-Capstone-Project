@@ -30,23 +30,4 @@
 	} else {
 		header("Location: ../../../user_login/login.php");
 	}
-
-	
-
-
-	/* if (isset($_REQUEST['user_id'])) {
-		//get the tasks for this user_error
-		$factory = new TaskFactory();
-		if (isset($_SESSION['last_update_date'])) {
-			$lastUpdateDate = $_SESSION['last_update_date'];
-		} else {
-			$lastUpdateDate = "";
-		}
-		
-		$tasks = $factory->FetchTasks($_REQUEST['user_id'], $lastUpdateDate);
-		
-		$_SESSION['last_update_date'] = date('Y-m-d');
-		
-		echo json_encode($tasks);
-	} */
 ?>
