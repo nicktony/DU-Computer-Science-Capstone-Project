@@ -4,7 +4,6 @@
 session_start();
 if (isset($_SESSION['username'])) {
   $username = $_SESSION['username'];
-  //echo "<div style='margin-left: 5rem; padding: 1rem'>Session is active with $username</div>";
 } else {
   header("Location: ../user_login/login.php");
 }
@@ -55,19 +54,6 @@ $webpage->inputCSS('./support.css');
 // Input html body contents in template
 $webpage->inputHTML($html);
 
-// Query for account information to fill in contact fields
-/*$sql = "SELECT name, phone, email FROM users WHERE username = '$username'";
-$result = $conn->query($sql);
-
-while ($row = $result->fetch_assoc()) {
-  $FULL_NAME = $row['name'];
-  $PHONE_NUMBER = $row['phone'];
-  $EMAIL_ADDRESS = $row['email'];
-}
-
-$webpage->convert("FULL_NAME", $FULL_NAME);
-$webpage->convert("PHONE_NUMBER", $PHONE_NUMBER);
-$webpage->convert("EMAIL_ADDRESS", $EMAIL_ADDRESS);*/
 
 $webpage->convert("FULL_NAME", "");
 $webpage->convert("PHONE_NUMBER", "");

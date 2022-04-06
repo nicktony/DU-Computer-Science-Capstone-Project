@@ -60,13 +60,4 @@ if (isset($_REQUEST['start_date']) && isset($_REQUEST['end_date'])) {
 	
 	echo json_encode($organizedTasks);
 }
-
-
-
-
-// if (!array_key_exists($_row['start_date'], $tasks)) {
-	// $tasks[$_row['start_date']] = array();
-// }
-
-// array_push($tasks[$_row['start_date']], $obj);
 ?>

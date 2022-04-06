@@ -1,6 +1,6 @@
 
 //get the form labels and inputs
-var createNewUserForm = document.forms['new_user_form'];
+var createNewUserForm = document.forms['support_form'];
 var labels = Array.from(createNewUserForm.querySelectorAll('input ~ label'));
 var inputs = Array.from(createNewUserForm.querySelectorAll('input'));
 

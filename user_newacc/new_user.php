@@ -122,8 +122,8 @@ if (($submit_form) && ($password == $p_confirm)) {
 	$db_connection = mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
 	$err_msg = "Success!";
 	$_qry = sprintf("INSERT INTO users " .
-				"(username, password, email, phone, name) " .
-				"VALUES ('%s', '%s', '%s', '%s', '%s');",
+				"(username, password, email, phone, name, theme) " .
+				"VALUES ('%s', '%s', '%s', '%s', '%s', 'Dark');",
 				mysqli_real_escape_string($db_connection, $username),
 				mysqli_real_escape_string($db_connection, crypt($password, $username)), //always make sure to encrypt passwords
 				mysqli_real_escape_string($db_connection, $email_address),
