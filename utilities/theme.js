@@ -8,8 +8,8 @@ function setTheme(theme) {
     document.documentElement.style.setProperty('--text-secondary', '#ececec');
   } else if (theme == 'Light') {
   	document.documentElement.style.setProperty('--bg-primary', 'white');
-    document.documentElement.style.setProperty('--bg-secondary', '#b6b6b6');
-    document.documentElement.style.setProperty('--bg-third', '#4F4F52');
+    document.documentElement.style.setProperty('--bg-secondary', 'white');
+    document.documentElement.style.setProperty('--bg-third', 'white');
     document.documentElement.style.setProperty('--text-primary', '#b6b6b6');
     document.documentElement.style.setProperty('--text-secondary', '#ececec');
   }

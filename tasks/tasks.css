@@ -1,7 +1,8 @@
 /* Page content */
 .tasks {
-	max-width: 98%;
+	max-width: 100%;
 	margin: 1rem auto 0.5rem auto;
+	padding: 0 1rem;
 	overflow-x: hidden;
 }
 
@@ -15,6 +16,7 @@
 	overflow: auto;
 	color: var(--text-primary);
 	cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 .task-container > * { 
 	pointer-events: none; 
@@ -126,6 +128,7 @@ div.tooltip-container span {
 	overflow: auto;
 	color: var(--text-primary);
 	font-size: 0.9rem;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 .active {
 	background-color: #0e5372;
@@ -244,9 +247,10 @@ div.filler { height: 2em; }
 	display: flex;
 	flex-direction: horizontal;
 	border-radius: 1rem;
-	margin: 0 1% 0 0;
+	margin: 0 1rem 0 0;
 	padding: 0 1rem 0 0;
 	background-color: var(--bg-secondary);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 .toolbar-button {
 	margin: 5px;
@@ -284,6 +288,7 @@ th {
 	.tasks {
 		max-width: 100%;
 		margin: 0;
+		padding: 0;
 	}
 	.task-container {
 		border-radius: 0;
@@ -312,6 +317,7 @@ th {
 	.createTaskFormContainer {
 		border-radius: 0;
 		top: 0;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 	}
 	.createTaskFormContainer textarea {
 		width: 100%;

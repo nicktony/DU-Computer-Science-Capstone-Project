@@ -65,8 +65,22 @@ $total_tasks_incomplete = $result->num_rows;
 
 // Set pie chart to display 1 and 1, 50% for each if no data is found
 if ($total_tasks_complete <= 0 && $total_tasks_incomplete <= 0) {
-	$total_tasks_complete = 0;
+	$total_tasks_complete = 1;
 	$total_tasks_incomplete = 0;
+}
+
+// Query for theme, change pie chart text color
+$sql = "SELECT theme FROM users WHERE username = '$username' LIMIT 1;";
+$result = $conn->query($sql);
+while($row = $result->fetch_assoc()) {
+	$theme = $row['theme'];
+}
+
+// Depict pie chart text color
+if ($theme == 'Light') {
+	$pietext = 'b6b6b6';
+} else {
+	$pietext = 'white';
 }
 
 // Pie chart javascript
@@ -85,14 +99,14 @@ $html .= "
         var options = {
           title: '',
           titleTextStyle: {
-            color: 'white',              
+            color: '$pietext',              
             fontName: 'Open Sans',    
             fontSize: 25,               
             bold: true,                              
           },
           is3D: true,
           backgroundColor: 'transparent',
-          legend: {textStyle: {color: 'white'}},
+          legend: {textStyle: {color: '$pietext'}},
           'width': 400,
           'height': 300,
           'chartArea': {'width': '100%', 'height': '80%'},
@@ -110,20 +124,20 @@ $html .= "
         var data = google.visualization.arrayToDataTable([
           ['Task', 'Total Individual Tasks'],
           ['Complete', 1],
-          ['Incomplete', 1]
+          ['Incomplete', 0]
         ]);
 
         var options = {
           title: '',
           titleTextStyle: {
-            color: 'white',              
+            color: '$pietext',              
             fontName: 'Open Sans',    
             fontSize: 25,               
             bold: true,                              
           },
           is3D: true,
           backgroundColor: 'transparent',
-          legend: {textStyle: {color: 'white'}},
+          legend: {textStyle: {color: '$pietext'}},
           'width': 400,
           'height': 300,
           'chartArea': {'width': '100%', 'height': '80%'},
