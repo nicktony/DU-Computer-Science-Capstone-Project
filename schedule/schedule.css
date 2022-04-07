@@ -64,6 +64,7 @@ button:hover {
   height: 20px;
   border: solid black 1px;
   color: black;
+  cursor: default;
 }
 .weekday {
   margin: 0px;
@@ -142,6 +143,7 @@ button:hover {
   display: inline-block;
   width: 100%;
   height: auto;
+  cursor: pointer;
 }
 .option-linking {
   display: flex;

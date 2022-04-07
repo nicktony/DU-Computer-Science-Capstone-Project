@@ -63,7 +63,7 @@ form {
 .contact-text {
   font-size: 1rem;
   margin-bottom: 1rem;
-  color: white;
+  color: var(--text-primary);
 }
 .contact-text:last-child {
   margin-bottom: 0;
@@ -84,6 +84,7 @@ form {
   height: 100vh;
   float: right;
   overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 .user-entry-inner {
   margin-top: 20%;
