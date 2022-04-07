@@ -62,6 +62,7 @@
 		$db_connection->close();
 	} else {
 		//the user shouldn't be here
+		$webpage->convert('PAGE_CONTENT', "");
 	}
 	
 	$webpage->printPage();
