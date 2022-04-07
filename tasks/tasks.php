@@ -127,6 +127,9 @@ $html .= <<<EOD
 	<script>
 		window.onload = function() {
 			getTasks({$user_id});
+			
+			let theme = document.querySelector('body').dataset.theme;
+			setTheme(theme);
 		}
 	</script>
 </div>
