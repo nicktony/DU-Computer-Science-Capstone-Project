@@ -18,6 +18,9 @@ window.onload = function () {
 	
 	//update
 	UpdateMonthAndYear();
+	
+	let theme = document.querySelector('body').dataset.theme;
+	setTheme(theme);
 }
 
 //initializes the values for the currentMonth and todayDate globals
