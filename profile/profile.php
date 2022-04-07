@@ -94,6 +94,7 @@ $webpage->convert('pic', '../images/test.jpg');
 
 // Insert profile details
 $webpage->convert('name', $name);
+$webpage->convert('username', $username);
 $webpage->convert('phone', $phone);
 $webpage->convert('email', $email);
 $webpage->convert('verified', $verifiedText);
